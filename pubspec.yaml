@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.3 <4.0.0'
+  sdk: '>=2.17.5 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -36,6 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_svg: ^1.1.6
+  flutter_screenutil: ^5.7.0
 
 dev_dependencies:
   flutter_test:
@@ -61,18 +62,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lib/images/image 6.png
-    - lib/images/image 5.png
-    - lib/images/Frame 7.png
-    - lib/images/Frame 6.png
-    - lib/images/Frame 1000002945.png
-    - lib/images/tabler_download.png
-    - lib/images/material-symbols_contact-support-rounded.png
-    - lib/icons/Home.svg
-    - lib/icons/Profile.svg
-    - lib/icons/Vector.svg
-    - lib/icons/Notification.svg
-    - lib/icons/Success Icon.svg
+    - assets/images/
+    - assets/icons/
+    - assets/avatars/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

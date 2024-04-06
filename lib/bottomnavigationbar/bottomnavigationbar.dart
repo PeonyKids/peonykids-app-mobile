@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:peony_app_kazeem/home.dart';
-import 'package:peony_app_kazeem/store/storepage.dart';
+// import 'package:peony_app_kazeem/home.dart';
+// import 'package:peony_app_kazeem/store/storepage.dart';
+
+import '../home.dart';
+import '../store/storepage.dart';
 
 class bottomnavigationbar extends StatefulWidget {
   const bottomnavigationbar({super.key});
@@ -18,28 +21,21 @@ class _bottomnavigationbarState extends State<bottomnavigationbar> {
         body: pages[selectedNumber],
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Color(0xff64436E),
-          unselectedItemColor:  Color(0xFF404040),
+          unselectedItemColor: Color(0xFF404040),
           unselectedLabelStyle: TextStyle(color: Color(0xFF595959)),
           selectedLabelStyle: TextStyle(color: Color(0xff64436E)),
           currentIndex: selectedNumber,
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
-              
-                label: 'Home'),
-             BottomNavigationBarItem(
-                icon: Icon(Icons.store_outlined),
-              
-                label: 'Store'),
-                  BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined), label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.store_outlined), label: 'Store'),
+            BottomNavigationBarItem(
                 icon: Icon(Icons.notifications_outlined),
-              
                 label: 'Notification'),
-                  BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline),
-              
-                label: 'Account'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person_outline), label: 'Account'),
           ],
           onTap: (value) {
             setState(() {

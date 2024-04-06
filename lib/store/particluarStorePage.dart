@@ -27,9 +27,9 @@ class _particluaritemState extends State<particluaritem> {
                    Icon(Icons.arrow_back_ios_new_outlined,size: 23,),
                     Row(
                       children: [
-                       Image(image: AssetImage('lib/images/Frame 6.png')),
+                       Image(image: AssetImage('assets/images/Frame 6.png')),
                         SizedBox(width: 10,),
-                        Image(image: AssetImage('lib/images/Frame 7.png'))
+                        Image(image: AssetImage('assets/images/Frame 7.png'))
                       ],
                     )
                   ],
@@ -38,7 +38,7 @@ class _particluaritemState extends State<particluaritem> {
               SizedBox(height: 10,),
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Image(image: AssetImage('lib/images/image 6.png'),width: double.infinity,fit: BoxFit.fill,),
+                child: Image(image: AssetImage('assets/images/image 6.png'),width: double.infinity,fit: BoxFit.fill,),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),

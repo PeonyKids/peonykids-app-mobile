@@ -37,7 +37,7 @@ class _paymentsState extends State<payments> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SvgPicture.asset(
-                       'lib/icons/Success Icon.svg',
+                       'assets/icons/Success Icon.svg',
                         semanticsLabel: 'My SVG Image',
                         height: 100,
                         width: 70,
@@ -171,7 +171,7 @@ class _paymentsState extends State<payments> {
                       child: ListTile(
                         leading: CircleAvatar(
                           backgroundColor: Color(0xFFF6F2F7),
-                            child: Image(image: AssetImage('lib/images/material-symbols_contact-support-rounded.png'))),
+                            child: Image(image: AssetImage('assets/images/material-symbols_contact-support-rounded.png'))),
                         title: Text('Trouble With Your Payment?'),
                         subtitle: Text('Let us know on help center now!'),
                         trailing: Icon(Icons.arrow_forward_ios),
@@ -192,7 +192,7 @@ class _paymentsState extends State<payments> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image(image: AssetImage('lib/images/tabler_download.png')),
+                        Image(image: AssetImage('assets/images/tabler_download.png')),
                         SizedBox(width: 5,),
                         Text('Download PDF',style: TextStyle(color: Color(0xFF9D74AA),fontFamily: 'WorkSans',fontWeight: FontWeight.bold),),
                       ],

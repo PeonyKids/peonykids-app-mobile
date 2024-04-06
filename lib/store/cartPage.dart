@@ -58,7 +58,7 @@ class _cartPageState extends State<cartPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
 
-                                Image(image: AssetImage('lib/images/image 6.png'),width: 100,),
+                                Image(image: AssetImage('assets/images/image 6.png'),width: 100,),
                                 SizedBox(width: 10,),
                                 Expanded(
                                   child: Column(

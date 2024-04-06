@@ -1,6 +1,6 @@
 # peonyapp
 
-A new Flutter project.
+The Modern Daycare Application
 
 ## Getting Started
 

@@ -14,24 +14,24 @@ class _storepageState extends State<storepage> {
       'name': "Danami Children's Zip Up Hoodie",
      'age': 'N10,000',
      'image':
-     'lib/images/image 6.png'
+     'assets/images/image 6.png'
      },
     {'name': "Danami Children's Zip Up Hoodie", 'age': 'N20,000',
-    'image':'lib/images/image 5.png'
+    'image':'assets/images/image 5.png'
     },
-    {'name': "ADIDAS Sports Performance Slides", 'age': 'N30,000','image':'lib/images/image 5.png'},
-    {'name': "ADIDAS Sports Performance Slides", 'age': 'N40,000','image':'lib/images/image 6.png'},
+    {'name': "ADIDAS Sports Performance Slides", 'age': 'N30,000','image':'assets/images/image 5.png'},
+    {'name': "ADIDAS Sports Performance Slides", 'age': 'N40,000','image':'assets/images/image 6.png'},
       {
       'name': "Danami Children's Zip Up Hoodie",
      'age': 'N10,000',
      'image':
-     'lib/images/image 6.png'
+     'assets/images/image 6.png'
      },
     {'name': "Danami Children's Zip Up Hoodie", 'age': 'N20,000',
-    'image':'lib/images/image 5.png'
+    'image':'assets/images/image 5.png'
     },
-    {'name': "ADIDAS Sports Performance Slides", 'age': 'N30,000','image':'lib/images/image 5.png'},
-    {'name': "ADIDAS Sports Performance Slides", 'age': 'N40,000','image':'lib/images/image 6.png'}
+    {'name': "ADIDAS Sports Performance Slides", 'age': 'N30,000','image':'assets/images/image 5.png'},
+    {'name': "ADIDAS Sports Performance Slides", 'age': 'N40,000','image':'assets/images/image 6.png'}
   ];
   @override
   Widget build(BuildContext context) {
@@ -52,9 +52,9 @@ class _storepageState extends State<storepage> {
                   Text('Kids Store',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 23),),
                   Row(
                     children: [
-                     Image(image: AssetImage('lib/images/Frame 6.png')),
+                     Image(image: AssetImage('assets/images/Frame 6.png')),
                       SizedBox(width: 10,),
-                      Image(image: AssetImage('lib/images/Frame 7.png'))
+                      Image(image: AssetImage('assets/images/Frame 7.png'))
                     ],
                   )
                 ],
