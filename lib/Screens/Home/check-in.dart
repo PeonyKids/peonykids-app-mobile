@@ -60,7 +60,7 @@ class _CheckInState extends State<CheckIn> {
             ),
             Divider(
               // height: 12,
-              color: black03,
+              color: white03,
               thickness: 1.0,
             ),
             SizedBox(
@@ -94,7 +94,7 @@ class _CheckInState extends State<CheckIn> {
                           decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
-                                color: black,
+                                color: grey2,
                               ),
                             ),
                           ),
@@ -117,7 +117,7 @@ class _CheckInState extends State<CheckIn> {
                           decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
-                                color: black,
+                                color: grey2,
                               ),
                             ),
                           ),
@@ -144,7 +144,7 @@ class _CheckInState extends State<CheckIn> {
                           decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
-                                color: black,
+                                color: grey2,
                               ),
                             ),
                           ),
@@ -171,7 +171,7 @@ class _CheckInState extends State<CheckIn> {
                           decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
-                                color: black,
+                                color: grey2,
                               ),
                             ),
                           ),
@@ -267,27 +267,29 @@ class _CheckInState extends State<CheckIn> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Group check in',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: black),
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              'Tap to check in multiple kids at once',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w400,
-                                  color: black),
-                            ),
-                          ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Group check in',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: black),
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                'Tap to check in multiple kids at once',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                    color: black),
+                              ),
+                            ],
+                          ),
                         ),
                         Icon(
                           Icons.qr_code_scanner,

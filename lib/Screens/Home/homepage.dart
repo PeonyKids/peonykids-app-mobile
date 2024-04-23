@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:peonyapp/Screens/Home/report.dart';
 
 import '../../Styles/colors.dart';
+import 'check-in.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -189,7 +191,13 @@ class _HomepageState extends State<Homepage> {
                                     ],
                                   ),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => CheckIn()),
+                                      );
+                                    },
                                     child: Container(
                                       // height: 40,
                                       // width: 100,
@@ -288,7 +296,13 @@ class _HomepageState extends State<Homepage> {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Reportpage()),
+                                      );
+                                    },
                                     child: Container(
                                       // height: 40,
                                       // width: 100,
@@ -414,8 +428,8 @@ class _HomepageState extends State<Homepage> {
           SvgPicture.asset(
             type,
             semanticsLabel: 'My SVG Image',
-            height: 60.h,
-            width: 60.w,
+            height: 50.h,
+            width: 50.w,
           ),
           SizedBox(width: 10.w),
           Padding(

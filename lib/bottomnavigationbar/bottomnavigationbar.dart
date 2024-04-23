@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-// import 'package:peony_app_kazeem/home.dart';
-// import 'package:peony_app_kazeem/store/storepage.dart';
 
+import '../Screens/Account/account.dart';
+import '../Screens/Home/homepage.dart';
 import '../home.dart';
+import '../notifications.dart';
 import '../store/storepage.dart';
 
 class bottomnavigationbar extends StatefulWidget {
@@ -13,7 +14,7 @@ class bottomnavigationbar extends StatefulWidget {
 }
 
 class _bottomnavigationbarState extends State<bottomnavigationbar> {
-  List pages = [home(), storepage(), home(), home()];
+  List pages = [Homepage(), storepage(), NotificationPage(), AccountPage()];
   int selectedNumber = 0;
   @override
   Widget build(BuildContext context) {

@@ -149,6 +149,7 @@ class _MessageBubbleState extends State<MessageBubble> {
               padding: const EdgeInsets.all(12.0),
               decoration: BoxDecoration(
                 // color: id == widget.Uid ? white03 : transparent,
+
                 borderRadius: BorderRadius.circular(10.0),
                 border: Border.all(
                   color: transparent,

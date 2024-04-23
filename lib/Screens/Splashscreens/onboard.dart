@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../Styles/colors.dart';
+import '../../accountsreens/createaccount.dart';
+import '../../accountsreens/login.dart';
 import '../../widgets.dart';
 
 class OnboardOneScreen extends StatefulWidget {
@@ -190,6 +192,14 @@ class _OnboardOneScreenState extends State<OnboardOneScreen> {
                             splashFactory: NoSplash.splashFactory),
                         onPressed: (() {
                           // Navigator.pushNamed(context, '/infoOnePage');
+                          //
+                          // Navigator.push(context, route)
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => createaccount()),
+                          );
                         }),
                         child: Text('Sign Up',
                             style: TextStyle(
@@ -205,7 +215,12 @@ class _OnboardOneScreenState extends State<OnboardOneScreen> {
                   height: 45,
                   width: double.infinity,
                   child: MyOutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => login()),
+                      );
+                    },
                     gradient: customGradient,
                     style: ElevatedButton.styleFrom(
                         splashFactory: NoSplash.splashFactory),

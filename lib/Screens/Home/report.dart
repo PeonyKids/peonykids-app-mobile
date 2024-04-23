@@ -85,33 +85,35 @@ class _ReportpageState extends State<Reportpage> {
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Container(
-                        height: 40,
-                        width: 200,
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: black,
+                      child: IntrinsicWidth(
+                        child: Container(
+                          height: 40,
+                          // width: 200,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: black,
+                              ),
                             ),
                           ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              '23rd February, 2024',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w400,
-                                  color: black),
-                            ),
-                            Icon(
-                              Icons.keyboard_arrow_down,
-                              size: 30,
-                              color: black,
-                            )
-                          ],
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                '23rd February, 2024',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                    color: black),
+                              ),
+                              Icon(
+                                Icons.keyboard_arrow_down,
+                                size: 30,
+                                color: black,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -517,57 +519,58 @@ class _ReportpageState extends State<Reportpage> {
     );
   }
 
-  Container moods(
-      {required bool mood, required String emoji, required String text}) {
-    return Container(
-      height: 45,
-      width: mood ? 150 : 110,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: mood ? purplish : transparent,
-          border: Border.all(
-              width: 1.0,
-              color: mood ? primaryColor01 : black,
-              style: BorderStyle.solid)),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              emoji,
-              semanticsLabel: 'My SVG Image',
-              height: 23,
-              width: 23,
-              color: mood ? primaryColor01 : black,
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              text,
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: mood ? primaryColor01 : black),
-            ),
-            Visibility(
-              visible: mood,
-              child: Expanded(
-                child: SizedBox(
-                  width: 5,
+  moods({required bool mood, required String emoji, required String text}) {
+    return IntrinsicWidth(
+      child: Container(
+        height: 50,
+        // width: mood ? 150 : 110,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+            color: mood ? purplish : transparent,
+            border: Border.all(
+                width: 1.0,
+                color: mood ? primaryColor01 : black,
+                style: BorderStyle.solid)),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                emoji,
+                semanticsLabel: 'My SVG Image',
+                height: 23,
+                width: 23,
+                color: mood ? primaryColor01 : black,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                text,
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: mood ? primaryColor01 : black),
+              ),
+              Visibility(
+                visible: mood,
+                child: Expanded(
+                  child: SizedBox(
+                    width: 5,
+                  ),
                 ),
               ),
-            ),
-            Visibility(
-              visible: mood,
-              child: Icon(
-                Icons.check_circle,
-                size: 22,
-                color: primaryColor01,
-              ),
-            )
-          ],
+              Visibility(
+                visible: mood,
+                child: Icon(
+                  Icons.check_circle,
+                  size: 22,
+                  color: primaryColor01,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

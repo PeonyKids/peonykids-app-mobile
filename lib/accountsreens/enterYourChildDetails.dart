@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:peonyapp/accountsreens/securityQuestions.dart';
 
 class childdetails extends StatefulWidget {
   const childdetails({super.key});
@@ -135,10 +137,11 @@ class _childdetailsState extends State<childdetails> {
               ),
               Visibility(
                 visible: addchild,
-                child:   SizedBox(
-                height: 10,
-              ),),
-            
+                child: SizedBox(
+                  height: 10,
+                ),
+              ),
+
               Visibility(
                 child: GestureDetector(
                   onTap: () {
@@ -172,12 +175,13 @@ class _childdetailsState extends State<childdetails> {
                 visible: addchild,
               ),
 
-Visibility(
-  visible: addchild,
-  child: SizedBox(
-                height: 15,
-              ),),
-              
+              Visibility(
+                visible: addchild,
+                child: SizedBox(
+                  height: 15,
+                ),
+              ),
+
               Visibility(
                   visible: childVisibility,
                   child: Padding(
@@ -328,27 +332,48 @@ Visibility(
                       ],
                     ),
                   )),
-                   SizedBox(height: 25,),
-                Container(
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(horizontal: 15),
-            height: 50,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Color(0xff64436E), Color(0xffE36E9A)],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight
+              SizedBox(
+                height: 25,
               ),
-              borderRadius: BorderRadius.circular(25)
-            ),
-            alignment: Alignment.center,
-            child: Text('Continue',style: TextStyle(color: Colors.white,fontFamily: 'WorkSans'),),
-           ),
-           SizedBox(height: 10,),
-           Align(
-            alignment: Alignment.center,
-            child:  Text('Back',style: TextStyle(color: Color(0xff64436E),fontWeight: FontWeight.w600,fontStyle: FontStyle.normal),),
-           )
-          
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => securityquestions()),
+                  );
+                },
+                child: Container(
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  height: 50,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [Color(0xff64436E), Color(0xffE36E9A)],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight),
+                      borderRadius: BorderRadius.circular(25)),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Continue',
+                    style:
+                        TextStyle(color: Colors.white, fontFamily: 'WorkSans'),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  'Back',
+                  style: TextStyle(
+                      color: Color(0xff64436E),
+                      fontWeight: FontWeight.w600,
+                      fontStyle: FontStyle.normal),
+                ),
+              )
 
               // You can add more RadioListTiles for additional options
             ],

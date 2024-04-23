@@ -40,6 +40,8 @@ import 'accountsreens/login.dart';
 import 'bottomnavigationbar/bottomnavigationbar.dart';
 import 'notifications.dart';
 
+import 'package:peonyapp/routes.dart';
+
 void main() async {
   runApp(const MyApp());
 }
@@ -58,14 +60,14 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          // initialRoute: routeManager.homePage,
-          // onGenerateRoute: routeManager.routeSettings,
+          // chatting
+          initialRoute: routeManager.onboarding,
+          onGenerateRoute: routeManager.routeSettings,
           theme: ThemeData(
               fontFamily: 'WorkSans',
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
               primaryColor: white),
-          home: Chats(),
         );
       },
     );

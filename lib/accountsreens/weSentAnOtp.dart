@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import 'enterYourChildDetails.dart';
 
 class otp extends StatefulWidget {
   const otp({super.key});
@@ -72,7 +75,6 @@ class _otpState extends State<otp> {
                       controller: _controller,
                       maxLength: 1,
                       focusNode: fNodeFive,
-                     
                       onTap: () {
                         fNodeFive.hasFocus
                             ? setState(() {
@@ -121,7 +123,6 @@ class _otpState extends State<otp> {
                     child: TextField(
                       focusNode: fNodeTwo,
                       maxLength: 1,
-                        
                       onTap: () {
                         fNodeTwo.hasFocus
                             ? setState(() {
@@ -188,7 +189,6 @@ class _otpState extends State<otp> {
                     child: TextField(
                       focusNode: fNodeThree,
                       maxLength: 1,
-                         
                       onTap: () {
                         fNodeThree.hasFocus
                             ? setState(() {
@@ -256,7 +256,6 @@ class _otpState extends State<otp> {
                     child: TextField(
                       focusNode: fNodeFour,
                       maxLength: 1,
-                        
                       onTap: () {
                         fNodeFour.hasFocus
                             ? setState(() {
@@ -323,7 +322,6 @@ class _otpState extends State<otp> {
                     child: TextField(
                       focusNode: fNodeOne,
                       maxLength: 1,
-                      
                       onTap: () {
                         fNodeOne.hasFocus
                             ? setState(() {
@@ -362,7 +360,7 @@ class _otpState extends State<otp> {
                         }
                       },
                       decoration: InputDecoration(
-                        counterText: '',
+                          counterText: '',
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                   color: borderColorFive,
@@ -390,20 +388,29 @@ class _otpState extends State<otp> {
               SizedBox(
                 height: 25,
               ),
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 15),
-                height: 50,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xff64436E), Color(0xffE36E9A)],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight),
-                    borderRadius: BorderRadius.circular(25)),
-                alignment: Alignment.center,
-                child: Text(
-                  'Continue',
-                  style: TextStyle(color: Colors.white, fontFamily: 'WorkSans'),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => childdetails()),
+                  );
+                },
+                child: Container(
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  height: 50,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [Color(0xff64436E), Color(0xffE36E9A)],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight),
+                      borderRadius: BorderRadius.circular(25)),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Continue',
+                    style:
+                        TextStyle(color: Colors.white, fontFamily: 'WorkSans'),
+                  ),
                 ),
               ),
               SizedBox(

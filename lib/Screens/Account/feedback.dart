@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../Styles/colors.dart';
+import 'contactUs.dart';
 
 class FnS extends StatefulWidget {
   const FnS({Key? key}) : super(key: key);
@@ -60,11 +62,19 @@ class _FnSState extends State<FnS> {
               SizedBox(
                 height: 15,
               ),
-              query(
-                  head: 'Contact Us',
-                  body: 'Contact us for any help',
-                  svg:
-                      'assets/icons/material-symbols_contact-support-rounded.svg'),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Contact()),
+                  );
+                },
+                child: query(
+                    head: 'Contact Us',
+                    body: 'Contact us for any help',
+                    svg:
+                        'assets/icons/material-symbols_contact-support-rounded.svg'),
+              ),
               query(
                   head: 'Report an issue',
                   body: 'Let us know of any bug',

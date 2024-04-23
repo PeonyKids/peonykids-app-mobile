@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'congratulations.dart';
+
 class securityquestions extends StatefulWidget {
   const securityquestions({super.key});
 
@@ -88,11 +90,10 @@ class _securityquestionsState extends State<securityquestions> {
                     itemHeight: 80,
                     isDense: true,
                     style: TextStyle(
-                        color: Color(0xff737373),fontFamily: 'WorkSans'),
+                        color: Color(0xff737373), fontFamily: 'WorkSans'),
                     underline: Container(),
                     // Initial Value
                     value: dropdownvalue,
-                    
 
                     // Down Arrow Icon
                     icon: Icon(
@@ -104,7 +105,10 @@ class _securityquestionsState extends State<securityquestions> {
                     items: items.map((String items) {
                       return DropdownMenuItem(
                         value: items,
-                        child: Text(items,style: TextStyle(fontWeight: FontWeight.w500),),
+                        child: Text(
+                          items,
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
                       );
                     }).toList(),
                     // After selecting the desired option,it will
@@ -155,34 +159,42 @@ class _securityquestionsState extends State<securityquestions> {
                     backgroundColor: Colors.white,
                     surfaceTintColor: Colors.white,
                     elevation: 3.0,
-                    shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    title: const Text("This feature enables linking this account with another, allowing you to log in on two separate devices using the same child name.",style: TextStyle(fontSize: 14),),
-                    
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    title: const Text(
+                      "This feature enables linking this account with another, allowing you to log in on two separate devices using the same child name.",
+                      style: TextStyle(fontSize: 14),
+                    ),
                     actions: <Widget>[
                       Center(
                         child: TextButton(
                           onPressed: () {
                             Navigator.of(ctx).pop();
                           },
-                          child: const Text("Done",style: TextStyle(color: Color(0xff252525)),),
+                          child: const Text(
+                            "Done",
+                            style: TextStyle(color: Color(0xff252525)),
+                          ),
                         ),
                       ),
                     ],
                   ),
                 );
               },
-              child:  Text(
-              'Why this?',
-              style: TextStyle(decoration: TextDecoration.underline),
+              child: Text(
+                'Why this?',
+                style: TextStyle(decoration: TextDecoration.underline),
+              ),
             ),
-            ),
-           
             SizedBox(
               height: 35,
             ),
             GestureDetector(
               onTap: () {
-                
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => congratulations()),
+                );
               },
               child: Container(
                 width: double.infinity,

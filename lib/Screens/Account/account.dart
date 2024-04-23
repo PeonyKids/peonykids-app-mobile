@@ -1,9 +1,17 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:peonyapp/Screens/Account/viewInvoice.dart';
 import 'package:peonyapp/Styles/colors.dart';
+
+import 'changePassword.dart';
+import 'checkIn.dart';
+import 'editProfile.dart';
+import 'feedback.dart';
+import 'notification.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -31,6 +39,8 @@ class _AccountPageState extends State<AccountPage> {
                   SizedBox(
                     child: Image.asset(
                       'assets/avatars/img.png',
+                      height: 110,
+                      width: 100,
                     ),
                   ),
                   SizedBox(
@@ -176,19 +186,28 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                       ],
                     ),
-                    Container(
-                      height: 40,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: white),
-                      child: Center(
-                        child: Text(
-                          'View Invoice',
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: primaryColor01),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CheckInvoice()),
+                        );
+                      },
+                      child: Container(
+                        height: 40,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: white),
+                        child: Center(
+                          child: Text(
+                            'View Invoice',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: primaryColor01),
+                          ),
                         ),
                       ),
                     )
@@ -207,11 +226,46 @@ class _AccountPageState extends State<AccountPage> {
             SizedBox(
               height: 10,
             ),
-            profiles(text: 'Edit Profile', tap: () {}),
-            profiles(text: 'View all Check Ins', tap: () {}),
-            profiles(text: 'Feedback & Support', tap: () {}),
-            profiles(text: 'Change Password', tap: () {}),
-            profiles(text: 'Notification', tap: () {}),
+            profiles(
+                text: 'Edit Profile',
+                tap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EditProfile()),
+                  );
+                }),
+            profiles(
+                text: 'View all Check Ins',
+                tap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CheckInNOut()),
+                  );
+                }),
+            profiles(
+                text: 'Feedback & Support',
+                tap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FnS()),
+                  );
+                }),
+            profiles(
+                text: 'Change Password',
+                tap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ChangePassword()),
+                  );
+                }),
+            profiles(
+                text: 'Notification',
+                tap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Notify()),
+                  );
+                }),
             profiles(text: 'Gallery', tap: () {}),
             profiles(
                 text: 'Logout',

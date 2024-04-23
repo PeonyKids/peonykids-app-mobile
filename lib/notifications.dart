@@ -20,10 +20,17 @@ class _NotificationPageState extends State<NotificationPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: 10,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Notification'),
+                    Text(
+                      'Notification',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                    ),
                     Text(
                       'Clear all',
                       style: TextStyle(decoration: TextDecoration.underline),
@@ -50,7 +57,10 @@ class _NotificationPageState extends State<NotificationPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Pick Up time'),
+                                Text(
+                                  'Pick Up time',
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
                                 Text(
                                   'Please come to the daycare centre to pick up your child',
                                   maxLines: 2,
@@ -59,12 +69,15 @@ class _NotificationPageState extends State<NotificationPage> {
                             ),
                           ),
                           Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Today',style: TextStyle(color: Color(0xFF737373)),),
-                              Text('09:20am',style: TextStyle(color: Color(0xFF737373))),
-                            ]
-                          )
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Today',
+                                  style: TextStyle(color: Color(0xFF737373)),
+                                ),
+                                Text('09:20am',
+                                    style: TextStyle(color: Color(0xFF737373))),
+                              ])
                         ],
                       ),
                     );
