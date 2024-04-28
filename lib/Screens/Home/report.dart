@@ -240,7 +240,7 @@ class _ReportpageState extends State<Reportpage> {
                             ],
                           ),
                           child: Padding(
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                                 top: 15, left: 15, right: 15, bottom: 30),
                             child: Column(
                               children: [
@@ -248,22 +248,42 @@ class _ReportpageState extends State<Reportpage> {
                                     time: 'Time',
                                     header1: 'Meal',
                                     header2: 'Quantity'),
-                                details(
-                                    time: '10:38am',
-                                    info: 'Cereal',
-                                    info2: 'All'),
-                                details(
-                                    time: '12:40pm',
-                                    info: 'Rice',
-                                    info2: 'All'),
-                                details(
-                                    time: '02:50pm',
-                                    info: 'Snack & Juice',
-                                    info2: 'All'),
-                                details(
-                                    time: '04:00pm',
-                                    info: 'Juice',
-                                    info2: 'All'),
+                                Table(
+                                  children: [
+                                    details(
+                                        time: '10:38am',
+                                        info: 'Cereal',
+                                        info2: 'All'),
+                                    details(
+                                        time: '12:40pm',
+                                        info: 'Rice',
+                                        info2: 'All'),
+                                    details(
+                                        time: '02:50pm',
+                                        info: 'Snack & Juice',
+                                        info2: 'All'),
+                                    details(
+                                        time: '04:00pm',
+                                        info: 'Juice',
+                                        info2: 'All'),
+                                  ],
+                                ),
+                                // details(
+                                //     time: '10:38am',
+                                //     info: 'Cereal',
+                                //     info2: 'All'),
+                                // details(
+                                //     time: '12:40pm',
+                                //     info: 'Rice',
+                                //     info2: 'All'),
+                                // details(
+                                //     time: '02:50pm',
+                                //     info: 'Snack & Juice',
+                                //     info2: 'All'),
+                                // details(
+                                //     time: '04:00pm',
+                                //     info: 'Juice',
+                                //     info2: 'All'),
                               ],
                             ),
                           ),
@@ -308,10 +328,14 @@ class _ReportpageState extends State<Reportpage> {
                                     time: 'Time',
                                     header1: 'Wake up Time',
                                     header2: 'Comments'),
-                                details(
-                                    time: '01:35pm',
-                                    info: '02:30pm',
-                                    info2: '-'),
+                                Table(
+                                  children: [
+                                    details(
+                                        time: '01:35pm',
+                                        info: '02:30pm',
+                                        info2: '-'),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
@@ -356,10 +380,18 @@ class _ReportpageState extends State<Reportpage> {
                                     time: 'Time',
                                     header1: 'Diaper',
                                     header2: 'Potty'),
-                                details(
-                                    time: '03:37pm', info: 'Wet', info2: '-'),
-                                details(
-                                    time: '04:05pm', info: 'Wet', info2: '-'),
+                                Table(
+                                  children: [
+                                    details(
+                                        time: '03:37pm',
+                                        info: 'Wet',
+                                        info2: '-'),
+                                    details(
+                                        time: '04:05pm',
+                                        info: 'Wet',
+                                        info2: '-'),
+                                  ],
+                                )
                               ],
                             ),
                           ),
@@ -415,6 +447,68 @@ class _ReportpageState extends State<Reportpage> {
     );
   }
 
+  TableRow details(
+      {required String time, required String info, required String info2}) {
+    return TableRow(children: [
+      Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: black,
+            ),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text(
+            time,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w500, color: black),
+          ),
+        ),
+      ),
+      Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: black,
+            ),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text(
+            info,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w500, color: black),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ),
+      Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: black,
+            ),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text(
+            info2,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w500, color: black),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ),
+    ]);
+  }
+
   Row activity({required String acts, required String text}) {
     return Row(
       children: [
@@ -441,83 +535,101 @@ class _ReportpageState extends State<Reportpage> {
       required String header1,
       required String header2}) {
     return Container(
-      height: 30,
+      // height: 30,
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: pinky,
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Table(
         children: [
-          Text(
-            time,
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w500, color: black),
-          ),
-          Text(
-            header1,
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w500, color: black),
-          ),
-          Text(
-            header2,
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w500, color: black),
-          ),
+          TableRow(children: [
+            SizedBox(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  time,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w500, color: black),
+                ),
+              ),
+            ),
+            SizedBox(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  header1,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w500, color: black),
+                ),
+              ),
+            ),
+            SizedBox(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  header2,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w500, color: black),
+                ),
+              ),
+            ),
+          ]),
         ],
       ),
     );
   }
 
-  Container details(
-      {required String time, required String info, required String info2}) {
-    return Container(
-      height: 50,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: black,
-          ),
-        ),
-      ),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 15,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            time,
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w500, color: black),
-          ),
-          // Expanded(
-          //   child: SizedBox(
-          //     width: 15.0,
-          //   ),
-          // ),
-          Text(
-            info,
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w500, color: black),
-          ),
-          // Expanded(
-          //   child: SizedBox(
-          //     width: 15.0,
-          //   ),
-          // ),
-          Text(
-            info2,
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w500, color: black),
-          ),
-        ],
-      ),
-    );
-  }
+  // Container details(
+  //     {required String time, required String info, required String info2}) {
+  //   return Container(
+  //     height: 50,
+  //     width: double.infinity,
+  //     decoration: BoxDecoration(
+  //       border: Border(
+  //         bottom: BorderSide(
+  //           color: black,
+  //         ),
+  //       ),
+  //     ),
+  //     padding: const EdgeInsets.symmetric(
+  //       horizontal: 15,
+  //     ),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         Text(
+  //           time,
+  //           style: TextStyle(
+  //               fontSize: 16, fontWeight: FontWeight.w500, color: black),
+  //         ),
+  //         // Expanded(
+  //         //   child: SizedBox(
+  //         //     width: 15.0,
+  //         //   ),
+  //         // ),
+  //         Text(
+  //           info,
+  //           style: TextStyle(
+  //               fontSize: 16, fontWeight: FontWeight.w500, color: black),
+  //         ),
+  //         // Expanded(
+  //         //   child: SizedBox(
+  //         //     width: 15.0,
+  //         //   ),
+  //         // ),
+  //         Text(
+  //           info2,
+  //           style: TextStyle(
+  //               fontSize: 16, fontWeight: FontWeight.w500, color: black),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   moods({required bool mood, required String emoji, required String text}) {
     return IntrinsicWidth(
