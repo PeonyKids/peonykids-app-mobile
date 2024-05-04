@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../Styles/colors.dart';
@@ -47,10 +49,39 @@ class _ChatsState extends State<Chats> {
                   physics: const BouncingScrollPhysics(),
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
+                    date() {
+                      if (index > 0) {
+                        // String dateString = messaging[index].messageDateSent;
+
+                        // print(dateString);
+
+                        // getDate(int post) {
+                        //   return messaging[post]
+                        //       .messageDateSent
+                        //       .split('T')[0];
+                        // }
+
+                        // String formattedDate = messaging[index].messageDateSent.split('T')[0];
+
+                        return messages[index]['messageDateSent'] ==
+                                messages[index - 1]['messageDateSent']
+                            ? ''
+                            : messages[index]['messageDateSent'];
+                      } else {
+                        // print(dateString);
+
+                        String formattedDate =
+                            messages[index]['messageDateSent'];
+
+                        return formattedDate;
+                      }
+                    }
+
                     return MessageBubble(
                       text: messages[index]['messageContent'],
                       Uid: messages[index]['senderId'],
-                      time: messages[index]['messageDateSent'],
+                      date: date(),
+                      time: messages[index]['time'],
                     );
                   },
                 ),
@@ -67,12 +98,14 @@ class _ChatsState extends State<Chats> {
 class MessageBubble extends StatefulWidget {
   final String text;
   final dynamic Uid;
+  final String date;
   final String time;
 
   const MessageBubble({
     super.key,
     required this.text,
     required this.Uid,
+    required this.date,
     required this.time,
   });
 
@@ -81,17 +114,17 @@ class MessageBubble extends StatefulWidget {
 }
 
 class _MessageBubbleState extends State<MessageBubble> {
-  // String? timeString = time;
+  // String? dateString = date;
   @override
   Widget build(BuildContext context) {
     String id = 'lxbdddfCET1870Gf';
 
     // final myModel02 = context.watch<Chats>();
     //
-    // String? timeString = widget.time;
+    // String? dateString = widget.date;
     //
-    // // Parse the time string to DateTime
-    // DateTime dateTime = DateTime.parse(timeString);
+    // // Parse the date string to DateTime
+    // DateTime dateTime = DateTime.parse(dateString);
     //
     // // Get AM or PM
     // String amPm = dateTime.hour < 12 ? 'AM' : 'PM';
@@ -124,60 +157,114 @@ class _MessageBubbleState extends State<MessageBubble> {
               ? CrossAxisAlignment.end
               : CrossAxisAlignment.start,
           children: [
-            widget.time.isNotEmpty
+            widget.date.isNotEmpty
                 ? Column(
                     children: [
-                      Center(
-                        child: Text(
-                          widget.time,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
                       SizedBox(
                         height: 12.h,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 0.3,
+                              color: black03,
+                              width: double.infinity,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 50),
+                            child: Text(
+                              widget.date,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: 0.3,
+                              color: black03,
+                              width: double.infinity,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15.h,
                       ),
                     ],
                   )
                 : SizedBox(
                     height: 10.h,
                   ),
-            Container(
-              // constraints: BoxConstraints(
-              //   maxWidth: 400.w, // Set the maximum width as needed
-              // ),
-              width: double.infinity,
-              padding: const EdgeInsets.all(12.0),
-              decoration: BoxDecoration(
-                // color: id == widget.Uid ? white03 : transparent,
-
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(
-                  color: transparent,
-                  width: 2.0,
-                ),
-                gradient: id == widget.Uid
-                    ? customGradient
-                    : LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [white03, white03],
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  // mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  textDirection:
+                      id == widget.Uid ? TextDirection.rtl : TextDirection.ltr,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5.0),
+                      child: CircleAvatar(
+                        radius: 20,
+                        backgroundImage: AssetImage('assets/avatars/img.png'),
                       ),
-              ),
-              child: Text(
-                widget.text,
-                style: TextStyle(
-                    color: id == widget.Uid ? white : black,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500),
-              ),
-            ),
-            SizedBox(
-              height: 8.h,
-            ),
-            Text(
-              widget.time,
-              style: TextStyle(
-                  fontWeight: FontWeight.w400, fontSize: 11, color: black03),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Container(
+                            // constraints: BoxConstraints(
+                            //   maxWidth: 400.w, // Set the maximum width as needed
+                            // ),
+                            // width: double.infinity,
+                            padding: const EdgeInsets.all(12.0),
+                            decoration: BoxDecoration(
+                              // color: id == widget.Uid ? white03 : transparent,
+
+                              borderRadius: BorderRadius.circular(10.0),
+                              border: Border.all(
+                                color: transparent,
+                                width: 2.0,
+                              ),
+                              gradient: id == widget.Uid
+                                  ? customGradient
+                                  : LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [white03, white03],
+                                    ),
+                            ),
+                            child: Text(
+                              widget.text,
+                              style: TextStyle(
+                                  color: id == widget.Uid ? white : black,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8.h,
+                          ),
+                          Text(
+                            widget.time,
+                            textAlign: id == widget.Uid
+                                ? TextAlign.end
+                                : TextAlign.start,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 11,
+                                color: black03),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
             SizedBox(
               height: 8.h,

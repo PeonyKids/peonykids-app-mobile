@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peonyapp/bottomnavigationbar/bottomnavigationbar.dart';
 
+import '../Styles/colors.dart';
 import 'forgotPassword.dart';
 
 class login extends StatefulWidget {
@@ -16,33 +18,33 @@ class _loginState extends State<login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        iconTheme: IconThemeData(color: white), // Set the icon color to white
+        elevation: 0,
+        backgroundColor: white04,
+        leading: GestureDetector(
+          onTap: () {},
+          child: Padding(
+            padding: EdgeInsets.only(left: 10.w),
+            child: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: black,
+            ),
+          ),
+        ),
+        title: Text(
+          'Welcome Back',
+          style: TextStyle(
+              fontSize: 20, fontWeight: FontWeight.w600, color: black01),
+        ),
+      ),
       body: SafeArea(
           child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                Icon(Icons.arrow_back_ios),
-                SizedBox(
-                  width: 70,
-                ),
-                Text(
-                  'Welcome back',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 23,
-                      fontFamily: 'WorkSans'),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
             Text(
               'Email',
               style: TextStyle(
@@ -144,9 +146,12 @@ class _loginState extends State<login> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Don't have an account?"),
+                Text(
+                  "Don't have an account?",
+                  style: TextStyle(color: black03),
+                ),
                 SizedBox(
-                  height: 10,
+                  width: 5,
                 ),
                 Text(
                   'Sign up',

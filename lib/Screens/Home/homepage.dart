@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:peonyapp/Screens/Home/report.dart';
@@ -15,7 +13,35 @@ class Homepage extends StatefulWidget {
   State<Homepage> createState() => _HomepageState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 3), // Animation duration of 30 seconds
+    );
+
+    _animation = Tween<double>(
+      begin: 0.0,
+      end: 0.7,
+    ).animate(_controller)
+      ..addListener(() {
+        setState(() {}); // Rebuild the widget when animation value changes
+      });
+
+    _controller.forward(); // Start the animation
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose(); // Dispose the animation controller
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,7 +115,7 @@ class _HomepageState extends State<Homepage> {
                                 height: 10,
                               ),
                               Container(
-                                height: 180.h,
+                                height: 140,
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
@@ -111,8 +137,32 @@ class _HomepageState extends State<Homepage> {
                                           padding: const EdgeInsets.all(12.0),
                                           child: Row(
                                             children: [
-                                              Image.asset(
-                                                  'assets/images/freestyle.png'),
+                                              Stack(
+                                                alignment: Alignment.center,
+                                                children: [
+                                                  SizedBox(
+                                                    height: 100,
+                                                    width: 100,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      value: _animation.value,
+                                                      strokeWidth: 13.0,
+                                                      color: const Color(
+                                                          0xffE36E9A), //<-- SEE HERE
+                                                      backgroundColor:
+                                                          white, //<-- SEE HERE
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    '${(_animation.value * 100).toStringAsFixed(0)}%',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 22,
+                                                        color: primaryColor01),
+                                                  ),
+                                                ],
+                                              ),
                                               const SizedBox(
                                                 width: 10,
                                               ),
@@ -204,9 +254,11 @@ class _HomepageState extends State<Homepage> {
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(50),
+                                          color: transparent.withOpacity(0.8),
                                           gradient: customGradient),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(12.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0, horizontal: 16.0),
                                         child: Center(
                                           child: Text(
                                             'Check In',
@@ -227,7 +279,7 @@ class _HomepageState extends State<Homepage> {
                               Divider(
                                 // height: 12,
                                 color: black03,
-                                thickness: 1.0,
+                                thickness: 0.3,
                               ),
                               const SizedBox(
                                 height: 20,
@@ -239,7 +291,7 @@ class _HomepageState extends State<Homepage> {
                                     borderRadius: BorderRadius.circular(50),
                                     color: transparent,
                                     border: Border.all(
-                                        width: 1.0,
+                                        width: 0.3,
                                         color: black03,
                                         style: BorderStyle.solid)),
                                 child: Padding(
@@ -311,18 +363,19 @@ class _HomepageState extends State<Homepage> {
                                               BorderRadius.circular(50),
                                           color: transparent,
                                           border: Border.all(
-                                              width: 1.0,
+                                              width: 0.3,
                                               color: black03,
                                               style: BorderStyle.solid)),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0, horizontal: 12.0),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
                                             Icon(
                                               Icons.analytics_outlined,
-                                              size: 35,
+                                              size: 30,
                                               color: primaryColor01,
                                             ),
                                             SizedBox(
