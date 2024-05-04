@@ -206,7 +206,9 @@ class _MessageBubbleState extends State<MessageBubble> {
                       id == widget.Uid ? TextDirection.rtl : TextDirection.ltr,
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5.0),
+                      padding: EdgeInsets.only(
+                          left: id == widget.Uid ? 5.0 : 0.0,
+                          right: id == widget.Uid ? 0.0 : 5.0),
                       child: CircleAvatar(
                         radius: 20,
                         backgroundImage: AssetImage('assets/avatars/img.png'),
