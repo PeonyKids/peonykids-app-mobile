@@ -3,7 +3,7 @@ List<Map<String, dynamic>> messages = [
     'senderId': "lxbdddfCET1870Gf",
     'messageContent': "Hello, this is Macdonald’s Dad",
     'messageDateSent': "28 April",
-    'time': '11:00am'
+    'time': '11:00am',
   },
   {
     'senderId': "admin#1",

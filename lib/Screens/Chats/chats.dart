@@ -211,7 +211,9 @@ class _MessageBubbleState extends State<MessageBubble> {
                           right: id == widget.Uid ? 0.0 : 5.0),
                       child: CircleAvatar(
                         radius: 20,
-                        backgroundImage: AssetImage('assets/avatars/img.png'),
+                        backgroundImage: AssetImage(id == widget.Uid
+                            ? 'assets/avatars/img.png'
+                            : 'assets/images/mac.png'),
                       ),
                     ),
                     Expanded(
