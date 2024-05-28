@@ -202,7 +202,7 @@ class _CheckInState extends State<CheckIn> {
                             // width: 100,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
-                                gradient: customGradient),
+                                color: primaryColor01),
                             child: Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Center(
@@ -255,7 +255,7 @@ class _CheckInState extends State<CheckIn> {
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
-                        color: primaryColor01.withOpacity(0.2), // Shadow color
+                        color: black02.withOpacity(0.1), // Shadow color
                         offset: Offset(0.0, 7.0), // Offset from right
                         blurRadius: 8, // Spread of the shadow
                         spreadRadius: 0.0,
@@ -318,7 +318,7 @@ class _CheckInState extends State<CheckIn> {
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
-              color: primaryColor01.withOpacity(0.2), // Shadow color
+              color: black02.withOpacity(0.1), // Shadow color
               offset: Offset(0.0, 7.0), // Offset from right
               blurRadius: 8, // Spread of the shadow
               spreadRadius: 0.0,

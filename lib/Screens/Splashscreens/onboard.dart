@@ -46,8 +46,8 @@ class _OnboardOneScreenState extends State<OnboardOneScreen> {
 
   List<String> imageList = [
     'assets/images/splashscreen1.png',
-    'assets/images/splashscreen2.png',
-    'assets/images/splashscreen3.png'
+    'assets/images/Wormies Social Media.png',
+    'assets/images/Wormies Outdoors.png'
   ];
 
   List<String> textList = [
@@ -65,15 +65,15 @@ class _OnboardOneScreenState extends State<OnboardOneScreen> {
         child: SingleChildScrollView(
           child: Container(
             // height: MediaQuery.of(context).size.height,
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Center(
                   child: SizedBox(
-                      height: 32,
-                      width: 120,
+                      height: 50,
+                      width: 150,
                       child: Image.asset('assets/images/peonychildcare.png')),
                 ),
                 SizedBox(
@@ -87,7 +87,7 @@ class _OnboardOneScreenState extends State<OnboardOneScreen> {
                       borderRadius: BorderRadius.circular(50),
                       boxShadow: [
                         BoxShadow(
-                          color: primaryColor02
+                          color: primaryColor01
                               .withOpacity(0.1), // Decreased opacity
                           spreadRadius: 0.5, // Spread radius
                           blurRadius: 30, // Decreased blur radius
@@ -114,10 +114,10 @@ class _OnboardOneScreenState extends State<OnboardOneScreen> {
                                 ? Image.asset(
                                     imageList[index],
                                     key: ValueKey<int>(_currentIndex),
-                                    height: 270,
-                                    width: 260,
+                                    height: 280,
+                                    width: 280,
                                   )
-                                : SizedBox.shrink(),
+                                : const SizedBox.shrink(),
                           );
                         },
                       ),
@@ -131,7 +131,7 @@ class _OnboardOneScreenState extends State<OnboardOneScreen> {
                   textList[indexes],
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.w600, height: 1.2),
+                      fontSize: 23, fontWeight: FontWeight.w600, height: 1.2),
                 ),
                 SizedBox(
                   height: 50.h,
@@ -145,7 +145,7 @@ class _OnboardOneScreenState extends State<OnboardOneScreen> {
                         height: 12,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
-                          color: indexes == 0 ? primaryColor02 : grey,
+                          color: indexes == 0 ? primaryColor01 : grey,
                         ),
                       ),
                       const SizedBox(
@@ -156,7 +156,7 @@ class _OnboardOneScreenState extends State<OnboardOneScreen> {
                         height: 12,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
-                          color: indexes == 1 ? primaryColor02 : grey,
+                          color: indexes == 1 ? primaryColor01 : grey,
                         ),
                       ),
                       const SizedBox(
@@ -167,7 +167,7 @@ class _OnboardOneScreenState extends State<OnboardOneScreen> {
                         height: 12,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
-                          color: indexes == 2 ? primaryColor02 : grey,
+                          color: indexes == 2 ? primaryColor01 : grey,
                         ),
                       )
                     ],
@@ -176,43 +176,76 @@ class _OnboardOneScreenState extends State<OnboardOneScreen> {
                 SizedBox(
                   height: 50.h,
                 ),
-                SizedBox(
-                  height: 45,
-                  width: double.infinity,
+                // SizedBox(
+                //   height: 50,
+                //   width: double.infinity,
+                //   child: Container(
+                //     decoration: BoxDecoration(
+                //         color: primaryColor01,
+                //         borderRadius: BorderRadius.circular(25)),
+                //     child: ElevatedButton(
+                //         style: ElevatedButton.styleFrom(
+                //             elevation: 0,
+                //             backgroundColor: transparent,
+                //             shape: RoundedRectangleBorder(
+                //                 borderRadius: BorderRadius.circular(25)),
+                //             splashFactory: NoSplash.splashFactory,
+                //         ),
+                //         onPressed: (() {
+                //           // Navigator.pushNamed(context, '/infoOnePage');
+                //           //
+                //           // Navigator.push(context, route)
+                //
+                //           Navigator.push(
+                //             context,
+                //             MaterialPageRoute(
+                //                 builder: (context) => createaccount()),
+                //           );
+                //         }),
+                //         child: Text('Sign Up',
+                //             style: TextStyle(
+                //                 color: white,
+                //                 fontWeight: FontWeight.w600,
+                //                 fontSize: 14))),
+                //   ),
+                // ),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => createaccount()),
+                    );
+                  },
                   child: Container(
+                    height: 50,
+                    width: double.infinity,
                     decoration: BoxDecoration(
-                        gradient: customGradient,
-                        borderRadius: BorderRadius.circular(25)),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            backgroundColor: transparent,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25)),
-                            splashFactory: NoSplash.splashFactory),
-                        onPressed: (() {
-                          // Navigator.pushNamed(context, '/infoOnePage');
-                          //
-                          // Navigator.push(context, route)
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => createaccount()),
-                          );
-                        }),
-                        child: Text('Sign Up',
-                            style: TextStyle(
-                                color: white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14))),
+                      borderRadius: BorderRadius.circular(25),
+                      color: primaryColor01,
+                      boxShadow: [
+                        BoxShadow(
+                          color: black01.withOpacity(0.3), // Shadow color
+                          offset: Offset(0.0, 7.0), // Offset from right
+                          blurRadius: 8, // Spread of the shadow
+                          spreadRadius: 0.0,
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Text('Sign Up',
+                          style: TextStyle(
+                              color: white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14),)
+                    ),
                   ),
                 ),
                 SizedBox(
                   height: 20.h,
                 ),
                 SizedBox(
-                  height: 45,
+                  height: 50,
                   width: double.infinity,
                   child: MyOutlinedButton(
                     onPressed: () {
@@ -221,7 +254,7 @@ class _OnboardOneScreenState extends State<OnboardOneScreen> {
                         MaterialPageRoute(builder: (context) => login()),
                       );
                     },
-                    gradient: customGradient,
+                    gradient: customGradient01,
                     style: ElevatedButton.styleFrom(
                         splashFactory: NoSplash.splashFactory),
                     child: Text(

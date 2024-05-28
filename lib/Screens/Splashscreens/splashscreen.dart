@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
           color: white,
         ),
         child: const Center(
-            child: Image(image: AssetImage('assets/images/onboardlogo.png'))),
+            child: Image(image: AssetImage('assets/images/splash.png'))),
       ),
     );
   }

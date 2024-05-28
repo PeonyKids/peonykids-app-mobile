@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:peonyapp/Styles/colors.dart';
 import 'package:peonyapp/accountsreens/securityQuestions.dart';
+import 'package:peonyapp/widgets.dart';
 
 class childdetails extends StatefulWidget {
   const childdetails({super.key});
@@ -38,7 +40,7 @@ class _childdetailsState extends State<childdetails> {
                   style: TextStyle(
                     color: Color(0xff252525),
                     fontWeight: FontWeight.w600,
-                    fontSize: 21,
+                    fontSize: 22,
                     fontStyle: FontStyle.normal,
                   ),
                 ),
@@ -53,7 +55,7 @@ class _childdetailsState extends State<childdetails> {
                   style: TextStyle(
                     color: Color(0xff737373),
                     fontWeight: FontWeight.w400,
-                    fontSize: 21,
+                    fontSize: 16,
                     fontStyle: FontStyle.normal,
                   ),
                 ),
@@ -64,30 +66,33 @@ class _childdetailsState extends State<childdetails> {
               Text(
                 "Child's name",
                 style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 18,
                 ),
               ),
               SizedBox(
                 height: 5,
               ),
-              TextField(
-                decoration: InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.person_2_outlined,
-                      color: Color(0xff252525),
-                    ),
-                    hintText: "Enter your child's name",
-                    hintStyle: TextStyle(
-                      color: Color(0xff737373),
-                    ),
-                    enabledBorder: OutlineInputBorder(
+              SizedBox(
+                height: 60,
+                child: TextField(
+                  decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.person_2_outlined,
+                        color: Color(0xff252525),
+                      ),
+                      hintText: "Enter your child's name",
+                      hintStyle: TextStyle(
+                        color: Color(0xff737373),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xffEDEDED)),
+                          borderRadius: BorderRadius.circular(10)),
+                      focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xffEDEDED)),
-                        borderRadius: BorderRadius.circular(10)),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffEDEDED)),
-                      borderRadius: BorderRadius.circular(10),
-                    )),
+                        borderRadius: BorderRadius.circular(10),
+                      )),
+                ),
               ),
               SizedBox(
                 height: 15,
@@ -96,8 +101,8 @@ class _childdetailsState extends State<childdetails> {
                 'Gender?',
                 style: TextStyle(
                   color: Color(0xff252525),
-                  fontWeight: FontWeight.w500,
-                  fontSize: 21,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 18,
                   fontStyle: FontStyle.normal,
                 ),
               ),
@@ -109,7 +114,7 @@ class _childdetailsState extends State<childdetails> {
                   ListTile(
                     title: Text('Male'),
                     leading: Radio(
-                      activeColor: Color(0xff64436E),
+                      activeColor: primaryColor01,
                       value: values[0],
                       groupValue: selectedValue,
                       onChanged: (value) {
@@ -122,7 +127,7 @@ class _childdetailsState extends State<childdetails> {
                   ListTile(
                     title: Text('Female'),
                     leading: Radio(
-                      activeColor: Color(0xff64436E),
+                      activeColor: primaryColor01,
                       value: values[1],
                       groupValue: selectedValue,
                       onChanged: (value) {
@@ -155,7 +160,7 @@ class _childdetailsState extends State<childdetails> {
                       children: [
                         Icon(
                           Icons.add,
-                          color: Color(0xff64436E),
+                          color: primaryColor01,
                           size: 22,
                         ),
                         SizedBox(
@@ -164,7 +169,7 @@ class _childdetailsState extends State<childdetails> {
                         Text(
                           'Add another child',
                           style: TextStyle(
-                              color: Color(0xff64436E),
+                              color: primaryColor01,
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
                         )
@@ -184,30 +189,30 @@ class _childdetailsState extends State<childdetails> {
 
               Visibility(
                   visible: childVisibility,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Divider(
-                          color: Colors.grey,
-                          indent: 3.0,
-                          endIndent: 3.0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Divider(
+                        color: Colors.grey,
+                        indent: 3.0,
+                        endIndent: 3.0,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Child's name",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18,
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "Child's name",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        TextField(
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                        height: 60,
+                        child: TextField(
                           decoration: InputDecoration(
                               prefixIcon: Icon(
                                 Icons.person_2_outlined,
@@ -227,151 +232,135 @@ class _childdetailsState extends State<childdetails> {
                                 borderRadius: BorderRadius.circular(10),
                               )),
                         ),
-                        SizedBox(
-                          height: 15,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        'Gender?',
+                        style: TextStyle(
+                          color: Color(0xff252525),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18,
+                          fontStyle: FontStyle.normal,
                         ),
-                        Text(
-                          'Gender?',
-                          style: TextStyle(
-                            color: Color(0xff252525),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 21,
-                            fontStyle: FontStyle.normal,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Column(
-                          children: <Widget>[
-                            ListTile(
-                              title: Text('Male'),
-                              leading: Radio(
-                                activeColor: Color(0xff64436E),
-                                value: values[0],
-                                groupValue: selectedValue,
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedValue = value.toString();
-                                  });
-                                },
-                              ),
-                            ),
-                            ListTile(
-                              title: Text('Female'),
-                              leading: Radio(
-                                activeColor: Color(0xff64436E),
-                                value: values[1],
-                                groupValue: selectedValue,
-                                onChanged: (value) {
-                                  setState(() {
-                                    print('hnht');
-                                    selectedValue = value.toString();
-                                  });
-                                },
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                shape: StadiumBorder(),
-                                backgroundColor: Color(0xFFF6F2F7)),
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.delete,
-                              color: Color(0xff64436E),
-                              size: 23,
-                            ),
-                            label: Text(
-                              'Delete',
-                              style: TextStyle(
-                                  color: Color(
-                                    0xff64436E,
-                                  ),
-                                  fontWeight: FontWeight.bold),
-                            )),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Visibility(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                childVisibility = true;
-                              });
-                            },
-                            child: Container(
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.add,
-                                    color: Color(0xff64436E),
-                                    size: 22,
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Text(
-                                    'Add another child',
-                                    style: TextStyle(
-                                        color: Color(0xff64436E),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20),
-                                  )
-                                ],
-                              ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Column(
+                        children: <Widget>[
+                          ListTile(
+                            title: Text('Male'),
+                            leading: Radio(
+                              activeColor: primaryColor01,
+                              value: values[0],
+                              groupValue: selectedValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedValue = value.toString();
+                                });
+                              },
                             ),
                           ),
-                          visible: childVisibility,
+                          ListTile(
+                            title: Text('Female'),
+                            leading: Radio(
+                              activeColor: primaryColor01,
+                              value: values[1],
+                              groupValue: selectedValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  print('hnht');
+                                  selectedValue = value.toString();
+                                });
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              shape: StadiumBorder(),
+                              backgroundColor: Color(0xFFF6F2F7)),
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.delete,
+                            color: black,
+                            size: 23,
+                          ),
+                          label: Text(
+                            'Delete',
+                            style: TextStyle(
+                                color: black,
+                                fontWeight: FontWeight.bold),
+                          )),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Visibility(
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              childVisibility = true;
+                            });
+                          },
+                          child: Container(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  color: primaryColor01,
+                                  size: 22,
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text(
+                                  'Add another child',
+                                  style: TextStyle(
+                                      color: primaryColor01,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                      ],
-                    ),
+                        visible: childVisibility,
+                      ),
+                    ],
                   )),
               SizedBox(
                 height: 25,
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => securityquestions()),
-                  );
-                },
-                child: Container(
-                  width: double.infinity,
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  height: 50,
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [Color(0xff64436E), Color(0xffE36E9A)],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight),
-                      borderRadius: BorderRadius.circular(25)),
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Continue',
-                    style:
-                        TextStyle(color: Colors.white, fontFamily: 'WorkSans'),
-                  ),
-                ),
-              ),
+              shadowButton(onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => securityquestions()),
+                );
+              }, text: 'Continue'),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               Align(
                 alignment: Alignment.center,
-                child: Text(
-                  'Back',
-                  style: TextStyle(
-                      color: Color(0xff64436E),
-                      fontWeight: FontWeight.w600,
-                      fontStyle: FontStyle.normal),
+                child: GestureDetector(
+                  onTap: (){
+
+                  },
+                  child: Text(
+                    'Back',
+                    style: TextStyle(
+                        color: primaryColor01,
+                        fontWeight: FontWeight.w600,
+                        fontStyle: FontStyle.normal, fontSize: 16),
+                  ),
                 ),
               )
 

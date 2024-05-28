@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:peonyapp/store/noNotification.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -31,16 +33,27 @@ class _NotificationPageState extends State<NotificationPage> {
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
-                    Text(
-                      'Clear all',
-                      style: TextStyle(decoration: TextDecoration.underline),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => nonotification()),
+                        );
+                      },
+                      child: Text(
+                        'Clear all',
+                        style: TextStyle(decoration: TextDecoration.underline),
+                      ),
                     )
                   ],
                 ),
                 SizedBox(height: 10),
-                Text(
-                  'Here are some daily updates regarding your child',
-                  style: TextStyle(color: Color(0xFF737373)),
+                SizedBox(
+                  width: 300.w,
+                  child: Text(
+                    'Here are some daily updates regarding your child',
+                    style: TextStyle(color: Color(0xFF737373)),
+                  ),
                 ),
                 SizedBox(height: 15),
                 ListView.builder(
@@ -73,10 +86,10 @@ class _NotificationPageState extends State<NotificationPage> {
                               children: [
                                 Text(
                                   'Today',
-                                  style: TextStyle(color: Color(0xFF737373)),
+                                  style: TextStyle(color: Color(0xFF737373), fontSize: 12),
                                 ),
                                 Text('09:20am',
-                                    style: TextStyle(color: Color(0xFF737373))),
+                                    style: TextStyle(color: Color(0xFF737373),  fontSize: 12)),
                               ])
                         ],
                       ),

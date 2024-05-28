@@ -57,7 +57,7 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                   height: 250.h,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/images/header.png'),
+                      image: AssetImage('assets/images/headers.png'),
                       fit: BoxFit.fill, // Adjust this according to your needs
                     ),
                   ),
@@ -118,95 +118,86 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                 height: 140,
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  gradient: customGradient,
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: ClipRRect(
                                     borderRadius: BorderRadius.circular(15),
-                                    child: Container(
-                                      height: double.infinity,
-                                      width: double.infinity,
-                                      decoration: const BoxDecoration(
-                                          // borderRadius: BorderRadius.circular(15),
-                                          color: Color(0xffEAC7D4)),
-                                      child: CustomPaint(
-                                        painter: CustomCurvePainter(),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(12.0),
-                                          child: Row(
+                                  border: Border.all(
+                                    color: primaryColor01,
+                                    width: 1.0,
+                                    style: BorderStyle.solid
+                                  ),
+                                    color: const Color(0xffe2ecd6),
+                                ),
+                                child: CustomPaint(
+                                  painter: CustomCurvePainter(),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Row(
+                                      children: [
+                                        Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            SizedBox(
+                                              height: 100,
+                                              width: 100,
+                                              child:
+                                                  CircularProgressIndicator(
+                                                value: _animation.value,
+                                                strokeWidth: 13.0,
+                                                color: primaryColor01, //<-- SEE HERE
+                                                backgroundColor:
+                                                    const Color(0xffebfffd), //<-- SEE HERE
+                                              ),
+                                            ),
+                                            Text(
+                                              '${(_animation.value * 100).toStringAsFixed(0)}%',
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                      FontWeight.w600,
+                                                  fontSize: 24,
+                                                  color: black),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Flexible(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .spaceEvenly,
                                             children: [
-                                              Stack(
-                                                alignment: Alignment.center,
-                                                children: [
-                                                  SizedBox(
-                                                    height: 100,
-                                                    width: 100,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      value: _animation.value,
-                                                      strokeWidth: 13.0,
-                                                      color: const Color(
-                                                          0xffE36E9A), //<-- SEE HERE
-                                                      backgroundColor:
-                                                          white, //<-- SEE HERE
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    '${(_animation.value * 100).toStringAsFixed(0)}%',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize: 22,
-                                                        color: primaryColor01),
-                                                  ),
-                                                ],
+                                              Text(
+                                                'Pick Up Time - 1:00PM',
+                                                style: TextStyle(
+                                                    fontSize: 16.sp,
+                                                    fontWeight:
+                                                        FontWeight.w600,
+                                                    color:
+                                                        black),
                                               ),
-                                              const SizedBox(
-                                                width: 10,
+                                              Text(
+                                                'Monday, 26 Feb. 2024',
+                                                style: TextStyle(
+                                                    fontSize: 13.5.sp,
+                                                    fontWeight:
+                                                        FontWeight.w600,
+                                                    color: black03),
                                               ),
-                                              Flexible(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    Text(
-                                                      'Pick Up Time - 1:00PM',
-                                                      style: TextStyle(
-                                                          fontSize: 16.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              primaryColor01),
-                                                    ),
-                                                    Text(
-                                                      'Monday, 26 Feb. 2024',
-                                                      style: TextStyle(
-                                                          fontSize: 13.5.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: white),
-                                                    ),
-                                                    Text(
-                                                      'You have less than 4 hours left to pick up your child',
-                                                      style: TextStyle(
-                                                          fontSize: 13.5.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              primaryColor01),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
+                                              Text(
+                                                'You have less than 4 hours left to pick up your child',
+                                                style: TextStyle(
+                                                    fontSize: 13.5.sp,
+                                                    fontWeight:
+                                                        FontWeight.w600,
+                                                    color:
+                                                        black),
+                                              ),
                                             ],
                                           ),
-                                        ),
-                                      ),
+                                        )
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -254,8 +245,8 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(50),
-                                          color: transparent.withOpacity(0.8),
-                                          gradient: customGradient),
+                                          color: primaryColor01.withOpacity(0.8),
+                                          ),
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 8.0, horizontal: 16.0),
@@ -405,8 +396,8 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                     borderRadius: BorderRadius.circular(10),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: primaryColor01
-                                            .withOpacity(0.5), // Shadow color
+                                        color: black01
+                                            .withOpacity(0.2), // Shadow color
                                         offset: Offset(
                                             0.0, 7.0), // Offset from right
                                         blurRadius: 8, // Spread of the shadow
@@ -529,7 +520,7 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                 Icon(
                   Icons.access_time,
                   size: 20.sp,
-                  color: primaryColor01,
+                  color: black,
                 ),
                 SizedBox(
                   width: 5.w,
@@ -592,7 +583,7 @@ class CustomCurvePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
-      ..color = const Color(0xffE9BACC) // Change the color as needed
+      ..color = const Color(0xffdeebce) // Change the color as needed
       ..style = PaintingStyle.fill;
 
     Path path = Path()

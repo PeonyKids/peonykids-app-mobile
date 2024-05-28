@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../Screens/Account/account.dart';
 import '../Screens/Home/homepage.dart';
+import '../Styles/colors.dart';
 import '../home.dart';
 import '../notifications.dart';
 import '../store/storepage.dart';
@@ -23,11 +24,11 @@ class _bottomnavigationbarState extends State<bottomnavigationbar> {
         body: pages[selectedNumber],
         bottomNavigationBar: BottomNavigationBar(
           selectedFontSize: 13,
-          selectedItemColor: Color(0xff64436E),
+          selectedItemColor: black,
           unselectedItemColor: Color(0xFF404040),
           unselectedLabelStyle: TextStyle(color: Color(0xFF595959)),
           selectedLabelStyle:
-              TextStyle(color: Color(0xff64436E), fontWeight: FontWeight.bold),
+              TextStyle(color: black, fontWeight: FontWeight.bold),
           currentIndex: selectedNumber,
           type: BottomNavigationBarType.fixed,
           items: [
@@ -45,7 +46,7 @@ class _bottomnavigationbarState extends State<bottomnavigationbar> {
                 semanticsLabel: 'My SVG Image',
                 height: 25,
                 width: 25,
-                color: Color(0xff64436E),
+                color: black,
               ),
               label: 'Home',
             ),
@@ -61,7 +62,7 @@ class _bottomnavigationbarState extends State<bottomnavigationbar> {
                 semanticsLabel: 'My SVG Image',
                 height: 25,
                 width: 25,
-                color: Color(0xff64436E),
+                color: black,
               ),
               label: 'Store',
             ),
@@ -77,7 +78,7 @@ class _bottomnavigationbarState extends State<bottomnavigationbar> {
                 semanticsLabel: 'My SVG Image',
                 height: 25,
                 width: 25,
-                color: Color(0xff64436E),
+                color: black,
               ),
               label: 'Notification',
             ),
@@ -93,7 +94,7 @@ class _bottomnavigationbarState extends State<bottomnavigationbar> {
                 semanticsLabel: 'My SVG Image',
                 height: 25,
                 width: 25,
-                color: Color(0xff64436E),
+                color: black,
               ),
               label: 'Account',
             ),

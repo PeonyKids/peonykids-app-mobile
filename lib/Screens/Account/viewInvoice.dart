@@ -193,7 +193,7 @@ class _CheckInvoiceState extends State<CheckInvoice> {
                   color: white,
                   boxShadow: [
                     BoxShadow(
-                      color: primaryColor01.withOpacity(0.2), // Shadow color
+                      color: black01.withOpacity(0.1), // Shadow color
                       offset: Offset(0.0, 7.0), // Offset from right
                       blurRadius: 8, // Spread of the shadow
                       spreadRadius: 0.0,
@@ -209,7 +209,7 @@ class _CheckInvoiceState extends State<CheckInvoice> {
                         borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(15),
                             topLeft: Radius.circular(15)),
-                        color: pinky,
+                        color: lightest,
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 25),
                       child: Row(
@@ -277,14 +277,14 @@ class _CheckInvoiceState extends State<CheckInvoice> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(15)),
-                  color: Color(0xffF6F2F7),
+                  color: lightest,
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Row(
                   children: [
                     Icon(
                       Icons.info_outline,
-                      color: black,
+                      color: primaryColor01,
                     ),
                     SizedBox(
                       width: 8.0,
@@ -295,7 +295,7 @@ class _CheckInvoiceState extends State<CheckInvoice> {
                         style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
-                            color: black),
+                            color: primaryColor01),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),

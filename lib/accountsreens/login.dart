@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peonyapp/bottomnavigationbar/bottomnavigationbar.dart';
+import 'package:peonyapp/widgets.dart';
 
 import '../Styles/colors.dart';
 import 'forgotPassword.dart';
@@ -49,28 +50,30 @@ class _loginState extends State<login> {
               'Email',
               style: TextStyle(
                   fontWeight: FontWeight.w400,
-                  fontSize: 20,
-                  fontFamily: 'WorkSans'),
+                  fontSize: 20,),
             ),
             SizedBox(
               height: 5,
             ),
-            TextField(
-              decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.email,
-                    color: Color(0xff737373),
-                  ),
-                  hintText: 'Enter your email address',
-                  hintStyle: TextStyle(
-                      color: Color(0xff737373), fontFamily: 'WorkSans'),
-                  enabledBorder: OutlineInputBorder(
+            SizedBox(
+              height: 60,
+              child: TextField(
+                decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.email_outlined,
+                      color: Color(0xff737373),
+                    ),
+                    hintText: 'Enter your email address',
+                    hintStyle: TextStyle(
+                        color: Color(0xff737373), fontFamily: 'WorkSans'),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xffEDEDED)),
+                        borderRadius: BorderRadius.circular(10)),
+                    focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Color(0xffEDEDED)),
-                      borderRadius: BorderRadius.circular(10)),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xffEDEDED)),
-                    borderRadius: BorderRadius.circular(10),
-                  )),
+                      borderRadius: BorderRadius.circular(10),
+                    )),
+              ),
             ),
             SizedBox(
               height: 20,
@@ -79,25 +82,27 @@ class _loginState extends State<login> {
               'Password',
               style: TextStyle(
                   fontWeight: FontWeight.w400,
-                  fontSize: 20,
-                  fontFamily: 'WorkSans'),
+                  fontSize: 20,),
             ),
             SizedBox(
               height: 5,
             ),
-            TextField(
-              decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.lock, color: Color(0xff737373)),
-                  suffixIcon: Icon(Icons.visibility, color: Color(0xff737373)),
-                  hintText: 'Enter your password',
-                  hintStyle: TextStyle(
-                      color: Color(0xff737373), fontFamily: 'WorkSans'),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffEDEDED)),
-                      borderRadius: BorderRadius.circular(10)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffEDEDED)),
-                      borderRadius: BorderRadius.circular(10))),
+            SizedBox(
+              height: 60,
+              child: TextField(
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.lock_outlined, color: Color(0xff737373)),
+                    suffixIcon: Icon(Icons.visibility_outlined, color: Color(0xff737373)),
+                    hintText: 'Enter your password',
+                    hintStyle: TextStyle(
+                        color: Color(0xff737373), fontFamily: 'WorkSans'),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xffEDEDED)),
+                        borderRadius: BorderRadius.circular(10)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xffEDEDED)),
+                        borderRadius: BorderRadius.circular(10))),
+              ),
             ),
             SizedBox(
               height: 10,
@@ -111,35 +116,18 @@ class _loginState extends State<login> {
                 },
                 child: Text(
                   'Forgot Password?',
-                  style: TextStyle(fontSize: 17),
+                  style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400,),
                 )),
             SizedBox(
-              height: 30,
+              height: 50,
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => bottomnavigationbar()),
-                );
-              },
-              child: Container(
-                width: double.infinity,
-                height: 50,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xff64436E), Color(0xffE36E9A)],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight),
-                    borderRadius: BorderRadius.circular(25)),
-                alignment: Alignment.center,
-                child: Text(
-                  'Continue',
-                  style: TextStyle(color: Colors.white, fontFamily: 'WorkSans'),
-                ),
-              ),
-            ),
+            normalButton(onTap: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => bottomnavigationbar()),
+              );
+            }, text: 'Continue'),
             SizedBox(
               height: 20,
             ),
@@ -156,7 +144,7 @@ class _loginState extends State<login> {
                 Text(
                   'Sign up',
                   style: TextStyle(
-                      color: Color(0xff64436E), fontWeight: FontWeight.bold),
+                      color: primaryColor01, fontWeight: FontWeight.bold,  fontSize: 15),
                 )
               ],
             )
@@ -165,4 +153,6 @@ class _loginState extends State<login> {
       )),
     );
   }
+
+
 }

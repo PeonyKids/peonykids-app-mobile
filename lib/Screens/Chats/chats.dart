@@ -234,13 +234,9 @@ class _MessageBubbleState extends State<MessageBubble> {
                                 color: transparent,
                                 width: 2.0,
                               ),
-                              gradient: id == widget.Uid
-                                  ? customGradient
-                                  : LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                      colors: [white03, white03],
-                                    ),
+                              color: id == widget.Uid
+                                  ? primaryColor01
+                                  : white03,
                             ),
                             child: Text(
                               widget.text,

@@ -20,7 +20,7 @@ class _ordersState extends State<orders> {
         centerTitle: true,
         iconTheme: IconThemeData(color: white), // Set the icon color to white
         elevation: 0,
-        backgroundColor: white04,
+        // backgroundColor: white04,
         leading: GestureDetector(
           onTap: () {},
           child: Padding(
@@ -50,24 +50,34 @@ class _ordersState extends State<orders> {
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: GestureDetector(
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
+                      return GestureDetector(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => Theme(
+                                data: ThemeData(
+                                  dialogTheme: DialogTheme(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                  ),
+                                ),
+                                child: AlertDialog(
+                                      // shape: RoundedRectangleBorder(
+                                      //     borderRadius:
+                                      //         BorderRadius.circular(10)),
                                       surfaceTintColor: Colors.white,
-                                      content: IntrinsicHeight(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 70, vertical: 20),
+                                  content: IntrinsicHeight(
                                         child: SizedBox(
                                           child: Column(
                                             children: [
-                                              Text('Product Details'),
+                                              Text('Product Details', style: TextStyle(
+                                                fontSize: 18, fontWeight: FontWeight.w700
+                                              ),),
                                               SizedBox(
-                                                height: 5,
+                                                height: 10,
                                               ),
                                               Image(
                                                 image: AssetImage(
@@ -75,8 +85,13 @@ class _ordersState extends State<orders> {
                                                 width: 90,
                                                 height: 90,
                                               ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
                                               Text(
-                                                  'PJ Masks Children Hooded T-Shirt'),
+                                                  'PJ Masks Children Hooded T-Shirt', style: TextStyle(
+                                                  fontSize: 15, fontWeight: FontWeight.w400
+                                              ),),
                                               SizedBox(
                                                 height: 10,
                                               ),
@@ -245,8 +260,18 @@ class _ordersState extends State<orders> {
                                           ),
                                         ),
                                       ),
-                                    ));
-                          },
+                                    ),
+                              ));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: black03, width: 0.3
+                              )
+                            ),
+                          ),
+                          padding: EdgeInsets.symmetric(vertical: 20),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -266,15 +291,15 @@ class _ordersState extends State<orders> {
                                     Text(
                                       'PJ Masks Children Hooded T-Shirt',
                                       maxLines: 2,
-                                      style: TextStyle(
+                                      style: TextStyle(fontSize: 13,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
                                       'N10,000',
                                       maxLines: 2,
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 12),
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 14),
                                     ),
                                     SizedBox(
                                       height: 5,
@@ -284,8 +309,8 @@ class _ordersState extends State<orders> {
                                         Image(
                                           image: AssetImage(
                                               'assets/images/motor.png'),
-                                          width: 10,
-                                          height: 10,
+                                          width: 20,
+                                          height: 20,
                                         ),
                                         SizedBox(
                                           width: 5,
@@ -293,7 +318,7 @@ class _ordersState extends State<orders> {
                                         Text(
                                           'Pick up at Peony',
                                           style: TextStyle(
-                                              color: Color(0xFF64436E)),
+                                              color: primaryColor01),
                                         )
                                       ],
                                     )
@@ -305,6 +330,9 @@ class _ordersState extends State<orders> {
                                   children: [
                                     Row(
                                       children: [
+                                        SizedBox(
+                                          width: 5,
+                                        ),
                                         CircleAvatar(
                                           backgroundColor: Color(0xFFE36E9A),
                                           radius: 5,
@@ -314,8 +342,8 @@ class _ordersState extends State<orders> {
                                         ),
                                         Text(
                                           'Delivered',
-                                          style: TextStyle(
-                                              color: Color(0xFF737373)),
+                                          style: TextStyle(fontSize: 13,
+                                            fontWeight: FontWeight.w400, color: Color(0xFF737373)),
                                         ),
                                       ],
                                     ),

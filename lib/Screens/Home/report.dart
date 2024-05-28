@@ -24,9 +24,9 @@ class _ReportpageState extends State<Reportpage> {
     ];
 
     return Scaffold(
-      backgroundColor: white,
+      backgroundColor: white04,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: white), // Set the icon color to white
+        iconTheme: IconThemeData(color: white04), // Set the icon color to white
         elevation: 0,
         backgroundColor: white,
         leading: GestureDetector(
@@ -218,7 +218,7 @@ class _ReportpageState extends State<Reportpage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         activity(
-                          acts: 'assets/icons/cook.svg',
+                          acts: 'assets/icons/Frame 33.svg',
                           text: 'Meals',
                         ),
                         SizedBox(
@@ -231,10 +231,9 @@ class _ReportpageState extends State<Reportpage> {
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
                               BoxShadow(
-                                color: primaryColor01
-                                    .withOpacity(0.2), // Shadow color
+                                color: black02.withOpacity(0.1), // Shadow color
                                 offset: Offset(0.0, 7.0), // Offset from right
-                                blurRadius: 8, // Spread of the shadow
+                                blurRadius: 12, // Spread of the shadow
                                 spreadRadius: 0.0,
                               ),
                             ],
@@ -298,7 +297,7 @@ class _ReportpageState extends State<Reportpage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         activity(
-                          acts: 'assets/icons/sleepy.svg',
+                          acts: 'assets/icons/Frame 32.svg',
                           text: 'Nap Time',
                         ),
                         SizedBox(
@@ -311,10 +310,9 @@ class _ReportpageState extends State<Reportpage> {
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
                               BoxShadow(
-                                color: primaryColor01
-                                    .withOpacity(0.2), // Shadow color
+                                color: black02.withOpacity(0.1), // Shadow color
                                 offset: Offset(0.0, 7.0), // Offset from right
-                                blurRadius: 8, // Spread of the shadow
+                                blurRadius: 12, // Spread of the shadow
                                 spreadRadius: 0.0,
                               ),
                             ],
@@ -350,7 +348,7 @@ class _ReportpageState extends State<Reportpage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         activity(
-                          acts: 'assets/icons/blast.svg',
+                          acts: 'assets/icons/Frame 32-1.svg',
                           text: 'Diaper Time',
                         ),
                         SizedBox(
@@ -363,10 +361,9 @@ class _ReportpageState extends State<Reportpage> {
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
                               BoxShadow(
-                                color: primaryColor01
-                                    .withOpacity(0.2), // Shadow color
+                                color: black02.withOpacity(0.1), // Shadow color
                                 offset: Offset(0.0, 7.0), // Offset from right
-                                blurRadius: 8, // Spread of the shadow
+                                blurRadius: 12, // Spread of the shadow
                                 spreadRadius: 0.0,
                               ),
                             ],
@@ -406,7 +403,7 @@ class _ReportpageState extends State<Reportpage> {
                               color: transparent,
                               border: Border.all(
                                   width: 1.0,
-                                  color: black03,
+                                  color: primaryColor01,
                                   style: BorderStyle.solid)),
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
@@ -539,7 +536,7 @@ class _ReportpageState extends State<Reportpage> {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: pinky,
+        color: lightest,
       ),
       child: Table(
         children: [
@@ -638,7 +635,7 @@ class _ReportpageState extends State<Reportpage> {
         // width: mood ? 150 : 110,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50),
-            color: mood ? purplish : transparent,
+            color: mood ? lightish : transparent,
             border: Border.all(
                 width: 1.0,
                 color: mood ? primaryColor01 : black,

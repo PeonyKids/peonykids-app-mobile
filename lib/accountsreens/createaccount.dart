@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peonyapp/accountsreens/weSentAnOtp.dart';
+import 'package:peonyapp/widgets.dart';
 
 import '../Styles/colors.dart';
 
@@ -55,22 +56,25 @@ class _createaccountState extends State<createaccount> {
             SizedBox(
               height: 5,
             ),
-            TextField(
-              decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.email,
-                    color: Color(0xff737373),
-                  ),
-                  hintText: 'Enter your email address',
-                  hintStyle: TextStyle(
-                      color: Color(0xff737373), fontFamily: 'WorkSans'),
-                  enabledBorder: OutlineInputBorder(
+            SizedBox(
+              height: 60,
+              child: TextField(
+                decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.email_outlined,
+                      color: Color(0xff737373),
+                    ),
+                    hintText: 'Enter your email address',
+                    hintStyle: TextStyle(
+                        color: Color(0xff737373), fontFamily: 'WorkSans'),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xffEDEDED)),
+                        borderRadius: BorderRadius.circular(10)),
+                    focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Color(0xffEDEDED)),
-                      borderRadius: BorderRadius.circular(10)),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xffEDEDED)),
-                    borderRadius: BorderRadius.circular(10),
-                  )),
+                      borderRadius: BorderRadius.circular(10),
+                    )),
+              ),
             ),
             SizedBox(
               height: 20,
@@ -85,19 +89,22 @@ class _createaccountState extends State<createaccount> {
             SizedBox(
               height: 5,
             ),
-            TextField(
-              decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.lock, color: Color(0xff737373)),
-                  suffixIcon: Icon(Icons.visibility, color: Color(0xff737373)),
-                  hintText: 'Enter your password',
-                  hintStyle: TextStyle(
-                      color: Color(0xff737373), fontFamily: 'WorkSans'),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffEDEDED)),
-                      borderRadius: BorderRadius.circular(10)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffEDEDED)),
-                      borderRadius: BorderRadius.circular(10))),
+            SizedBox(
+              height: 60,
+              child: TextField(
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.lock_outlined, color: Color(0xff737373)),
+                    suffixIcon: Icon(Icons.visibility_outlined, color: Color(0xff737373)),
+                    hintText: 'Enter your password',
+                    hintStyle: TextStyle(
+                        color: Color(0xff737373), fontFamily: 'WorkSans'),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xffEDEDED)),
+                        borderRadius: BorderRadius.circular(10)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xffEDEDED)),
+                        borderRadius: BorderRadius.circular(10))),
+              ),
             ),
             SizedBox(
               height: 20,
@@ -112,50 +119,52 @@ class _createaccountState extends State<createaccount> {
             SizedBox(
               height: 5,
             ),
-            TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                  suffixIcon:
-                      Icon(Icons.visibility_off, color: Color(0xff737373)),
-                  prefixIcon: Icon(
-                    Icons.email,
-                    color: Color(0xff737373),
-                  ),
-                  hintText: 'Retype your passwod',
-                  hintStyle: TextStyle(
-                      color: Color(0xff737373), fontFamily: 'WorkSans'),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffEDEDED)),
-                      borderRadius: BorderRadius.circular(10)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffEDEDED)),
-                      borderRadius: BorderRadius.circular(10))),
+            SizedBox(
+              height: 60,
+              child: TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.lock_outlined, color: Color(0xff737373)),
+                    suffixIcon: Icon(Icons.visibility_outlined, color: Color(0xff737373)),
+                    hintText: 'Retype your passwod',
+                    hintStyle: TextStyle(
+                        color: Color(0xff737373), fontFamily: 'WorkSans'),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xffEDEDED)),
+                        borderRadius: BorderRadius.circular(10)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xffEDEDED)),
+                        borderRadius: BorderRadius.circular(10))),
+              ),
             ),
             SizedBox(
               height: 30,
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => otp()),
-                );
-              },
-              child: Container(
-                width: double.infinity,
-                height: 50,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xff64436E), Color(0xffE36E9A)],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight),
-                    borderRadius: BorderRadius.circular(25)),
-                alignment: Alignment.center,
-                child: Text(
-                  'Next',
-                  style: TextStyle(color: Colors.white, fontFamily: 'WorkSans'),
+            shadowButton(onTap: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => otp()),
+              );
+            }, text: 'Next'),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "You already an account?",
+                  style: TextStyle(color: black03),
                 ),
-              ),
+                SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  'Login',
+                  style: TextStyle(
+                      color: primaryColor01, fontWeight: FontWeight.bold,  fontSize: 15),
+                )
+              ],
             )
           ],
         ),

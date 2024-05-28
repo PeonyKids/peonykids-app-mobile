@@ -13,13 +13,14 @@ import 'package:peonyapp/store/orderscollection.dart';
 
 import 'Screens/Chats/chats.dart';
 import 'Screens/Splashscreens/onboard.dart';
+import 'Screens/Splashscreens/splashscreen.dart';
 import 'accountsreens/weSentAnOtp.dart';
 
 class routeManager {
   static const String homePageOne = '/';
   static const String onboarding = '/onBoard';
   static const String weSentAnOtp = '/weSentAnOtp';
-  static const String spalshScreenThree = '/splashScreenThree';
+  static const String splashScreen = '/splashscreen';
   static const String splashScreenFour = '/splashScreenFour';
   static const String splashScreenFive = '/splashScreenFive';
   static const String getStarted = '/getStarted';
@@ -44,7 +45,8 @@ class routeManager {
         return MaterialPageRoute(builder: ((context) => Chats()));
       case weSentAnOtp:
         return MaterialPageRoute(builder: ((context) => otp()));
-
+      case splashScreen:
+        return MaterialPageRoute(builder: ((context) => SplashScreen()));
       default:
         throw const FormatException('no route found');
     }

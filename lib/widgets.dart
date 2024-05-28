@@ -46,11 +46,11 @@ GestureDetector reuseButton(
       // width: 100,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
-        color: transparent.withOpacity(0.8),
-        gradient: customGradient,
+        color: primaryColor01,
+
         boxShadow: [
           BoxShadow(
-            color: primaryColor01.withOpacity(0.4), // Shadow color
+            color: black01.withOpacity(0.2), // Shadow color
             offset: Offset(0.0, 7.0), // Offset from right
             blurRadius: 8, // Spread of the shadow
             spreadRadius: 0.0,
@@ -66,6 +66,54 @@ GestureDetector reuseButton(
                 fontSize: 14, fontWeight: FontWeight.w600, color: white),
           ),
         ),
+      ),
+    ),
+  );
+}
+
+GestureDetector normalButton ({required VoidCallback onTap, required String text}){
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      width: double.infinity,
+      height: 50,
+      decoration: BoxDecoration(
+          color: primaryColor01,
+          borderRadius: BorderRadius.circular(25)),
+      alignment: Alignment.center,
+      child: Text(
+        text,
+        style: TextStyle(color: Colors.white, fontFamily: 'WorkSans', fontSize: 16, fontWeight: FontWeight.w600),
+      ),
+    ),
+  );
+}
+
+
+GestureDetector shadowButton ({required VoidCallback onTap, required String text}){
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      height: 50,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        color: primaryColor01,
+        boxShadow: [
+          BoxShadow(
+            color: black01.withOpacity(0.3), // Shadow color
+            offset: Offset(0.0, 7.0), // Offset from right
+            blurRadius: 8, // Spread of the shadow
+            spreadRadius: 0.0,
+          ),
+        ],
+      ),
+      child: Center(
+          child: Text(text,
+            style: TextStyle(
+                color: white,
+                fontWeight: FontWeight.w600,
+                fontSize: 16),)
       ),
     ),
   );

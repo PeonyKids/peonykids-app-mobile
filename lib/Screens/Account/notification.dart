@@ -58,7 +58,7 @@ class _NotifyState extends State<Notify> {
                     activeColor: white,
                     inactiveTrackColor: black03,
                     inactiveThumbColor: white,
-                    activeTrackColor: purps,
+                    activeTrackColor: primaryColor01,
                     thumbIcon: MaterialStateProperty.resolveWith<Icon?>(
                       (Set<MaterialState> states) {
                         double size = 24.0; // Default size
@@ -102,7 +102,7 @@ class _NotifyState extends State<Notify> {
                     activeColor: white,
                     inactiveTrackColor: black03,
                     inactiveThumbColor: white,
-                    activeTrackColor: purps,
+                    activeTrackColor: primaryColor01,
                     thumbIcon: MaterialStateProperty.resolveWith<Icon?>(
                       (Set<MaterialState> states) {
                         double size = 24.0; // Default size

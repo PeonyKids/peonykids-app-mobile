@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-Color primaryColor01 = const Color(0xff64436E);
+Color primaryColor01 = const Color(0xff00C0B0);
 
-Color primaryColor02 = const Color(0xffE36E9A);
+Color primaryColor02 = const Color(0xffC8E9A0);
 
 Color purple = const Color(0xffABAAD5);
 
@@ -42,10 +42,20 @@ Color grey2 = const Color(0xffCBCBCC);
 
 Color purplish = const Color(0xffF6F2F7);
 
+Color lightish = const Color(0xfff5fffe);
+
+Color lightest = const Color(0xffebfffd);
+
 Color transparent = Colors.transparent;
 
 final LinearGradient customGradient = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
   colors: [primaryColor01, primaryColor02],
+);
+
+final LinearGradient customGradient01 = LinearGradient(
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+  colors: [primaryColor01, primaryColor01],
 );

@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:peonyapp/Screens/Account/viewInvoice.dart';
 import 'package:peonyapp/Styles/colors.dart';
 
+import '../../store/orders.dart';
 import 'changePassword.dart';
 import 'checkIn.dart';
 import 'editProfile.dart';
@@ -145,11 +146,11 @@ class _AccountPageState extends State<AccountPage> {
               height: 25,
             ),
             Container(
-              height: 100,
+              height: 80,
               // width: 100,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  gradient: customGradient),
+                  color: primaryColor01.withOpacity(0.9)),
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Row(
@@ -204,7 +205,7 @@ class _AccountPageState extends State<AccountPage> {
                           child: Text(
                             'View Invoice',
                             style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: primaryColor01),
                           ),
@@ -232,6 +233,14 @@ class _AccountPageState extends State<AccountPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => EditProfile()),
+                  );
+                }),
+            profiles(
+                text: 'My Orders',
+                tap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => orders()),
                   );
                 }),
             profiles(

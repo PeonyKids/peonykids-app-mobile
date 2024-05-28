@@ -15,16 +15,20 @@ class _nonotificationState extends State<nonotification> {
       body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15.w),
+            padding: EdgeInsets.all(16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: 10,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'Notification',
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
                     Text(
                       'Clear all',
@@ -33,15 +37,18 @@ class _nonotificationState extends State<nonotification> {
                   ],
                 ),
                 SizedBox(height: 10),
-                Text(
-                  'Here are some daily updates regarding your child',
-                  style: TextStyle(color: Color(0xFF737373)),
+                SizedBox(
+                  width: 300.w,
+                  child: Text(
+                    'Here are some daily updates regarding your child',
+                    style: TextStyle(color: Color(0xFF737373)),
+                  ),
                 ),
                 SizedBox(height: 15),
                 Expanded(
                     child: Container(
                   alignment: Alignment.center,
-                  child: Image(image: AssetImage('assets/images/no-noti.png')),
+                  child: Image(image: AssetImage('assets/images/no-noti.png',), height: 180, width: 180,),
                 ))
               ],
             ),

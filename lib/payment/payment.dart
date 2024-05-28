@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:peonyapp/widgets.dart';
+
+import '../Styles/colors.dart';
 
 // ignore: camel_case_types
 class payments extends StatefulWidget {
@@ -46,13 +50,13 @@ class _paymentsState extends State<payments> {
                       SizedBox(
                         height: 10,
                       ),
-                      Text('Payment Successful!'),
+                      Text('Payment Successful!', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),),
                       SizedBox(
                         height: 10,
                       ),
                       Text(
                         'N30,000',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                       )
                     ],
                   ),
@@ -75,7 +79,7 @@ class _paymentsState extends State<payments> {
                               alignment: Alignment.center,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                  color: Color(0xFFEDEDED),
+                                  color: grey,
                                   borderRadius: BorderRadius.circular(10)),
                               child: Text('Payment Details'),
                             ),
@@ -150,8 +154,8 @@ class _paymentsState extends State<payments> {
                                       backgroundColor: Color(0xFFEEFBF6)),
                                   onPressed: () {},
                                   child: Text(
-                                    'success',
-                                    style: TextStyle(color: Color(0xFF23A26D)),
+                                    'Success',
+                                    style: TextStyle(color: Color(0xFF23A26D), fontWeight: FontWeight.bold),
                                   ),
                                 )
                               ],
@@ -163,57 +167,57 @@ class _paymentsState extends State<payments> {
                   ),
                   SizedBox(height: 10,),
                   SizedBox(
-                    height: 120,
+
                     width: double.infinity,
                     child: Card(
                       elevation: 4,
                       surfaceTintColor: Colors.white,
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundColor: Color(0xFFF6F2F7),
-                            child: Image(image: AssetImage('assets/images/material-symbols_contact-support-rounded.png'))),
+                          backgroundColor: pink.withOpacity(0.2),
+                            child: Image(image: AssetImage('assets/images/contact-support.png'), height: 24, width: 24,)),
                         title: Text('Trouble With Your Payment?'),
                         subtitle: Text('Let us know on help center now!'),
                         trailing: Icon(Icons.arrow_forward_ios),
                       ),
                     ),
                   ),
-                  SizedBox(height: 10,),
-
+                  SizedBox(height: 30,),
                   Container(
                     width: double.infinity,
                     height: 50,
-                    margin: EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xffE36E9A)),
-                        borderRadius: BorderRadius.circular(25)
-                    ),
-                    alignment: Alignment.center,
+                        borderRadius: BorderRadius.circular(50),
+                        color: transparent,
+                        border: Border.all(
+                            width: 0.3,
+                            color: primaryColor01,
+                            style: BorderStyle.solid)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image(image: AssetImage('assets/images/tabler_download.png')),
-                        SizedBox(width: 5,),
-                        Text('Download PDF',style: TextStyle(color: Color(0xFF9D74AA),fontFamily: 'WorkSans',fontWeight: FontWeight.bold),),
+                        Icon(
+                          Icons.file_download_outlined,
+                          size: 35,
+                          color: primaryColor01,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          'Download PDF',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: primaryColor01),
+                        )
                       ],
                     ),
                   ),
-                  SizedBox(height: 10,),
-                  Container(
-                    width: double.infinity,
-                    height: 50,
-                    margin: EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(colors: [Color(0xFF9D74AA), Color(0xffE36E9A)],
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight
-                        ),
-                        borderRadius: BorderRadius.circular(25)
-                    ),
-                    alignment: Alignment.center,
-                    child: Text('Back to Home',style: TextStyle(color: Colors.white,fontFamily: 'WorkSans'),),
-                  ),
+                  SizedBox(height: 20,),
+                  shadowButton(onTap: (){
 
+                  }, text: 'Back to Home'),
                   SizedBox(height: 10,)
 
                 ],
