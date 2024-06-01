@@ -109,6 +109,7 @@ class _createaccountState extends State<createaccount> {
                       height: 60,
                       child: TextField(
                         controller: _passwordController,
+                        obscureText: true,
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.lock_outlined, color: Color(0xff737373)),
                             suffixIcon: Icon(Icons.visibility_outlined, color: Color(0xff737373)),
@@ -144,7 +145,7 @@ class _createaccountState extends State<createaccount> {
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.lock_outlined, color: Color(0xff737373)),
                             suffixIcon: Icon(Icons.visibility_outlined, color: Color(0xff737373)),
-                            hintText: 'Retype your passwod',
+                            hintText: 'Retype your password',
                             hintStyle: TextStyle(
                                 color: Color(0xff737373), fontFamily: 'WorkSans'),
                             enabledBorder: OutlineInputBorder(
@@ -173,9 +174,8 @@ class _createaccountState extends State<createaccount> {
                       height: 60,
                       child: TextField(
                         controller: _firstNameController,
-                        obscureText: true,
                         decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.person, color: Color(0xff737373)),
+                            prefixIcon: Icon(Icons.person_outline_outlined, color: Color(0xff737373)),
 
                             hintText: 'FirstName',
                             hintStyle: TextStyle(
@@ -203,9 +203,8 @@ class _createaccountState extends State<createaccount> {
                       height: 60,
                       child: TextField(
                         controller: _lastNameController,
-                        obscureText: true,
                         decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.person, color: Color(0xff737373)),
+                            prefixIcon: Icon(Icons.person_outline_outlined, color: Color(0xff737373)),
 
                             hintText: 'LastName',
                             hintStyle: TextStyle(
@@ -233,9 +232,8 @@ class _createaccountState extends State<createaccount> {
                       height: 60,
                       child: TextField(
                         controller: _numberController,
-                        obscureText: true,
                         decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.phone, color: Color(0xff737373)),
+                            prefixIcon: Icon(Icons.local_phone_outlined, color: Color(0xff737373)),
 
                             hintText: 'Phone Number',
                             hintStyle: TextStyle(
@@ -248,9 +246,12 @@ class _createaccountState extends State<createaccount> {
                                 borderRadius: BorderRadius.circular(10))),
                       ),
                     ),
-
-
-                    Text(errorInput),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(errorInput, style: TextStyle(
+                      color: Colors.red
+                    ),),
                     SizedBox(
                       height: 30,
                     ),
@@ -263,7 +264,7 @@ class _createaccountState extends State<createaccount> {
                         value.verifyEmail();
                       } else{
                         setState(() {
-                          errorInput  = 'Fill in all inputs';
+                          errorInput  = 'Pls fill in all inputs!';
                         });
 
                       }

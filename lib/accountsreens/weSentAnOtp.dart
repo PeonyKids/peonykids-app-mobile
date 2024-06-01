@@ -56,7 +56,7 @@ class _otpState extends State<otp> {
               return SafeArea(
                   top: true,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -469,17 +469,22 @@ class _otpState extends State<otp> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 10,),
-                        Text(value.statusVerifyPhone),
-
+                        SizedBox(height: 30,),
+                        Text(value.statusVerifyPhone, style: TextStyle(
+                          color: Colors.red
+                          ),
+                        ),
                         SizedBox(
                           height: 35,
                         ),
                         Align(
                             alignment: Alignment.topLeft,
-                            child: Text(
-                              "Didn't receive an email?",
-                              style: TextStyle(color: Colors.black),
+                            child: GestureDetector(
+                              onTap: value.verifyEmail,
+                              child: Text(
+                                "Didn't receive an email? Resend Email",
+                                style: TextStyle(color: Colors.black, decoration: TextDecoration.underline),
+                              ),
                             )),
                         SizedBox(
                           height: 25,
