@@ -217,7 +217,7 @@ class _paymentsState extends State<payments> {
                   SizedBox(height: 20,),
                   shadowButton(onTap: (){
 
-                  }, text: 'Back to Home'),
+                  }, text: 'Back to Home', color: primaryColor01),
                   SizedBox(height: 10,)
 
                 ],

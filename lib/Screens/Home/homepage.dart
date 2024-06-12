@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:peonyapp/Screens/Home/report.dart';
+import 'package:peonyapp/stateManagement/providers.dart';
+import 'package:provider/provider.dart';
 
 import '../../Styles/colors.dart';
 import 'check-in.dart';
@@ -44,414 +46,424 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
+    // 'Macdonald • Ben • Anne'
+
     return Scaffold(
       backgroundColor: white,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              ClipPath(
-                clipper: BottomClipper(),
-                child: Container(
-                  width: double.infinity,
-                  height: 250.h,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/headers.png'),
-                      fit: BoxFit.fill, // Adjust this according to your needs
+          child: Consumer<MainState>(
+            builder: (context, value, child) {
+
+              String name = '${value.Name} ${value.Surname}';
+
+              return Stack(
+                children: [
+                  ClipPath(
+                    clipper: BottomClipper(),
+                    child: Container(
+                      width: double.infinity,
+                      height: 250.h,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/headers.png'),
+                          fit: BoxFit.fill, // Adjust this according to your needs
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 33.h),
-                        child: Container(
-                          decoration: BoxDecoration(color: transparent),
-                          width: double.infinity,
-                          // padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 33.h),
+                            child: Container(
+                              decoration: BoxDecoration(color: transparent),
+                              width: double.infinity,
+                              // padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  const Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Macdonald • Ben • Anne',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      SizedBox(height: 8),
-                                      Text(
-                                        'PeonyKids Daycare School',
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ],
-                                  ),
-                                  SvgPicture.asset(
-                                    'assets/icons/Frame 9.svg',
-                                    semanticsLabel: 'My SVG Image',
-                                    height: 55.h,
-                                    width: 55.w,
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                height: 140,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(
-                                    color: primaryColor01,
-                                    width: 1.0,
-                                    style: BorderStyle.solid
-                                  ),
-                                    color: const Color(0xffe2ecd6),
-                                ),
-                                child: CustomPaint(
-                                  painter: CustomCurvePainter(),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: Row(
-                                      children: [
-                                        Stack(
-                                          alignment: Alignment.center,
-                                          children: [
-                                            SizedBox(
-                                              height: 100,
-                                              width: 100,
-                                              child:
-                                                  CircularProgressIndicator(
-                                                value: _animation.value,
-                                                strokeWidth: 13.0,
-                                                color: primaryColor01, //<-- SEE HERE
-                                                backgroundColor:
-                                                    const Color(0xffebfffd), //<-- SEE HERE
-                                              ),
-                                            ),
-                                            Text(
-                                              '${(_animation.value * 100).toStringAsFixed(0)}%',
-                                              style: TextStyle(
-                                                  fontWeight:
-                                                      FontWeight.w600,
-                                                  fontSize: 24,
-                                                  color: black),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Flexible(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceEvenly,
-                                            children: [
-                                              Text(
-                                                'Pick Up Time - 1:00PM',
-                                                style: TextStyle(
-                                                    fontSize: 16.sp,
-                                                    fontWeight:
-                                                        FontWeight.w600,
-                                                    color:
-                                                        black),
-                                              ),
-                                              Text(
-                                                'Monday, 26 Feb. 2024',
-                                                style: TextStyle(
-                                                    fontSize: 13.5.sp,
-                                                    fontWeight:
-                                                        FontWeight.w600,
-                                                    color: black03),
-                                              ),
-                                              Text(
-                                                'You have less than 4 hours left to pick up your child',
-                                                style: TextStyle(
-                                                    fontSize: 13.5.sp,
-                                                    fontWeight:
-                                                        FontWeight.w600,
-                                                    color:
-                                                        black),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        'Daily Check In/Out',
-                                        style: TextStyle(
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: black),
-                                      ),
-                                      Text(
-                                        'Check In by 8:00am required',
-                                        style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w400,
-                                            color: black),
-                                      ),
-                                    ],
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => CheckIn()),
-                                      );
-                                    },
-                                    child: Container(
-                                      // height: 40,
-                                      // width: 100,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                          color: primaryColor01.withOpacity(0.8),
-                                          ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8.0, horizontal: 16.0),
-                                        child: Center(
-                                          child: Text(
-                                            'Check In',
+                                       Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            name,
                                             style: TextStyle(
-                                                fontSize: 16.sp,
-                                                fontWeight: FontWeight.w600,
-                                                color: white),
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600),
                                           ),
-                                        ),
+                                          SizedBox(height: 8),
+                                          Text(
+                                            'PeonyKids Daycare School',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Divider(
-                                // height: 12,
-                                color: black03,
-                                thickness: 0.3,
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Container(
-                                // height: 50,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    color: transparent,
-                                    border: Border.all(
-                                        width: 0.3,
-                                        color: black03,
-                                        style: BorderStyle.solid)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Macdonald',
-                                        style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: black),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Icon(
-                                        Icons.keyboard_arrow_down_rounded,
-                                        size: 35,
+                                      SvgPicture.asset(
+                                        'assets/icons/Frame 9.svg',
+                                        semanticsLabel: 'My SVG Image',
+                                        height: 55.h,
+                                        width: 55.w,
                                       )
                                     ],
                                   ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  RichText(
-                                    text: TextSpan(
-                                      text: "26",
-                                      style: TextStyle(
-                                          fontSize: 25.sp,
-                                          fontWeight: FontWeight.w700,
-                                          color: black),
-                                      children: [
-                                        WidgetSpan(
-                                          child: SizedBox(
-                                            width: 10.w,
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: 'Feb Activities',
-                                          style: TextStyle(
-                                              fontSize: 20.sp,
-                                              fontWeight: FontWeight.w400,
-                                              color: black),
-                                        )
-                                      ],
-                                    ),
+                                  SizedBox(
+                                    height: 10,
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Reportpage()),
-                                      );
-                                    },
-                                    child: Container(
-                                      // height: 40,
-                                      // width: 100,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                          color: transparent,
-                                          border: Border.all(
-                                              width: 0.3,
-                                              color: black03,
-                                              style: BorderStyle.solid)),
+                                  Container(
+                                    height: 140,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(
+                                        color: primaryColor01,
+                                        width: 1.0,
+                                        style: BorderStyle.solid
+                                      ),
+                                        color: const Color(0xffe2ecd6),
+                                    ),
+                                    child: CustomPaint(
+                                      painter: CustomCurvePainter(),
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8.0, horizontal: 12.0),
+                                        padding: const EdgeInsets.all(12.0),
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
                                           children: [
-                                            Icon(
-                                              Icons.analytics_outlined,
-                                              size: 30,
-                                              color: primaryColor01,
+                                            Stack(
+                                              alignment: Alignment.center,
+                                              children: [
+                                                SizedBox(
+                                                  height: 100,
+                                                  width: 100,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    value: _animation.value,
+                                                    strokeWidth: 13.0,
+                                                    color: primaryColor01, //<-- SEE HERE
+                                                    backgroundColor:
+                                                        const Color(0xffebfffd), //<-- SEE HERE
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '${(_animation.value * 100).toStringAsFixed(0)}%',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 24,
+                                                      color: black),
+                                                ),
+                                              ],
                                             ),
-                                            SizedBox(
-                                              width: 5,
+                                            const SizedBox(
+                                              width: 10,
                                             ),
-                                            Text(
-                                              'Child’s Report',
-                                              style: TextStyle(
-                                                  fontSize: 16.sp,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: primaryColor01),
+                                            Flexible(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Text(
+                                                    'Pick Up Time - 1:00PM',
+                                                    style: TextStyle(
+                                                        fontSize: 16.sp,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            black),
+                                                  ),
+                                                  Text(
+                                                    'Monday, 26 Feb. 2024',
+                                                    style: TextStyle(
+                                                        fontSize: 13.5.sp,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: black03),
+                                                  ),
+                                                  Text(
+                                                    'You have less than 4 hours left to pick up your child',
+                                                    style: TextStyle(
+                                                        fontSize: 13.5.sp,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            black),
+                                                  ),
+                                                ],
+                                              ),
                                             )
                                           ],
                                         ),
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: black01
-                                            .withOpacity(0.2), // Shadow color
-                                        offset: Offset(
-                                            0.0, 7.0), // Offset from right
-                                        blurRadius: 8, // Spread of the shadow
-                                        spreadRadius: 0.0,
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text(
+                                            'Daily Check In/Out',
+                                            style: TextStyle(
+                                                fontSize: 16.sp,
+                                                fontWeight: FontWeight.w600,
+                                                color: black),
+                                          ),
+                                          Text(
+                                            'Check In by 8:00am required',
+                                            style: TextStyle(
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: black),
+                                          ),
+                                        ],
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => CheckIn()),
+                                          );
+                                        },
+                                        child: Container(
+                                          // height: 40,
+                                          // width: 100,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                              color: primaryColor01.withOpacity(0.8),
+                                              ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 8.0, horizontal: 16.0),
+                                            child: Center(
+                                              child: Text(
+                                                'Check In',
+                                                style: TextStyle(
+                                                    fontSize: 16.sp,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: white),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15.0, horizontal: 7.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        tracker(
-                                            type: 'assets/icons/Check-in.svg',
-                                            head: 'Check In Time',
-                                            time: '8:00am'),
-                                        tracker(
-                                            type:
-                                                'assets/icons/Physical Acts.svg',
-                                            head: 'Physical Activities',
-                                            time: '9:00am',
-                                            subhead: 'Rhymes and Dance',
-                                            subhead2: 'Toy Sorting'),
-                                        tracker(
-                                            type:
-                                                'assets/icons/Diaper Time.svg',
-                                            head: 'Diaper Time',
-                                            time: '11:00am'),
-                                        tracker(
-                                            type: 'assets/icons/Meal Time.svg',
-                                            head: 'Meal Time',
-                                            time: '12:00pm',
-                                            subhead: 'Golden Morn & Milk'),
-                                        tracker(
-                                            type: 'assets/icons/Nap Time.svg',
-                                            head: 'Nap Time',
-                                            time: '12:30pm'),
-                                      ],
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Divider(
+                                    // height: 12,
+                                    color: black03,
+                                    thickness: 0.3,
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Container(
+                                    // height: 50,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        color: transparent,
+                                        border: Border.all(
+                                            width: 0.3,
+                                            color: black03,
+                                            style: BorderStyle.solid)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Macdonald',
+                                            style: TextStyle(
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w600,
+                                                color: black),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Icon(
+                                            Icons.keyboard_arrow_down_rounded,
+                                            size: 35,
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  )),
-                              const SizedBox(
-                                height: 20,
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      RichText(
+                                        text: TextSpan(
+                                          text: "26",
+                                          style: TextStyle(
+                                              fontSize: 25.sp,
+                                              fontWeight: FontWeight.w700,
+                                              color: black),
+                                          children: [
+                                            WidgetSpan(
+                                              child: SizedBox(
+                                                width: 10.w,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: 'Feb Activities',
+                                              style: TextStyle(
+                                                  fontSize: 20.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: black),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => Reportpage()),
+                                          );
+                                        },
+                                        child: Container(
+                                          // height: 40,
+                                          // width: 100,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                              color: transparent,
+                                              border: Border.all(
+                                                  width: 0.3,
+                                                  color: black03,
+                                                  style: BorderStyle.solid)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 8.0, horizontal: 12.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.analytics_outlined,
+                                                  size: 30,
+                                                  color: primaryColor01,
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  'Child’s Report',
+                                                  style: TextStyle(
+                                                      fontSize: 16.sp,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: primaryColor01),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: black01
+                                                .withOpacity(0.2), // Shadow color
+                                            offset: Offset(
+                                                0.0, 7.0), // Offset from right
+                                            blurRadius: 8, // Spread of the shadow
+                                            spreadRadius: 0.0,
+                                          ),
+                                        ],
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 15.0, horizontal: 7.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            tracker(
+                                                type: 'assets/icons/Check-in.svg',
+                                                head: 'Check In Time',
+                                                time: '8:00am'),
+                                            tracker(
+                                                type:
+                                                    'assets/icons/Physical Acts.svg',
+                                                head: 'Physical Activities',
+                                                time: '9:00am',
+                                                subhead: 'Rhymes and Dance',
+                                                subhead2: 'Toy Sorting'),
+                                            tracker(
+                                                type:
+                                                    'assets/icons/Diaper Time.svg',
+                                                head: 'Diaper Time',
+                                                time: '11:00am'),
+                                            tracker(
+                                                type: 'assets/icons/Meal Time.svg',
+                                                head: 'Meal Time',
+                                                time: '12:00pm',
+                                                subhead: 'Golden Morn & Milk'),
+                                            tracker(
+                                                type: 'assets/icons/Nap Time.svg',
+                                                head: 'Nap Time',
+                                                time: '12:30pm'),
+                                          ],
+                                        ),
+                                      )),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            ],
+                ],
+              );
+            }
           ),
         ),
       ),

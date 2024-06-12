@@ -496,7 +496,7 @@ class _otpState extends State<otp> {
                            // MaterialPageRoute(builder: (context) => childdetails()),
                           //);
                           value.verifyOtp(context);
-                        }, text: 'Continue'),
+                        }, text: 'Continue', color: primaryColor01),
                         SizedBox(
                           height: 20,
                         ),

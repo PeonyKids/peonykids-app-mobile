@@ -218,7 +218,7 @@ class _securityquestionsState extends State<securityquestions> {
                       //  context,
                       //  MaterialPageRoute(builder: (context) => congratulations()),
                     //  );
-                    }, text:   'Verify'),
+                    }, text:  value.SignInState ? 'Verify...' : 'Verify', color: value.SignInState ? primaryColor01.withOpacity(0.5) : primaryColor01),
                     SizedBox(
                       height: 20,
                     ),

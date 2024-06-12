@@ -44,7 +44,7 @@ class _congratulationsState extends State<congratulations> {
                     MaterialPageRoute(
                         builder: (context) => bottomnavigationbar()),
                   );
-                }, text: 'Continue')
+                }, text: 'Continue', color: primaryColor01)
               ],
             ),
           ),

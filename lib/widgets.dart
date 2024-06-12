@@ -71,14 +71,14 @@ GestureDetector reuseButton(
   );
 }
 
-GestureDetector normalButton ({required VoidCallback onTap, required String text}){
+GestureDetector normalButton ({required VoidCallback onTap, required String text, required Color color}){
   return GestureDetector(
     onTap: onTap,
     child: Container(
       width: double.infinity,
       height: 50,
       decoration: BoxDecoration(
-          color: primaryColor01,
+          color: color,
           borderRadius: BorderRadius.circular(25)),
       alignment: Alignment.center,
       child: Text(
@@ -90,7 +90,7 @@ GestureDetector normalButton ({required VoidCallback onTap, required String text
 }
 
 
-GestureDetector shadowButton ({required VoidCallback onTap, required String text}){
+GestureDetector shadowButton ({required VoidCallback onTap, required String text, required Color color}){
   return GestureDetector(
     onTap: onTap,
     child: Container(
@@ -98,7 +98,7 @@ GestureDetector shadowButton ({required VoidCallback onTap, required String text
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
-        color: primaryColor01,
+        color: color,
         boxShadow: [
           BoxShadow(
             color: black01.withOpacity(0.3), // Shadow color

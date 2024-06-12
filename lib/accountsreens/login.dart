@@ -113,7 +113,7 @@ class _loginState extends State<login> {
                         ),
                       ),
                       SizedBox(height: 10,),
-                      Text(value.errorLogin),
+                      Text(value.errorLogin, style: TextStyle(color: red),),
                       SizedBox(
                         height: 10,
                       ),
@@ -150,7 +150,7 @@ class _loginState extends State<login> {
                         //   MaterialPageRoute(
                         //     builder: (context) => bottomnavigationbar()),
                         // );
-                      }, text: 'Continue'),
+                      }, text: value.LogInState ? 'Continue...' : 'Continue', color: value.LogInState ? primaryColor01.withOpacity(0.5): primaryColor01),
                       SizedBox(
                         height: 20,
                       ),

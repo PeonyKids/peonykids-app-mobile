@@ -220,7 +220,7 @@ class _cartPageState extends State<cartPage> {
                     SizedBox(height: 30,),
                      shadowButton(onTap: (){
 
-                     }, text: 'Proceed to Checkout'),
+                     }, text: 'Proceed to Checkout', color: primaryColor01),
                  SizedBox(height: 10,)
               ],
             ),

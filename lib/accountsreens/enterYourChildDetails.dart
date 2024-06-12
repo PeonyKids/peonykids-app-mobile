@@ -344,7 +344,7 @@ class _childdetailsState extends State<childdetails> {
                   MaterialPageRoute(
                       builder: (context) => securityquestions()),
                 );
-              }, text: 'Continue'),
+              }, text: 'Continue', color: primaryColor01),
               SizedBox(
                 height: 20,
               ),

@@ -41,7 +41,7 @@ class routeManager {
   static Route<dynamic> routeSettings(RouteSettings settings) {
     switch (settings.name) {
       case onboarding:
-        return MaterialPageRoute(builder: ((context) => login()));
+        return MaterialPageRoute(builder: ((context) => OnboardOneScreen()));
       case homePageOne:
         return MaterialPageRoute(builder: ((context) => bottomnavigationbar()));
       case chatting:

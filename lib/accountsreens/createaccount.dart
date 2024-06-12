@@ -276,7 +276,7 @@ class _createaccountState extends State<createaccount> {
                       value.phone  = _numberController.text.trim();
 
 
-                    }, text: 'Next'),
+                    }, text: 'Next', color: primaryColor01),
 
                     SizedBox(
                       height: 20,

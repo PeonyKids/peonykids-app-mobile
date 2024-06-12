@@ -81,7 +81,7 @@ class _forgotpassswordState extends State<forgotpasssword> {
                 ),
                  normalButton(onTap: (){
 
-                 }, text: 'Send link'),
+                 }, text: 'Send link', color: primaryColor01),
             SizedBox(
               height: 20,
             ),
