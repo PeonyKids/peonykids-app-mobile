@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../Styles/colors.dart';
-import '../../accountsreens/createaccount.dart';
-import '../../accountsreens/login.dart';
-import '../../widgets.dart';
+import '../../Widgets/widgets.dart';
+import '../onboarding/createaccount.dart';
+import '../onboarding/login.dart';
 
 class OnboardOneScreen extends StatefulWidget {
   const OnboardOneScreen({Key? key}) : super(key: key);

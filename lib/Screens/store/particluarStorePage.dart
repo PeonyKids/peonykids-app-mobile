@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../Styles/colors.dart';
+import '../../Styles/colors.dart';
+import '../../Widgets/widgets.dart';
 import '../payment/payment.dart';
-import '../widgets.dart';
 
 class particluaritem extends StatefulWidget {
   const particluaritem({super.key});

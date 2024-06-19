@@ -2,12 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peonyapp/bottomnavigationbar/bottomnavigationbar.dart';
-import 'package:peonyapp/widgets.dart';
+import 'package:peonyapp/Widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../Styles/colors.dart';
-import '../stateManagement/providers.dart';
+import '../../Styles/colors.dart';
+import '../../stateManagement/providers.dart';
 import 'forgotPassword.dart';
 
 class login extends StatefulWidget {

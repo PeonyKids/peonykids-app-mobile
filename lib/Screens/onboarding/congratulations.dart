@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peonyapp/bottomnavigationbar/bottomnavigationbar.dart';
-import 'package:peonyapp/widgets.dart';
+import 'package:peonyapp/Widgets/widgets.dart';
 
-import '../Styles/colors.dart';
+import '../../Styles/colors.dart';
+import '../bottomnavigationbar/bottomnavigationbar.dart';
 
 class congratulations extends StatefulWidget {
   const congratulations({super.key});

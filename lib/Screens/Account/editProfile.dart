@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../Styles/colors.dart';
-import '../../constants.dart';
-import '../../widgets.dart';
+import '../../Widgets/constants.dart';
+import '../../Widgets/widgets.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);

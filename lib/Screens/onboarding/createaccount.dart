@@ -3,15 +3,15 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peonyapp/accountsreens/securityQuestions.dart';
-import 'package:peonyapp/accountsreens/weSentAnOtp.dart';
-import 'package:peonyapp/widgets.dart';
+import 'package:peonyapp/Screens/onboarding/securityQuestions.dart';
+import 'package:peonyapp/Widgets/widgets.dart';
 
-import '../Styles/colors.dart';
 import 'package:provider/provider.dart';
 
+import '../../Styles/colors.dart';
+import '../../stateManagement/providers.dart';
 
-import '../stateManagement/providers.dart';
+
 
 class createaccount extends StatefulWidget {
   const createaccount({super.key});

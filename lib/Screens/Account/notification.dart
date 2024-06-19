@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../Styles/colors.dart';
-import '../../widgets.dart';
+import '../../Widgets/widgets.dart';
 
 class Notify extends StatefulWidget {
   const Notify({Key? key}) : super(key: key);

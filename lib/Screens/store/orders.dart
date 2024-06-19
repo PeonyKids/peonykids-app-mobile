@@ -3,7 +3,8 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../Styles/colors.dart';
+import '../../Styles/colors.dart';
+
 
 class orders extends StatefulWidget {
   const orders({Key? key}) : super(key: key);

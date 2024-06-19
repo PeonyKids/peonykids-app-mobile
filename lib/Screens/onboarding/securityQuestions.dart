@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:peonyapp/Styles/colors.dart';
-import 'package:peonyapp/widgets.dart';
+import 'package:peonyapp/Widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../stateManagement/providers.dart';
+import '../../stateManagement/providers.dart';
 import 'congratulations.dart';
 
 class securityquestions extends StatefulWidget {

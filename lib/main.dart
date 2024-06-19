@@ -6,9 +6,7 @@ import 'package:peonyapp/Screens/Home/check-in.dart';
 import 'package:peonyapp/Screens/Home/report.dart';
 
 import 'package:peonyapp/stateManagement/providers.dart';
-import 'package:peonyapp/store/cartPage.dart';
-import 'package:peonyapp/store/particluarStorePage.dart';
-import 'package:peonyapp/store/storepage.dart';
+
 import 'package:provider/provider.dart';
 // import 'package:peony_app_kazeem/accountsreens/createaccount.dart';
 // import 'package:peony_app_kazeem/accountsreens/enterYourChildDetails.dart';
@@ -37,13 +35,9 @@ import 'Screens/Home/homepage.dart';
 import 'Screens/Splashscreens/onboard.dart';
 import 'Screens/Splashscreens/splashscreen.dart';
 import 'Styles/colors.dart';
-import 'accountsreens/createaccount.dart';
-import 'accountsreens/enterYourChildDetails.dart';
-import 'accountsreens/login.dart';
-import 'bottomnavigationbar/bottomnavigationbar.dart';
-import 'notifications.dart';
+import 'Screens/Home/notifications.dart';
 
-import 'package:peonyapp/routes.dart';
+import 'package:peonyapp/Models/routes.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -72,7 +66,7 @@ class MyApp extends StatelessWidget {
           onGenerateRoute: routeManager.routeSettings,
           theme: ThemeData(
               fontFamily: 'WorkSans',
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              colorScheme: ColorScheme.fromSeed(seedColor: primaryColor01),
               useMaterial3: true,
               primaryColor: white),
         )

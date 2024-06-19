@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../Screens/Account/account.dart';
-import '../Screens/Home/homepage.dart';
-import '../Styles/colors.dart';
-import '../home.dart';
-import '../notifications.dart';
+// import '../Screens/Account/account.dart';
+// import '../Screens/Home/homepage.dart';
+// import '../Styles/colors.dart';
+// import '../home.dart';
+// import '../notifications.dart';
+import '../../Styles/colors.dart';
+import '../Account/account.dart';
+import '../Home/homepage.dart';
+import '../Home/notifications.dart';
 import '../store/storepage.dart';
 
 class bottomnavigationbar extends StatefulWidget {

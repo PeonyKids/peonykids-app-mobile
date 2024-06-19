@@ -4,24 +4,26 @@ import 'package:http/http.dart';
 
 import 'package:flutter/material.dart';
 import 'package:peonyapp/Screens/Home/homepage.dart';
-import 'package:peonyapp/accountsreens/login.dart';
-import 'package:peonyapp/accountsreens/weSentAnOtp.dart';
-import 'package:peonyapp/bottomnavigationbar/bottomnavigationbar.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Screens/bottomnavigationbar/bottomnavigationbar.dart';
+import '../Screens/onboarding/congratulations.dart';
+import '../Screens/onboarding/login.dart';
+import '../Screens/onboarding/weSentAnOtp.dart';
 
-import '../accountsreens/congratulations.dart';
+
 
 class MainState extends ChangeNotifier {
   String error = '';
-  String emailController = 'kazeemquayum67@gmail.com';
-  String passwordController = 'Nooooooo30#';
-  String confirmController = 'Nooooooo304#';
-  String securityQuestion = 'whats your name';
-  String securityAnswer ='kazeem';
-  String firstName = 'kazeem';
-  String lastName = 'quayum';
-  String phone = '+2348109713456';
+  String emailController = '';
+  String passwordController = '';
+  String confirmController = '';
+  String securityQuestion = '';
+  String securityAnswer ='';
+  String firstName = '';
+  String lastName = '';
+  String phone = '';
   String verifyPhone = '';
   String statusVerifyPhone = '';
   bool SignInError = false;
@@ -79,34 +81,48 @@ class MainState extends ChangeNotifier {
     );
 
 
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> registrationData = json.decode(response.body);
+    final Map<String, dynamic> registrationData = json.decode(response.body);
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => congratulations()),
-      );
-      print(registrationData);
-      print('User signed up successfully');
-     SignInUser(false);
+    if (registrationData['success'] == 'true') {
+
+
+     //  Navigator.push(
+     //    context,
+     //    MaterialPageRoute(builder: (context) => congratulations()),
+     //  );
+     //  print(registrationData);
+     //  print('User signed up successfully');
+     // SignInUser(false);
+
+
       // LoggingIn(false);
-    } else {
+
       SigningInError(true);
-      print('Failed to sign up user: ${response.body}');
-      final Map<String, dynamic> registrationData = json.decode(response.body);
+      // print('Failed to sign up user: ${response.body}');
+
       // LoggingIn(false);
       print(registrationData);
       error = registrationData['message'];
-      success = registrationData['success'].toString();
-      success == 'true' ? Navigator.push(
+
+      verifyEmail();
+      Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => otp()),
-      )  : null;
-      success == 'true' ?
-      verifyEmail()  : null;
+        MaterialPageRoute(builder: (context) => login()),
+      );
+
       print(error);
       Future.delayed(const Duration(seconds: 15) ,() => SigningInError(false));
-     SignInUser(false);
+      SignInUser(false);
+
+    } else {
+      SigningInError(true);
+      print('Failed to sign up user: ${response.body}');
+      // LoggingIn(false);
+      print(registrationData);
+      error = registrationData['message'];
+      print(error);
+      Future.delayed(const Duration(seconds: 15) ,() => SigningInError(false));
+      SignInUser(false);
     }
     notifyListeners();
   }
@@ -156,7 +172,7 @@ class MainState extends ChangeNotifier {
       final Map<String, dynamic> registrationData = json.decode(response.body);
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => congratulations()),
+        MaterialPageRoute(builder: (context) => bottomnavigationbar()),
       ) ;
     //  statusVerifyPhone = registrationData['message'];
       print(registrationData);
@@ -237,7 +253,7 @@ class MainState extends ChangeNotifier {
       successUser = loginData['success'].toString();
       successUser == 'true' ? Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => bottomnavigationbar()),
+        MaterialPageRoute(builder: (context) => otp()),
       )  : null;
 
       LoggingIn(false);

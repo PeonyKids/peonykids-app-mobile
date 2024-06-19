@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../Styles/colors.dart';
-import '../../constants.dart';
-import '../../widgets.dart';
+import '../../Widgets/constants.dart';
+import '../../Widgets/widgets.dart';
 
 class Contact extends StatefulWidget {
   const Contact({Key? key}) : super(key: key);

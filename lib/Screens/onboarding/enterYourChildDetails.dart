@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:peonyapp/Screens/onboarding/securityQuestions.dart';
 import 'package:peonyapp/Styles/colors.dart';
-import 'package:peonyapp/accountsreens/securityQuestions.dart';
-import 'package:peonyapp/widgets.dart';
+import 'package:peonyapp/Widgets/widgets.dart';
 
 class childdetails extends StatefulWidget {
   const childdetails({super.key});
