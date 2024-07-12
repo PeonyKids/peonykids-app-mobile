@@ -480,7 +480,9 @@ class _otpState extends State<otp> {
                         Align(
                             alignment: Alignment.topLeft,
                             child: GestureDetector(
-                              onTap: value.verifyEmail,
+                              onTap: (){
+                                value.resendLoginOTP(context);
+                              },
                               child: Text(
                                 "Didn't receive an email? Resend Email",
                                 style: TextStyle(color: Colors.black, decoration: TextDecoration.underline),
@@ -502,7 +504,8 @@ class _otpState extends State<otp> {
                         ),
                         GestureDetector(
                           onTap: (){
-                             value.verifyEmail();
+                             // value.verifyEmail();
+                            Navigator.pop(context);
                           },
                           child: Text(
                             'Back',

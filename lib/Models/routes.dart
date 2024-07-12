@@ -18,6 +18,7 @@ import '../Screens/Chats/chats.dart';
 import '../Screens/Splashscreens/onboard.dart';
 import '../Screens/Splashscreens/splashscreen.dart';
 import '../Screens/bottomnavigationbar/bottomnavigationbar.dart';
+import '../Screens/onboarding/enterYourChildDetails.dart';
 import '../Screens/onboarding/weSentAnOtp.dart';
 
 class routeManager {
@@ -27,7 +28,7 @@ class routeManager {
   static const String splashScreen = '/splashscreen';
   static const String splashScreenFour = '/splashScreenFour';
   static const String splashScreenFive = '/splashScreenFive';
-  static const String getStarted = '/getStarted';
+  static const String childDetails = '/enterChildDetails';
   static const String doctorCategories = '/doctorCategories';
   static const String mainHomeScreenOne = '/mainHomeScreenOne';
   static const String doctorsSpecification = '/doctorsSpecfication';
@@ -51,6 +52,8 @@ class routeManager {
         return MaterialPageRoute(builder: ((context) => otp()));
       case splashScreen:
         return MaterialPageRoute(builder: ((context) => SplashScreen()));
+      case childDetails:
+        return MaterialPageRoute(builder: ((context) => ChildDetails()));
       default:
         throw const FormatException('no route found');
     }

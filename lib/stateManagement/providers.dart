@@ -4,9 +4,11 @@ import 'package:http/http.dart';
 
 import 'package:flutter/material.dart';
 import 'package:peonyapp/Screens/Home/homepage.dart';
+import 'package:peonyapp/Screens/onboarding/enterYourChildDetails.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Models/childData.dart';
 import '../Screens/bottomnavigationbar/bottomnavigationbar.dart';
 import '../Screens/onboarding/congratulations.dart';
 import '../Screens/onboarding/login.dart';
@@ -34,8 +36,7 @@ class MainState extends ChangeNotifier {
   String passwordUserName = '';
   String successUser = '';
   String errorLogin = '';
-  String token= '';
-  String userTokens = '';
+
 
   void LoggingIn(bool Login) {
    LogInState = Login;
@@ -156,6 +157,41 @@ class MainState extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> resendLoginOTP(BuildContext context) async {
+    final url = Uri.parse(
+        'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/auth/resend-verify-login-otp/$Gmail');
+    // print('hi');
+    final response = await post(
+      url,
+      headers: {
+        'Accept': '*/*',
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+
+
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => bottomnavigationbar()),
+      // ) ;
+      //  statusVerifyPhone = registrationData['message'];
+      print(response.body);
+
+      print('email sent successfully');
+      notifyListeners();
+    } else {
+      print('Failed to send email: ${response.body}');
+      final Map<String, dynamic> responseBody = json.decode(response.body);
+
+      print(responseBody['message']);
+      // statusVerifyPhone = registrationData['message'];
+      // print(error);
+      notifyListeners();
+    }
+  }
+
   Future<void> verifyOtp(BuildContext context) async {
     final url = Uri.parse(
         'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/auth/verify-login/$verifyPhone');
@@ -170,12 +206,20 @@ class MainState extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> registrationData = json.decode(response.body);
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => bottomnavigationbar()),
-      ) ;
-    //  statusVerifyPhone = registrationData['message'];
+
+
+
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => bottomnavigationbar()),
+      // ) ;
+
+      statusVerifyPhone = registrationData['message'];
+
       print(registrationData);
+
+      fetchChild(context);
+
       print('email sent successfully');
       notifyListeners();
     } else {
@@ -190,10 +234,13 @@ class MainState extends ChangeNotifier {
   }
 
 
+  // String token= '';
+  String userToken = '';
   String Name = '';
   String Surname = '';
   String Gmail = '';
   String PhoneNumber = '';
+  String userId = '';
 
 
   // bool isLoading = false;
@@ -221,7 +268,6 @@ class MainState extends ChangeNotifier {
       body: jsonEncode({
         "email": loginUserName,
         "password": passwordUserName,
-
       }),
     );
 
@@ -231,24 +277,27 @@ class MainState extends ChangeNotifier {
     if (response.statusCode == 200) {
 
       print('Status: ${response.statusCode}');
-     token = loginData['jwtToken'];
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('userToken', token);
-      userTokens = prefs.getString('userToken')!;
+
 
       print(loginData);
       print('Logged in successfully');
 
+      prefs.setString('userToken', loginData['jwtToken']);
       prefs.setString('name', loginData['data']['firstName']);
       prefs.setString('surname', loginData['data']['lastName']);
       prefs.setString('number', loginData['data']['phoneNumber']);
       prefs.setString('gmail', loginData['data']['email']);
+      prefs.setString('userId', loginData['data']['id'].toString());
 
-     Name = prefs.getString('name')!;
-     Surname = prefs.getString('surname')!;
-     Gmail = prefs.getString('gmail')!;
-     PhoneNumber = prefs.getString('number')!;
+      userToken = prefs.getString('userToken')!;
+      Name = prefs.getString('name')!;
+      Surname = prefs.getString('surname')!;
+      Gmail = prefs.getString('gmail')!;
+      PhoneNumber = prefs.getString('number')!;
+      userId = prefs.getString('userId')!;
+
 
       successUser = loginData['success'].toString();
       successUser == 'true' ? Navigator.push(
@@ -306,8 +355,7 @@ class MainState extends ChangeNotifier {
         await prefs.remove('gmail');
 
         // Clear variables
-        token = '';
-        userTokens = '';
+        userToken = '';
         Name = '';
         Surname = '';
         Gmail = '';
@@ -368,4 +416,99 @@ class MainState extends ChangeNotifier {
     notifyListeners();
   }
 
+
+  Future<void> AddChild(BuildContext context) async {
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final url = Uri.parse(
+      'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/parent/$userId/add-child',
+    );
+
+    // late Response response;
+
+    for (var child in Child.Childs) {
+      final response = await post(
+        url,
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $userToken',
+        },
+        body: jsonEncode({
+          'firstname': child['firstname'],
+          'lastname': child['lastname'],
+          'gender': child['gender']
+        }),
+      );
+
+
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        try {
+          print('Status: ${response.statusCode}');
+          // print('Child added Successfully');
+          print(responseData["message"]);
+        } catch (e) {
+          // Handle the plain text response
+          print('Ran into Error adding Child Details');
+        }
+      } else {
+        print('Child addition Unsuccessful');
+        print(response.statusCode);
+      }
+      notifyListeners();
+    }
+  }
+
+
+  Future<void> fetchChild(BuildContext context) async {
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final url = Uri.parse(
+      'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/parent/$userId/children',
+    );
+
+      // late Response response;
+
+      final response = await get(
+        url,
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $userToken',
+        }
+      );
+
+
+
+      if (response.statusCode == 200) {
+        final List<dynamic> responseData = json.decode(response.body);
+        try {
+          print('Status: ${response.statusCode}');
+          // print('Child added Successfully');
+          print(responseData);
+
+          if (responseData.isEmpty){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ChildDetails()),
+            );
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => bottomnavigationbar()),
+            );
+          }
+
+        } catch (e) {
+          // Handle the plain text response
+          print('Ran into Error adding Child Details');
+        }
+      } else {
+        print('Child fetching Unsuccessful');
+        print(response.statusCode);
+      }
+      notifyListeners();
+  }
 }

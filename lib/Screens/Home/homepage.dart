@@ -285,36 +285,42 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                   const SizedBox(
                                     height: 20,
                                   ),
-                                  Container(
-                                    // height: 50,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        color: transparent,
-                                        border: Border.all(
-                                            width: 0.3,
-                                            color: black03,
-                                            style: BorderStyle.solid)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Macdonald',
-                                            style: TextStyle(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w600,
-                                                color: black),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Icon(
-                                            Icons.keyboard_arrow_down_rounded,
-                                            size: 35,
-                                          )
-                                        ],
+                                  GestureDetector(
+                                    onTap: (){
+                                      print('I was selected');
+
+                                    },
+                                    child: Container(
+                                      // height: 50,
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(50),
+                                          color: transparent,
+                                          border: Border.all(
+                                              width: 0.3,
+                                              color: black03,
+                                              style: BorderStyle.solid)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Macdonald',
+                                              style: TextStyle(
+                                                  fontSize: 14.sp,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: black),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Icon(
+                                              Icons.keyboard_arrow_down_rounded,
+                                              size: 35,
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -423,23 +429,21 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                               CrossAxisAlignment.center,
                                           children: [
                                             tracker(
-                                                type: 'assets/icons/Check-in.svg',
+                                                type: 'assets/icons/CheckIn.svg',
                                                 head: 'Check In Time',
                                                 time: '8:00am'),
                                             tracker(
-                                                type:
-                                                    'assets/icons/Physical Acts.svg',
+                                                type: 'assets/icons/Physical Acts.svg',
                                                 head: 'Physical Activities',
                                                 time: '9:00am',
                                                 subhead: 'Rhymes and Dance',
                                                 subhead2: 'Toy Sorting'),
                                             tracker(
-                                                type:
-                                                    'assets/icons/Diaper Time.svg',
+                                                type: 'assets/icons/Diaper Time.svg',
                                                 head: 'Diaper Time',
                                                 time: '11:00am'),
                                             tracker(
-                                                type: 'assets/icons/Meal Time.svg',
+                                                type: 'assets/icons/MealTime.svg',
                                                 head: 'Meal Time',
                                                 time: '12:00pm',
                                                 subhead: 'Golden Morn & Milk'),
@@ -447,6 +451,24 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                                 type: 'assets/icons/Nap Time.svg',
                                                 head: 'Nap Time',
                                                 time: '12:30pm'),
+                                            tracker(
+                                                type: 'assets/icons/PlayTime.svg',
+                                                head: 'Play Time',
+                                                time: '1:30pm'),
+                                            tracker(
+                                                type: 'assets/icons/ArtsCrafts.svg',
+                                                head: 'Arts and Craft',
+                                                time: '2:30pm'),
+                                            tracker(
+                                                type: 'assets/icons/MealTime.svg',
+                                                head: 'Snack Time',
+                                                time: '3:00pm',
+                                                subhead: 'Cabin Biscuit',
+                                                subhead2: 'Juice'),
+                                            tracker(
+                                                type: 'assets/icons/BookTime.svg',
+                                                head: 'Story Time',
+                                                time: '4:00pm'),
                                           ],
                                         ),
                                       )),
