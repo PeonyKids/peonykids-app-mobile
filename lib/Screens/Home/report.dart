@@ -57,388 +57,393 @@ class _ReportpageState extends State<Reportpage> {
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(top: 10, left: 15.w, right: 15.w),
-            child: Column(
-              children: [
-                Center(
-                  child: SizedBox(
-                    height: 50,
-                    width: children.isEmpty
-                        ? 0.0
-                        : children.length.toDouble() * 120,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: children.length, // Number of items in the list
-                      itemBuilder: (context, index) {
-                        return children[index];
-                      },
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        child: PageView.builder(
+            itemCount: children.length, // Number of items in the list
+          itemBuilder: (context, index) {
+            return SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.only(top: 10, left: 15.w, right: 15.w),
+                child: Column(
                   children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: IntrinsicWidth(
-                        child: Container(
-                          height: 40,
-                          // width: 200,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: black,
-                              ),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                '23rd February, 2024',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                    color: black),
-                              ),
-                              Icon(
-                                Icons.keyboard_arrow_down,
-                                size: 30,
-                                color: black,
-                              )
-                            ],
-                          ),
+                    Center(
+                      child: SizedBox(
+                        height: 50,
+                        width: children.isEmpty
+                            ? 0.0
+                            : children.length.toDouble() * 120,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: children.length, // Number of items in the list
+                          itemBuilder: (context, index) {
+                            return children[index];
+                          },
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      'Macdonald demonstrated a high level of interest and enthusiasm in our art & craft activities today. Well done darling',
-                      style: TextStyle(
-                          fontSize: 17.sp,
-                          fontWeight: FontWeight.w400,
-                          color: black),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      'Mood',
-                      style: TextStyle(
-                          fontSize: 17.sp,
-                          fontWeight: FontWeight.w600,
-                          color: black),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Wrap(
-                      spacing: 10.0,
-                      runSpacing: 10.0,
-                      children: [
-                        moods(
-                          mood: true,
-                          emoji: 'assets/icons/cil_happy.svg',
-                          text: 'Happy',
-                        ),
-                        moods(
-                          mood: false,
-                          emoji: 'assets/icons/carbon_face-neutral.svg',
-                          text: 'Chunky',
-                        ),
-                        moods(
-                          mood: false,
-                          emoji: 'assets/icons/formkit_sad.svg',
-                          text: 'Sad',
-                        ),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(right: 10, bottom: 15),
-                        //   child: Container(
-                        //     height: 45,
-                        //     width: 150,
-                        //     decoration: BoxDecoration(
-                        //         borderRadius: BorderRadius.circular(50),
-                        //         color: purplish,
-                        //         border: Border.all(
-                        //             width: 1.0,
-                        //             color: primaryColor01,
-                        //             style: BorderStyle.solid)),
-                        //     child: Padding(
-                        //       padding: const EdgeInsets.all(10.0),
-                        //       child: Row(
-                        //         // mainAxisAlignment: MainAxisAlignment.center,
-                        //         children: [
-                        //           SvgPicture.asset(
-                        //             'assets/icons/cil_happy.svg',
-                        //             semanticsLabel: 'My SVG Image',
-                        //             height: 23,
-                        //             width: 23,
-                        //             color: primaryColor01,
-                        //           ),
-                        //           SizedBox(
-                        //             width: 5,
-                        //           ),
-                        //           Text(
-                        //             'Happy',
-                        //             style: TextStyle(
-                        //                 fontSize: 16,
-                        //                 fontWeight: FontWeight.w400,
-                        //                 color: primaryColor01),
-                        //           ),
-                        //           Expanded(
-                        //             child: SizedBox(
-                        //               width: 5,
-                        //             ),
-                        //           ),
-                        //           Icon(
-                        //             Icons.check_circle,
-                        //             size: 22,
-                        //             color: primaryColor01,
-                        //           )
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
+                      height: 30,
                     ),
                     Column(
-                      // mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        activity(
-                          acts: 'assets/icons/Frame 33.svg',
-                          text: 'Meals',
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: IntrinsicWidth(
+                            child: Container(
+                              height: 40,
+                              // width: 200,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: black,
+                                  ),
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '23rd February, 2024',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+                                        color: black),
+                                  ),
+                                  Icon(
+                                    Icons.keyboard_arrow_down,
+                                    size: 30,
+                                    color: black,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          'Macdonald demonstrated a high level of interest and enthusiasm in our art & craft activities today. Well done darling',
+                          style: TextStyle(
+                              fontSize: 17.sp,
+                              fontWeight: FontWeight.w400,
+                              color: black),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          'Mood',
+                          style: TextStyle(
+                              fontSize: 17.sp,
+                              fontWeight: FontWeight.w600,
+                              color: black),
                         ),
                         SizedBox(
                           height: 10,
                         ),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: black02.withOpacity(0.1), // Shadow color
-                                offset: Offset(0.0, 7.0), // Offset from right
-                                blurRadius: 12, // Spread of the shadow
-                                spreadRadius: 0.0,
+                        Wrap(
+                          spacing: 10.0,
+                          runSpacing: 10.0,
+                          children: [
+                            moods(
+                              mood: true,
+                              emoji: 'assets/icons/cil_happy.svg',
+                              text: 'Happy',
+                            ),
+                            moods(
+                              mood: false,
+                              emoji: 'assets/icons/carbon_face-neutral.svg',
+                              text: 'Chunky',
+                            ),
+                            moods(
+                              mood: false,
+                              emoji: 'assets/icons/formkit_sad.svg',
+                              text: 'Sad',
+                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(right: 10, bottom: 15),
+                            //   child: Container(
+                            //     height: 45,
+                            //     width: 150,
+                            //     decoration: BoxDecoration(
+                            //         borderRadius: BorderRadius.circular(50),
+                            //         color: purplish,
+                            //         border: Border.all(
+                            //             width: 1.0,
+                            //             color: primaryColor01,
+                            //             style: BorderStyle.solid)),
+                            //     child: Padding(
+                            //       padding: const EdgeInsets.all(10.0),
+                            //       child: Row(
+                            //         // mainAxisAlignment: MainAxisAlignment.center,
+                            //         children: [
+                            //           SvgPicture.asset(
+                            //             'assets/icons/cil_happy.svg',
+                            //             semanticsLabel: 'My SVG Image',
+                            //             height: 23,
+                            //             width: 23,
+                            //             color: primaryColor01,
+                            //           ),
+                            //           SizedBox(
+                            //             width: 5,
+                            //           ),
+                            //           Text(
+                            //             'Happy',
+                            //             style: TextStyle(
+                            //                 fontSize: 16,
+                            //                 fontWeight: FontWeight.w400,
+                            //                 color: primaryColor01),
+                            //           ),
+                            //           Expanded(
+                            //             child: SizedBox(
+                            //               width: 5,
+                            //             ),
+                            //           ),
+                            //           Icon(
+                            //             Icons.check_circle,
+                            //             size: 22,
+                            //             color: primaryColor01,
+                            //           )
+                            //         ],
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Column(
+                          // mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            activity(
+                              acts: 'assets/icons/Frame 33.svg',
+                              text: 'Meals',
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: black02.withOpacity(0.1), // Shadow color
+                                    offset: Offset(0.0, 7.0), // Offset from right
+                                    blurRadius: 12, // Spread of the shadow
+                                    spreadRadius: 0.0,
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 15, left: 15, right: 15, bottom: 30),
-                            child: Column(
-                              children: [
-                                order(
-                                    time: 'Time',
-                                    header1: 'Meal',
-                                    header2: 'Quantity'),
-                                Table(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 15, left: 15, right: 15, bottom: 30),
+                                child: Column(
                                   children: [
-                                    details(
-                                        time: '10:38am',
-                                        info: 'Cereal',
-                                        info2: 'All'),
-                                    details(
-                                        time: '12:40pm',
-                                        info: 'Rice',
-                                        info2: 'All'),
-                                    details(
-                                        time: '02:50pm',
-                                        info: 'Snack & Juice',
-                                        info2: 'All'),
-                                    details(
-                                        time: '04:00pm',
-                                        info: 'Juice',
-                                        info2: 'All'),
+                                    order(
+                                        time: 'Time',
+                                        header1: 'Meal',
+                                        header2: 'Quantity'),
+                                    Table(
+                                      children: [
+                                        details(
+                                            time: '10:38am',
+                                            info: 'Cereal',
+                                            info2: 'All'),
+                                        details(
+                                            time: '12:40pm',
+                                            info: 'Rice',
+                                            info2: 'All'),
+                                        details(
+                                            time: '02:50pm',
+                                            info: 'Snack & Juice',
+                                            info2: 'All'),
+                                        details(
+                                            time: '04:00pm',
+                                            info: 'Juice',
+                                            info2: 'All'),
+                                      ],
+                                    ),
+                                    // details(
+                                    //     time: '10:38am',
+                                    //     info: 'Cereal',
+                                    //     info2: 'All'),
+                                    // details(
+                                    //     time: '12:40pm',
+                                    //     info: 'Rice',
+                                    //     info2: 'All'),
+                                    // details(
+                                    //     time: '02:50pm',
+                                    //     info: 'Snack & Juice',
+                                    //     info2: 'All'),
+                                    // details(
+                                    //     time: '04:00pm',
+                                    //     info: 'Juice',
+                                    //     info2: 'All'),
                                   ],
                                 ),
-                                // details(
-                                //     time: '10:38am',
-                                //     info: 'Cereal',
-                                //     info2: 'All'),
-                                // details(
-                                //     time: '12:40pm',
-                                //     info: 'Rice',
-                                //     info2: 'All'),
-                                // details(
-                                //     time: '02:50pm',
-                                //     info: 'Snack & Juice',
-                                //     info2: 'All'),
-                                // details(
-                                //     time: '04:00pm',
-                                //     info: 'Juice',
-                                //     info2: 'All'),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                      ],
-                    ),
-                    Column(
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        activity(
-                          acts: 'assets/icons/Frame 32.svg',
-                          text: 'Nap Time',
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: black02.withOpacity(0.1), // Shadow color
-                                offset: Offset(0.0, 7.0), // Offset from right
-                                blurRadius: 12, // Spread of the shadow
-                                spreadRadius: 0.0,
                               ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: 15, left: 15, right: 15, bottom: 30),
-                            child: Column(
-                              children: [
-                                order(
-                                    time: 'Time',
-                                    header1: 'Wake up Time',
-                                    header2: 'Comments'),
-                                Table(
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          // mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            activity(
+                              acts: 'assets/icons/Frame 32.svg',
+                              text: 'Nap Time',
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: black02.withOpacity(0.1), // Shadow color
+                                    offset: Offset(0.0, 7.0), // Offset from right
+                                    blurRadius: 12, // Spread of the shadow
+                                    spreadRadius: 0.0,
+                                  ),
+                                ],
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: 15, left: 15, right: 15, bottom: 30),
+                                child: Column(
                                   children: [
-                                    details(
-                                        time: '01:35pm',
-                                        info: '02:30pm',
-                                        info2: '-'),
+                                    order(
+                                        time: 'Time',
+                                        header1: 'Wake up Time',
+                                        header2: 'Comments'),
+                                    Table(
+                                      children: [
+                                        details(
+                                            time: '01:35pm',
+                                            info: '02:30pm',
+                                            info2: '-'),
+                                      ],
+                                    ),
                                   ],
                                 ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                      ],
-                    ),
-                    Column(
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        activity(
-                          acts: 'assets/icons/Frame 32-1.svg',
-                          text: 'Diaper Time',
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: black02.withOpacity(0.1), // Shadow color
-                                offset: Offset(0.0, 7.0), // Offset from right
-                                blurRadius: 12, // Spread of the shadow
-                                spreadRadius: 0.0,
                               ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: 15, left: 15, right: 15, bottom: 30),
-                            child: Column(
-                              children: [
-                                order(
-                                    time: 'Time',
-                                    header1: 'Diaper',
-                                    header2: 'Potty'),
-                                Table(
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          // mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            activity(
+                              acts: 'assets/icons/Frame 32-1.svg',
+                              text: 'Diaper Time',
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: black02.withOpacity(0.1), // Shadow color
+                                    offset: Offset(0.0, 7.0), // Offset from right
+                                    blurRadius: 12, // Spread of the shadow
+                                    spreadRadius: 0.0,
+                                  ),
+                                ],
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: 15, left: 15, right: 15, bottom: 30),
+                                child: Column(
                                   children: [
-                                    details(
-                                        time: '03:37pm',
-                                        info: 'Wet',
-                                        info2: '-'),
-                                    details(
-                                        time: '04:05pm',
-                                        info: 'Wet',
-                                        info2: '-'),
+                                    order(
+                                        time: 'Time',
+                                        header1: 'Diaper',
+                                        header2: 'Potty'),
+                                    Table(
+                                      children: [
+                                        details(
+                                            time: '03:37pm',
+                                            info: 'Wet',
+                                            info2: '-'),
+                                        details(
+                                            time: '04:05pm',
+                                            info: 'Wet',
+                                            info2: '-'),
+                                      ],
+                                    )
                                   ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: transparent,
-                              border: Border.all(
-                                  width: 1.0,
-                                  color: primaryColor01,
-                                  style: BorderStyle.solid)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.file_download_outlined,
-                                  size: 35,
-                                  color: primaryColor01,
                                 ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  'Download PDF',
-                                  style: TextStyle(
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: primaryColor01),
-                                )
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 40,
+                            SizedBox(
+                              height: 40,
+                            ),
+                            Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: transparent,
+                                  border: Border.all(
+                                      width: 1.0,
+                                      color: primaryColor01,
+                                      style: BorderStyle.solid)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.file_download_outlined,
+                                      size: 35,
+                                      color: primaryColor01,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      'Download PDF',
+                                      style: TextStyle(
+                                          fontSize: 18.sp,
+                                          fontWeight: FontWeight.w600,
+                                          color: primaryColor01),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
+                          ],
                         ),
                       ],
-                    ),
+                    )
                   ],
-                )
-              ],
-            ),
-          ),
+                ),
+              ),
+            );
+          }
         ),
       ),
     );
@@ -706,4 +711,5 @@ class _ReportpageState extends State<Reportpage> {
       ),
     );
   }
+
 }

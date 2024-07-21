@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:peonyapp/Screens/Account/childDetails.dart';
 import 'package:peonyapp/Screens/Account/viewInvoice.dart';
 import 'package:peonyapp/Styles/colors.dart';
 import 'package:peonyapp/stateManagement/providers.dart';
@@ -241,6 +242,14 @@ class _AccountPageState extends State<AccountPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => EditProfile()),
+                      );
+                    }),
+                profiles(
+                    text: 'Add/Remove child details',
+                    tap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ChildrenList()),
                       );
                     }),
                 profiles(

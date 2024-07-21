@@ -53,6 +53,16 @@ class MainState extends ChangeNotifier {
     notifyListeners();
   }
 
+
+  String childName = '';
+
+  void selectedName(String name){
+    childName = name;
+    Name = name;
+    notifyListeners();
+  }
+
+
   Future<void> signUpUser(BuildContext context) async {
 
     SignInUser(true);

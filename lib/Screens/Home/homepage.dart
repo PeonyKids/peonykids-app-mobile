@@ -5,8 +5,12 @@ import 'package:peonyapp/Screens/Home/report.dart';
 import 'package:peonyapp/stateManagement/providers.dart';
 import 'package:provider/provider.dart';
 
+
 import '../../Styles/colors.dart';
 import 'check-in.dart';
+
+
+
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -47,7 +51,6 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 
-    // 'Macdonald • Ben • Anne'
 
     return Scaffold(
       backgroundColor: white,
@@ -113,11 +116,15 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                           ),
                                         ],
                                       ),
-                                      SvgPicture.asset(
-                                        'assets/icons/Frame 9.svg',
-                                        semanticsLabel: 'My SVG Image',
-                                        height: 55.h,
-                                        width: 55.w,
+                                      GestureDetector(
+                                        onTap: (){
+                                        },
+                                        child: SvgPicture.asset(
+                                          'assets/icons/Frame 9.svg',
+                                          semanticsLabel: 'My SVG Image',
+                                          height: 55.h,
+                                          width: 55.w,
+                                        ),
                                       )
                                     ],
                                   ),
@@ -287,8 +294,13 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      print('I was selected');
-
+                                      // print('I was selected');
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return CheckInDialog();
+                                        },
+                                      );
                                     },
                                     child: Container(
                                       // height: 50,
@@ -306,7 +318,7 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              'Macdonald',
+                                              value.childName,
                                               style: TextStyle(
                                                   fontSize: 14.sp,
                                                   fontWeight: FontWeight.w600,
@@ -652,3 +664,90 @@ class CustomCurvePainter extends CustomPainter {
     return false;
   }
 }
+
+
+
+
+class CheckInDialog extends StatefulWidget {
+  @override
+  _CheckInDialogState createState() => _CheckInDialogState();
+}
+
+class _CheckInDialogState extends State<CheckInDialog> {
+
+
+
+  List<Map<String, dynamic>> items = [
+    {'name': 'Macdonald', 'isChecked': false},
+    {'name': 'Ben', 'isChecked': false},
+    {'name': 'Anne', 'isChecked': false},
+  ];
+
+  void _toggleChecked(int index, BuildContext context) {
+    final changer = Provider.of<MainState>(context, listen: false);
+    setState(() {
+      for (int i = 0; i < items.length; i++) {
+        items[i]['isChecked'] = i == index;
+
+        items[i]['isChecked'] ? changer.selectedName(items[i]['name']) : null;
+      }
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      backgroundColor: white, // Adjust to the color you use for white
+      actions: <Widget>[
+        for (int i = 0; i < items.length; i++)
+          _buildListItem(items[i]['name'], items[i]['isChecked'], i),
+      ],
+    );
+  }
+
+  Widget _buildListItem(String name, bool isChecked, int index) {
+    return GestureDetector(
+      onTap: () => _toggleChecked(index, context),
+      child: Container(
+        height: 60,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              width: 1,
+              color: grey, // Adjust to the color you use for grey2
+            ),
+          ),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                name,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: black, // Adjust to the color you use for black
+                ),
+              ),
+            ),
+            isChecked
+                ? Icon(
+              Icons.check_circle,
+              color: black,
+              size: 20,
+            )
+                : Container(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+

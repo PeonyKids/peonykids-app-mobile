@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peonyapp/Screens/Account/account.dart';
 import 'package:peonyapp/Screens/Account/viewInvoice.dart';
@@ -8,6 +9,7 @@ import 'package:peonyapp/Screens/Home/report.dart';
 import 'package:peonyapp/stateManagement/providers.dart';
 
 import 'package:provider/provider.dart';
+
 // import 'package:peony_app_kazeem/accountsreens/createaccount.dart';
 // import 'package:peony_app_kazeem/accountsreens/enterYourChildDetails.dart';
 // import 'package:peony_app_kazeem/accountsreens/forgotPassword.dart';
@@ -39,9 +41,22 @@ import 'Screens/Home/notifications.dart';
 
 import 'package:peonyapp/Models/routes.dart';
 
+
 void main() async {
   runApp(const MyApp());
 }
+
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// void main() {
+//   runApp(
+//     // To install Riverpod, we need to add this widget above everything else.
+//     // This should not be inside "MyApp" but as direct parameter to "runApp".
+//     ProviderScope(
+//       child: MyApp(),
+//     ),
+//   );
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
