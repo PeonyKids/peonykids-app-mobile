@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:peonyapp/Models/childData.dart';
 import 'package:peonyapp/Screens/Home/report.dart';
 import 'package:peonyapp/stateManagement/providers.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,8 @@ class Homepage extends StatefulWidget {
   @override
   State<Homepage> createState() => _HomepageState();
 }
+
+List<Map<String, dynamic>> items = [];
 
 class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
   late AnimationController _controller;
@@ -40,6 +43,18 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
       });
 
     _controller.forward(); // Start the animation
+
+    _initializeData();
+  }
+
+  Future<void> _initializeData() async {
+
+    // Create an instance of DataHandler
+    Children childDataHandler = Children(Provider.of<MainState>(context, listen: false).childDetails);
+
+    setState(() {
+      items = childDataHandler.getProcessedData();
+    });
   }
 
   @override
@@ -51,6 +66,8 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 
+    String name = '';
+    String parentName = '';
 
     return Scaffold(
       backgroundColor: white,
@@ -59,7 +76,8 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
           child: Consumer<MainState>(
             builder: (context, value, child) {
 
-              String name = '${value.Name} ${value.Surname}';
+              parentName = '${value.Name} ${value.Surname}';
+              name = '${value.childFirstName} ${value.childLastName}';
 
               return Stack(
                 children: [
@@ -102,7 +120,7 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            name,
+                                            name.isEmpty ? parentName : name,
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w600),
@@ -118,6 +136,7 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                       ),
                                       GestureDetector(
                                         onTap: (){
+                                          print(parentName);
                                         },
                                         child: SvgPicture.asset(
                                           'assets/icons/Frame 9.svg',
@@ -183,7 +202,7 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                                     CrossAxisAlignment.start,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
-                                                        .spaceEvenly,
+                                                        .spaceBetween,
                                                 children: [
                                                   Text(
                                                     'Pick Up Time - 1:00PM',
@@ -200,16 +219,20 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                                         fontSize: 13.5.sp,
                                                         fontWeight:
                                                             FontWeight.w600,
-                                                        color: black03),
+                                                        color: black03
+                                                    ),
                                                   ),
-                                                  Text(
-                                                    'You have less than 4 hours left to pick up your child',
-                                                    style: TextStyle(
-                                                        fontSize: 13.5.sp,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color:
-                                                            black),
+                                                  Expanded(
+                                                    child: Text(
+                                                      'You have less than 4 hours left to pick up your child',
+                                                      style: TextStyle(
+                                                          fontSize: 13.5.sp,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color:
+                                                              black, overflow: TextOverflow.ellipsis),
+                                                      maxLines: 2,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -226,27 +249,29 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(
-                                            'Daily Check In/Out',
-                                            style: TextStyle(
-                                                fontSize: 16.sp,
-                                                fontWeight: FontWeight.w600,
-                                                color: black),
-                                          ),
-                                          Text(
-                                            'Check In by 8:00am required',
-                                            style: TextStyle(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w400,
-                                                color: black),
-                                          ),
-                                        ],
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                              'Daily Check In/Out',
+                                              style: TextStyle(
+                                                  fontSize: 16.sp,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: black),
+                                            ),
+                                            Text(
+                                              'Check In by 8:00am required',
+                                              style: TextStyle(
+                                                  fontSize: 14.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: black),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       InkWell(
                                         onTap: () {
@@ -318,7 +343,7 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              value.childName,
+                                              value.childFirstName,
                                               style: TextStyle(
                                                   fontSize: 14.sp,
                                                   fontWeight: FontWeight.w600,
@@ -504,12 +529,13 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
     );
   }
 
-  tracker(
-      {required String type,
-      required String head,
-      required String time,
-      String? subhead,
-      String? subhead2}) {
+  tracker({
+    required String type,
+    required String head,
+    required String time,
+    String? subhead,
+    String? subhead2,
+  }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
       child: Row(
@@ -522,42 +548,44 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
             width: 50.w,
           ),
           SizedBox(width: 10.w),
-          Padding(
-            padding: EdgeInsets.only(top: 5.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  head,
-                  style:
-                      TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w600),
-                ),
-                subhead != null
-                    ? Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: Text(
-                          subhead,
-                          style: TextStyle(
-                              fontSize: 16.sp, fontWeight: FontWeight.w400),
-                        ),
-                      )
-                    : Container(),
-                subhead2 != null
-                    ? Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: Text(
-                          subhead2,
-                          style: TextStyle(
-                              fontSize: 16.sp, fontWeight: FontWeight.w400),
-                        ),
-                      )
-                    : Container(),
-              ],
-            ),
-          ),
           Expanded(
-            child: SizedBox(width: 25.w),
+            child: Padding(
+              padding: EdgeInsets.only(top: 5.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    head,
+                    style: TextStyle(
+                      fontSize: 17.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  if (subhead != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5),
+                      child: Text(
+                        subhead,
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  if (subhead2 != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5),
+                      child: Text(
+                        subhead2,
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 5.h),
@@ -566,19 +594,19 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                 Icon(
                   Icons.access_time,
                   size: 20.sp,
-                  color: black,
+                  color: Colors.black,
                 ),
-                SizedBox(
-                  width: 5.w,
-                ),
+                SizedBox(width: 5.w),
                 Text(
                   time,
-                  style:
-                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w400),
+                  style: TextStyle(
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -674,29 +702,67 @@ class CheckInDialog extends StatefulWidget {
 }
 
 class _CheckInDialogState extends State<CheckInDialog> {
+  // List<Map<String, dynamic>> items = [
+  //   {'name': 'Macdonald', 'isChecked': false},
+  //   {'name': 'Ben', 'isChecked': false},
+  //   {'name': 'Anne', 'isChecked': false},
+  // ];
 
-
-
-  List<Map<String, dynamic>> items = [
-    {'name': 'Macdonald', 'isChecked': false},
-    {'name': 'Ben', 'isChecked': false},
-    {'name': 'Anne', 'isChecked': false},
-  ];
 
   void _toggleChecked(int index, BuildContext context) {
     final changer = Provider.of<MainState>(context, listen: false);
+
     setState(() {
       for (int i = 0; i < items.length; i++) {
         items[i]['isChecked'] = i == index;
 
-        items[i]['isChecked'] ? changer.selectedName(items[i]['name']) : null;
+        if (items[i]['isChecked']) {
+          changer.selectedName(
+            firstName: items[i]['firstName'],
+            lastName: items[i]['lastName'],
+          );
+          // Additional action
+          changer.formatDateOfBirth(items[i]['dateOfBirth']);
+          // Use formattedDate as needed
+        }
       }
     });
   }
 
 
+  // void _toggleChecked(int index, BuildContext context) {
+  //   final changer = Provider.of<MainState>(context, listen: false);
+  //
+  //   setState(() {
+  //     for (int i = 0; i < items.length; i++) {
+  //       items[i]['isChecked'] = i == index;
+  //
+  //       if (items[i]['isChecked']) {
+  //         changer.selectedName(
+  //           firstName: items[i]['firstName'],
+  //           lastName: items[i]['lastName'],
+  //         );
+  //
+  //         // Safely format the date of birth
+  //         changer.formatDateOfBirth(items[i]['dateOfBirth']);
+  //       }
+  //     }
+  //   });
+  // }
+
+
   @override
   Widget build(BuildContext context) {
+
+    // // Create an instance of DataHandler
+    // Children childDataHandler = Children();
+    //
+    // // Retrieve the processed data
+    // List<Map<String, dynamic>> processedData = childDataHandler.getProcessedChildrenData();
+    //
+    // // // Use the processed data
+    // print(processedData);
+
     return AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
@@ -704,7 +770,7 @@ class _CheckInDialogState extends State<CheckInDialog> {
       backgroundColor: white, // Adjust to the color you use for white
       actions: <Widget>[
         for (int i = 0; i < items.length; i++)
-          _buildListItem(items[i]['name'], items[i]['isChecked'], i),
+          _buildListItem(items[i]['firstName'], items[i]['isChecked'], i),
       ],
     );
   }

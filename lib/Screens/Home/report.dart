@@ -449,67 +449,45 @@ class _ReportpageState extends State<Reportpage> {
     );
   }
 
-  TableRow details(
-      {required String time, required String info, required String info2}) {
-    return TableRow(children: [
-      Container(
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: black,
-            ),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(
-            time,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w500, color: black),
-          ),
-        ),
-      ),
-      Container(
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: black,
-            ),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(
-            info,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w500, color: black),
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-      ),
-      Container(
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: black,
-            ),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(
-            info2,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w500, color: black),
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-      ),
-    ]);
+  TableRow details({
+    required String time,
+    required String info,
+    required String info2,
+  }) {
+    return TableRow(
+      children: [
+        _buildCell(time),
+        _buildCell(info),
+        _buildCell(info2),
+      ],
+    );
   }
+
+  Widget _buildCell(String text) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.black,
+          ),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: Colors.black,
+          ),
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+    );
+  }
+
 
   Row activity({required String acts, required String text}) {
     return Row(

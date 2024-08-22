@@ -26,23 +26,46 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  List<dynamic> childDetails = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _startDelay();
+    setState(() {
+      childDetails =
+          Provider.of<MainState>(context, listen: false).childDetails;
+    });
+  }
+
+  void _startDelay() async {
+    await Future.delayed(Duration(seconds: 5));
+    setState(() {
+      childDetails =
+          Provider.of<MainState>(context, listen: false).childDetails;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    childDetails = Provider.of<MainState>(context, listen: false).childDetails;
     return Scaffold(
       backgroundColor: white04,
-      body: SafeArea(
-          child: SingleChildScrollView(
-        padding: EdgeInsets.only(top: 30, left: 15.w, right: 15.w),
-        child: Consumer<MainState>(
-          builder: (context, value, child) {
-
+      body: Consumer<MainState>(builder: (context, value, child) {
+        return SafeArea(
+            child: SingleChildScrollView(
+          padding: EdgeInsets.only(top: 30, left: 15.w, right: 15.w),
+          child: Consumer<MainState>(builder: (context, value, child) {
+            String childname = '${value.childFirstName} ${value.childLastName}';
             String name = '${value.Name} ${value.Surname}';
+            String date = value.dob;
+            String age = value.childAge;
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 110,
+                  // height: 110,
                   child: Row(
                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -57,82 +80,110 @@ class _AccountPageState extends State<AccountPage> {
                         width: 15,
                       ),
                       Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Macdonald Anyanwu',
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.w600),
-                            ),
-                            SizedBox(
-                                height: 5), // Add some spacing between the text
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // childDetails.isEmpty
+                          //     ? Center(child: CircularProgressIndicator())
+                          //     : ListView.builder(
+                          //   shrinkWrap: true,
+                          //   itemCount: 1, // Only one row for the names
+                          //   itemBuilder: (context, index) {
+                          //     return SingleChildScrollView(
+                          //       scrollDirection: Axis.horizontal,
+                          //       child: Row(
+                          //         children: childDetails.map((child) {
+                          //           return Padding(
+                          //             padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          //             child: Text(
+                          //               '${child['firstName']} ||',
+                          //               style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+                          //             ),
+                          //           );
+                          //         }).toList(),
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
 
-                            Row(
-                              children: [
-                                Text(
-                                  'Age: ',
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w400,
-                                      color: black03),
+                          Text(
+                            childname,
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: black),
+                            maxLines: 2,
+                          ),
+
+                          SizedBox(
+                              height: 5), // Add some spacing between the text
+
+                          Row(
+                            children: [
+                              Text(
+                                'Age: ',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                  color: black03,
                                 ),
-                                Expanded(
-                                  child: RichText(
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    text: TextSpan(
-                                      text: "12 months ",
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600,
-                                          color: black),
-                                      children: [
-                                        // const WidgetSpan(
-                                        //   child: SizedBox(
-                                        //     width: 5,
-                                        //   ),
-                                        // ),
-                                        TextSpan(
-                                          text: '(03/02/2023)',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w400,
-                                            color: black,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                                height: 5), // Add some spacing between the text
-                            Row(
-                              children: [
-                                Text(
-                                  'Parents: ',
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w400,
-                                      color: black03),
-                                ),
-                                Expanded(
-                                  // Use Expanded to allow the text to take up available space
-                                  child: Text(
-                                    name,
+                              ),
+                              Expanded(
+                                child: RichText(
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  text: TextSpan(
+                                    text: "$age ",
                                     style: TextStyle(
-                                        fontSize: 17, fontWeight: FontWeight.w400),
-                                    overflow: TextOverflow.ellipsis,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                        color: black),
+                                    children: [
+                                      // const WidgetSpan(
+                                      //   child: SizedBox(
+                                      //     width: 5,
+                                      //   ),
+                                      // ),
+                                      TextSpan(
+                                        text: '($date)',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400,
+                                          color: black,
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                              height: 5), // Add some spacing between the text
+                          Row(
+                            children: [
+                              Text(
+                                'Parents: ',
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w400,
+                                    color: black03),
+                              ),
+                              Expanded(
+                                // Use Expanded to allow the text to take up available space
+                                child: Text(
+                                  name,
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w400),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ))
                     ],
                   ),
                 ),
@@ -155,7 +206,7 @@ class _AccountPageState extends State<AccountPage> {
                   height: 25,
                 ),
                 Container(
-                  height: 80,
+                  // height: 80,
                   // width: 100,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -165,36 +216,45 @@ class _AccountPageState extends State<AccountPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Daycare Fees',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: white),
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  '₦100,000 •',
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Daycare Fees',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: white),
+                              ),
+                              RichText(
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                text: TextSpan(
+                                  text: "₦100,000 •",
                                   style: TextStyle(
-                                      fontSize: 17,
+                                      fontSize: 25,
                                       fontWeight: FontWeight.w600,
                                       color: white),
+                                  children: [
+                                    // const WidgetSpan(
+                                    //   child: SizedBox(
+                                    //     width: 5,
+                                    //   ),
+                                    // ),
+                                    TextSpan(
+                                      text: ' Unpaid',
+                                      style: TextStyle(
+                                          fontSize: 19,
+                                          fontWeight: FontWeight.w500,
+                                          color: white),
+                                    )
+                                  ],
                                 ),
-                                Text(
-                                  ' Unpaid',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: white),
-                                ),
-                              ],
-                            ),
-                          ],
+                              ),
+                            ],
+                          ),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -206,7 +266,8 @@ class _AccountPageState extends State<AccountPage> {
                           },
                           child: Container(
                             height: 40,
-                            width: 150,
+                            // width: 150,
+                            padding: const EdgeInsets.all(5.0),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                                 color: white),
@@ -214,7 +275,7 @@ class _AccountPageState extends State<AccountPage> {
                               child: Text(
                                 'View Invoice',
                                 style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 17.sp,
                                     fontWeight: FontWeight.w600,
                                     color: primaryColor01),
                               ),
@@ -245,7 +306,7 @@ class _AccountPageState extends State<AccountPage> {
                       );
                     }),
                 profiles(
-                    text: 'Add/Remove child details',
+                    text: 'Add/Remove Child Details',
                     tap: () {
                       Navigator.push(
                         context,
@@ -281,7 +342,8 @@ class _AccountPageState extends State<AccountPage> {
                     tap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ChangePassword()),
+                        MaterialPageRoute(
+                            builder: (context) => ChangePassword()),
                       );
                     }),
                 profiles(
@@ -441,9 +503,9 @@ class _AccountPageState extends State<AccountPage> {
                 ),
               ],
             );
-          }
-        ),
-      )),
+          }),
+        ));
+      }),
     );
   }
 
@@ -472,10 +534,15 @@ class _AccountPageState extends State<AccountPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  text,
-                  style: TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w400, color: black),
+                Expanded(
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        color: black,
+                        overflow: TextOverflow.ellipsis),
+                  ),
                 ),
                 Icon(
                   Icons.arrow_forward,

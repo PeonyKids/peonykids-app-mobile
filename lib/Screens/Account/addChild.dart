@@ -290,6 +290,7 @@ class ChildForm extends StatefulWidget {
 class _ChildFormState extends State<ChildForm> {
   final TextEditingController _firstnameController = TextEditingController();
   final TextEditingController _lastnameController = TextEditingController();
+  DateTime _selectedDate = DateTime.now();
   String _selectedValue = '';
 
   @override
@@ -312,7 +313,7 @@ class _ChildFormState extends State<ChildForm> {
     String firstname = _firstnameController.text.trim();
     String lastname = _lastnameController.text.trim();
 
-    print("First name: $firstname, Last name: $lastname, Gender: $_selectedValue");
+    print("First name: $firstname, Last name: $lastname, Gender: $_selectedValue, DOB: ${_formatDate(_selectedDate)}");
 
 
     if (firstname.isNotEmpty && lastname.isNotEmpty && _selectedValue.isNotEmpty) {
@@ -320,9 +321,28 @@ class _ChildFormState extends State<ChildForm> {
         firstName: firstname,
         lastName: lastname,
         gender: _selectedValue,
+          dob: _formatDate(_selectedDate)
       );
     }
     return null;
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+      });
+    }
+  }
+
+  String _formatDate(DateTime date) {
+    return "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
   }
 
   @override
@@ -438,6 +458,45 @@ class _ChildFormState extends State<ChildForm> {
             ),
           ],
         ),
+        SizedBox(height: 10),
+        Text(
+          "Date of Birth",
+          style: TextStyle(
+            color: Color(0xff252525),
+            fontWeight: FontWeight.w400,
+            fontSize: 18,
+            fontStyle: FontStyle.normal,
+          ),
+        ),
+        SizedBox(height: 5),
+        Container(
+          padding: EdgeInsets.all(10),
+          height: 60,
+          decoration: BoxDecoration(
+            border: Border.all(
+                width: 1.0,
+                style: BorderStyle.solid,
+                color: const Color(0xffEDEDED)
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                _formatDate(_selectedDate),
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Color(0xff737373),
+                ),
+              ),
+              GestureDetector(
+                  onTap: () => _selectDate(context),
+                  child: const CircleAvatar(child: Icon(Icons.arrow_drop_down)))
+            ],
+          ),
+        ),
+        SizedBox(height: 10),
         Divider(
           color: black03,
           thickness: 0.3,
