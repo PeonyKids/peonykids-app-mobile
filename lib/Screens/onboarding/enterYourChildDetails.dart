@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:peonyapp/Screens/onboarding/securityQuestions.dart';
-import 'package:peonyapp/Styles/colors.dart';
-import 'package:peonyapp/Widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 import '../../Models/childData.dart';
+import '../../Styles/colors.dart';
+import '../../Widgets/widgets.dart';
+import '../../stateManagement/providers.dart';
+import 'login.dart';
 
 class ChildDetails extends StatefulWidget {
   const ChildDetails({super.key});
@@ -50,6 +52,7 @@ class _ChildDetailsState extends State<ChildDetails> {
   }
 
   void handleSubmit() {
+    final childDataProvider = Provider.of<MainState>(context, listen: false);
     // List<Map<String, dynamic>> fullList = [];
     Child.children.clear();
     Child.Childs.clear();
@@ -76,10 +79,15 @@ class _ChildDetailsState extends State<ChildDetails> {
       for (var key in childrenKeys) {
         key.currentState?._clearTextFields();
       }
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => securityquestions()),
-      );
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //       builder: (context) => login()
+      //   ),
+      // );
+
+      childDataProvider.AddChild(context);
+
     } else {
       // Handle empty data case, e.g., show a message
       print("No valid child data entered.");
@@ -218,6 +226,7 @@ class _ChildFormState extends State<ChildForm> {
   DateTime _selectedDate = DateTime.now();
   String _selectedValue = '';
 
+
   @override
   void dispose() {
     _firstnameController.dispose();
@@ -239,6 +248,7 @@ class _ChildFormState extends State<ChildForm> {
     String firstname = _firstnameController.text.trim();
     String lastname = _lastnameController.text.trim();
 
+
     print("First name: $firstname, Last name: $lastname, Gender: $_selectedValue, DOB: ${_formatDate(_selectedDate)}");
 
 
@@ -247,7 +257,7 @@ class _ChildFormState extends State<ChildForm> {
         firstName: firstname,
         lastName: lastname,
         gender: _selectedValue,
-        dob: _formatDate(_selectedDate)
+          dob: _formatDate(_selectedDate)
       );
     }
     return null;

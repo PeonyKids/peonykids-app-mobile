@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:peonyapp/Styles/colors.dart';
+
+import '../../Styles/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

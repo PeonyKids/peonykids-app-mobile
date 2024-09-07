@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../Models/childData.dart';
 import '../../Styles/colors.dart';
 import '../../Widgets/widgets.dart';
+import '../../stateManagement/providers.dart';
 import '../onboarding/securityQuestions.dart';
 
 

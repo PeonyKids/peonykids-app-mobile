@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peonyapp/Widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../Styles/colors.dart';
+import '../../Widgets/widgets.dart';
 import '../../stateManagement/providers.dart';
 import 'forgotPassword.dart';
 
@@ -135,7 +135,7 @@ class _loginState extends State<login> {
                             },
                             child: Text(
                               'Forgot Password?',
-                              style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400,),
+                              style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400, decoration: TextDecoration.underline),
                             )),
                         SizedBox(
                           height: 50,

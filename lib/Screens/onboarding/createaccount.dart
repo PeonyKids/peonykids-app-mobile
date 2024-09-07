@@ -1,14 +1,15 @@
 import 'dart:ui';
 
+import 'package:PeonyKids/Screens/onboarding/securityQuestions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peonyapp/Screens/onboarding/securityQuestions.dart';
-import 'package:peonyapp/Widgets/widgets.dart';
+
 
 import 'package:provider/provider.dart';
 
 import '../../Styles/colors.dart';
+import '../../Widgets/widgets.dart';
 import '../../stateManagement/providers.dart';
 
 
@@ -261,7 +262,7 @@ class _createaccountState extends State<createaccount> {
                           context,
                           MaterialPageRoute(builder: (context) => securityquestions()),
                         );
-                        value.verifyEmail();
+                        // value.verifyEmail();
                       } else{
                         setState(() {
                           errorInput  = 'Pls fill in all inputs!';

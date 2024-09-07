@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:peonyapp/Widgets/widgets.dart';
 
 import '../../Styles/colors.dart';
+import '../../Widgets/widgets.dart';
 
 class forgotpasssword extends StatefulWidget {
   const forgotpasssword({super.key});

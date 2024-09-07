@@ -1,12 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart';
 
 import 'package:flutter/material.dart';
-import 'package:peonyapp/Screens/Account/account.dart';
-import 'package:peonyapp/Screens/Home/homepage.dart';
-import 'package:peonyapp/Screens/onboarding/forgotPassword.dart';
-import 'package:peonyapp/Screens/onboarding/enterYourChildDetails.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,6 +9,7 @@ import '../Models/childData.dart';
 import '../Screens/Account/changePassword.dart';
 import '../Screens/bottomnavigationbar/bottomnavigationbar.dart';
 import '../Screens/onboarding/congratulations.dart';
+import '../Screens/onboarding/enterYourChildDetails.dart';
 import '../Screens/onboarding/login.dart';
 import '../Screens/onboarding/weSentAnOtp.dart';
 
@@ -34,6 +30,7 @@ class MainState extends ChangeNotifier {
   bool SignInError = false;
   bool LogInState = false;
   bool SignInState = false;
+  bool OtpCheckState = false;
   bool ForgetPasswordState = false;
   bool ChangePasswordState = false;
   String success = '';
@@ -48,8 +45,16 @@ class MainState extends ChangeNotifier {
   String changePasswordError = '';
   List<Map<String, dynamic>> childDetails = [];
 
+
+  int? activeChild;
+
   void LoggingIn(bool Login) {
    LogInState = Login;
+    notifyListeners();
+  }
+
+  void otpCheck(bool Login) {
+    OtpCheckState = Login;
     notifyListeners();
   }
 
@@ -63,14 +68,30 @@ class MainState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void changeActiveChild(int child) {
+    activeChild = child;
+    notifyListeners();
+  }
+
 
   String childFirstName = '';
   String childLastName = '';
   String childAge = '';
+  String childId = '';
+  String sex = '';
 
-  void selectedName({required String firstName, required String lastName,}){
+
+  void changeChildId(String childid) {
+    childId = childid;
+    notifyListeners();
+  }
+
+  //Set all ChildInfo
+  void selectedChild({required String firstName, required String lastName, required String id, required String gender}){
     childFirstName = firstName;
     childLastName = lastName;
+    childId = id;
+    sex = gender;
     // Name = firstName;
     // Surname = lastName;
     notifyListeners();
@@ -83,7 +104,7 @@ class MainState extends ChangeNotifier {
       String? year = dateList[0].toString();
       String? month = dateList[1].toString().padLeft(2, '0'); // Add leading zero if necessary
       String? day = dateList[2].toString().padLeft(2, '0');   // Add leading zero if necessary
-      dob = '$day|$month|$year';
+      dob = '$day/$month/$year';
     }
 
     print(dob);
@@ -98,7 +119,7 @@ class MainState extends ChangeNotifier {
       return 'N/A'; // Return 'N/A' if dob is invalid
     }
 
-    List<String> parts = dob.split('|');
+    List<String> parts = dob.split('/');
     if (parts.length != 3) {
       return 'N/A'; // Return 'N/A' if dob format is incorrect
     }
@@ -328,6 +349,8 @@ class MainState extends ChangeNotifier {
   }
 
   Future<void> verifyOtp(BuildContext context) async {
+    otpCheck(true);
+
     final url = Uri.parse(
         'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/auth/verify-login/$verifyPhone');
     print('hi');
@@ -388,8 +411,8 @@ class MainState extends ChangeNotifier {
 
 
   Future<void> LoginUser(BuildContext context) async {
+     LoggingIn(true);
 
-    LoggingIn(true);
 
     final url = Uri.parse(
         'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/auth/login');
@@ -441,17 +464,19 @@ class MainState extends ChangeNotifier {
         MaterialPageRoute(builder: (context) => otp()),
       )  : null;
 
-      LoggingIn(false);
+      // LoggingIn(false);
 
     } else {
       print('Status: ${response.statusCode}');
       print('Wrong user details: ${response.body}');
       loginData['message'] == "Cannot invoke \"java.time.temporal.Temporal.until(java.time.temporal.Temporal, java.time.temporal.TemporalUnit)\" because \"temporal1Inclusive\" is null" || loginData['message'] == 'Invalid username or password' ? errorLogin = 'Invalid username or password' : errorLogin = loginData['message'];
 
-      LoggingIn(false);
+
 
       print(errorLogin);
     }
+
+    LoggingIn(false);
     notifyListeners();
   }
 
@@ -602,6 +627,7 @@ class MainState extends ChangeNotifier {
 
     // late Response response;
 
+    print(userId);
     for (var child in Child.Childs) {
       final response = await post(
         url,
@@ -611,9 +637,11 @@ class MainState extends ChangeNotifier {
           'Authorization': 'Bearer $userToken',
         },
         body: jsonEncode({
-          'firstname': child['firstname'],
-          'lastname': child['lastname'],
-          'gender': child['gender']
+          'id': userId,
+          'firstName': child['firstname'],
+          'lastName': child['lastname'],
+          'gender': child['gender'],
+          'dateOfBirth': child['dob']
         }),
       );
 
@@ -625,6 +653,14 @@ class MainState extends ChangeNotifier {
           print('Status: ${response.statusCode}');
           // print('Child added Successfully');
           print(responseData["message"]);
+
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => login()
+            ),
+          );
         } catch (e) {
           // Handle the plain text response
           print('Ran into Error adding Child Details');
@@ -673,6 +709,7 @@ class MainState extends ChangeNotifier {
 
   //Child Details
   Future<void> fetchChild(BuildContext context) async {
+    // otpCheck(true);
     // SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final url = Uri.parse(
@@ -701,6 +738,7 @@ class MainState extends ChangeNotifier {
         childDetails = responseData.cast<Map<String, dynamic>>();
 
 
+
         if (responseData.isEmpty){
           Navigator.push(
             context,
@@ -723,6 +761,307 @@ class MainState extends ChangeNotifier {
       print('Child fetching Unsuccessful');
       print(response.statusCode);
     }
+    otpCheck(false);
     notifyListeners();
   }
+
+
+
+  String latestMessage = '';
+  String latestMood = '';
+  String reportId = '';
+
+
+  Future<void> handleLatestReport(BuildContext context,List<dynamic> reports) async {
+    if (reports.isNotEmpty) {
+      // Get the latest report (assuming the latest is the last in the list)
+      final latestJson = reports.last as Map<String, dynamic>;
+
+      // Convert it to a ReportSummary object
+      ReportSummary latestReport = ReportSummary.fromJson(latestJson);
+
+      // Extract message and mood
+      latestMessage = latestReport.message;
+      latestMood = latestReport.mood;
+      reportId = latestReport.reportId;
+
+      print('Latest Message: $latestMessage');
+      print('Latest Mood: $latestMood');
+
+      await fetchAllChildReports(context, reportId);
+    } else {
+      print('No reports available.');
+      // Extract message and mood
+      latestMessage = '';
+      latestMood = '';
+      allReports.clear(); // Clear previous reports
+      parseResponse(allReports);
+    }
+  }
+
+
+
+  // Future<void> getChildReports(BuildContext context) async {
+  //   // SharedPreferences prefs = await SharedPreferences.getInstance();
+  //
+  //   final url = Uri.parse(
+  //     'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/report/child/$childId/reports',
+  //   );
+  //
+  //   try {
+  //     final response = await get(
+  //       url,
+  //       headers: {
+  //         'Accept': '*/*',
+  //         'Content-Type': 'application/json',
+  //         'Authorization': 'Bearer $userToken',
+  //       },
+  //     );
+  //
+  //     if (response.statusCode == 200) {
+  //       final List<dynamic> reports = json.decode(response.body);
+  //       // print(reports);
+  //
+  //       handleLatestReport(context, reports);
+  //       // Handle the success case, e.g., updating the UI or saving the data
+  //     } else if (response.statusCode == 401) {
+  //       print('Unauthorized request. Please check your credentials.');
+  //       // Handle the unauthorized case, perhaps by asking the user to log in again
+  //     } else {
+  //       print('Failed to load reports. Status code: ${response.statusCode}');
+  //       final Map<String, dynamic> errorDetails = json.decode(response.body);
+  //       print(errorDetails);
+  //     }
+  //   } catch (e) {
+  //     print('An error occurred: $e');
+  //     // Optionally, you could show a snackbar or alert to the user
+  //   }
+  //
+  //   notifyListeners();
+  // }
+
+  // Future<void> fetchAllChildReports(BuildContext context, int reportId) async {
+  //   print('Clearing previous reports...');
+  //   allReports.clear(); // Clear the list
+  //
+  //   print('Fetching reports for child with ID: $reportId');
+  //
+  //   final baseUrl = 'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/report/$reportId';
+  //   final endpoints = [
+  //     'meal-report',
+  //     'physical-activities-reports',
+  //     'nap-reports',
+  //     'diaper-reports',
+  //   ];
+  //
+  //   try {
+  //     // Fetch all reports in parallel
+  //     final responses = await Future.wait(
+  //       endpoints.map((endpoint) async {
+  //         final url = Uri.parse('$baseUrl/$endpoint');
+  //         final response = await get(
+  //           url,
+  //           headers: {
+  //             'Accept': '*/*',
+  //             'Content-Type': 'application/json',
+  //             'Authorization': 'Bearer $userToken',
+  //           },
+  //         );
+  //         return {'endpoint': endpoint, 'response': response};
+  //       }).toList(),
+  //     );
+  //
+  //     // Process each response
+  //     for (var entry in responses) {
+  //       final String endpoint = entry['endpoint'] as String;  // Explicitly cast to String
+  //       final Response response = entry['response'] as Response;  // Explicitly cast to http.Response
+  //
+  //       if (response.statusCode == 200) {
+  //         final responseData = json.decode(response.body);
+  //         allReports.add({endpoint: responseData});
+  //       } else if (response.statusCode == 401) {
+  //         print('Unauthorized request for $endpoint. Please check your credentials.');
+  //         break; // Stop further requests if unauthorized
+  //       } else {
+  //         print('Failed to fetch data from $endpoint. Status code: ${response.statusCode}');
+  //       }
+  //     }
+  //   } catch (e) {
+  //     print('An error occurred while fetching reports: $e');
+  //   }
+  //
+  //   print(allReports);
+  // }
+
+  bool isFetchingReports = false;
+
+  Future<void> getChildReports(BuildContext context) async {
+    if (isFetchingReports) return; // Prevent multiple fetches
+    isFetchingReports = true;
+    print(isFetchingReports);
+
+    final url = Uri.parse(
+      'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/report/child/$childId/reports',
+    );
+
+    try {
+      final response = await get(
+        url,
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $userToken',
+        },
+      );
+
+      print(childId);
+
+      if (response.statusCode == 200) {
+        final List<dynamic> reports = json.decode(response.body);
+
+
+        isFetchingReports = false; // Reset flag
+        print(isFetchingReports);
+        handleLatestReport(context, reports);
+      } else if (response.statusCode == 401) {
+        print('Unauthorized request. Please check your credentials.');
+      } else {
+        print('Failed to load reports. Status code: ${response.statusCode}');
+        final Map<String, dynamic> errorDetails = json.decode(response.body);
+        print(errorDetails);
+      }
+    } catch (e) {
+      print('An error occurred: $e');
+    }
+    print(isFetchingReports);
+    notifyListeners(); // Ensure UI updates
+  }
+
+
+
+  List<Map<String, dynamic>> allReports = [];
+
+
+
+
+  List<MealReport> mealReports = [];
+  List<DiaperReport> diaperReports = [];
+
+  Future<void> fetchAllChildReports(BuildContext context, String reportId) async {
+    // print('fetchAllChildReports function called');
+    // if (isFetchingReports) return; // Prevent multiple fetches
+    // isFetchingReports = true;
+
+    if (isFetchingReports) {
+      print('Fetch already in progress, exiting...'); // Debugging line
+      return; // Prevent multiple fetches
+    }
+
+    // isFetchingReports = true; // Set the flag to true
+    // print('fetchAllChildReports function started');
+
+    try {
+      allReports.clear(); // Clear previous reports
+      print('Fetching reports for child with ID: $reportId');
+
+      final baseUrl = 'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/report/$reportId';
+      final endpoints = [
+        'meal-report',
+        'nap-reports',
+        'diaper-reports',
+      ];
+
+      final responses = await Future.wait(
+        endpoints.map((endpoint) async {
+          final url = Uri.parse('$baseUrl/$endpoint');
+          final response = await get(
+            url,
+            headers: {
+              'Accept': '*/*',
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer $userToken',
+            },
+          );
+          return {'endpoint': endpoint, 'response': response};
+        }).toList(),
+      );
+
+      for (var entry in responses) {
+        final String endpoint = entry['endpoint'] as String;
+        final Response response = entry['response'] as Response;
+
+        if (response.statusCode == 200) {
+          final responseData = json.decode(response.body);
+          allReports.add({endpoint: responseData});
+        } else if (response.statusCode == 401) {
+          print('Unauthorized request for $endpoint. Please check your credentials.');
+          break;
+        } else {
+          print('Failed to fetch data from $endpoint. Status code: ${response.statusCode}');
+        }
+      }
+    } catch (e) {
+      print('An error occurred while fetching reports: $e');
+    } finally {
+      // isFetchingReports = false; // Reset flag
+      // print(allReports);
+
+      parseResponse(allReports);
+      print(mealReports);
+      print(diaperReports);
+    }
+  }
+
+
+  void parseResponse(List<dynamic> jsonResponse) {
+    mealReports.clear();
+    diaperReports.clear();
+
+    for (var item in jsonResponse) {
+      if (item.containsKey('meal-report')) {
+        mealReports = (item['meal-report'] as List)
+            .map((data) => MealReport.fromJson(data))
+            .toList();
+      } else if (item.containsKey('diaper-reports')) {
+        diaperReports = (item['diaper-reports'] as List)
+            .map((data) => DiaperReport.fromJson(data))
+            .toList();
+      }
+    }
+
+    // Now you can use the parsed data to build your UI
+  }
+
+
+
+
+
+
+  Future<void> checkIn({required String generatedQRCode, required String scannedQRCode, required String childId}) async {
+    final url = Uri.parse('https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/timesheet/check-in');
+
+    final response = await post(
+      url,
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $userToken', // Add your token here
+      },
+      body: jsonEncode({
+        'generatedQRCode': generatedQRCode,
+        'scannedQRCode': scannedQRCode,
+        'childId': childId,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      print('Check-in successful: ${data['message']}');
+    } else {
+      print('Error: ${response.statusCode}');
+      print(response.body); // To get more information about the error
+    }
+  }
+
+
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peonyapp/Widgets/widgets.dart';
 
 import '../../Styles/colors.dart';
+import '../../Widgets/widgets.dart';
 import '../bottomnavigationbar/bottomnavigationbar.dart';
 
 class congratulations extends StatefulWidget {

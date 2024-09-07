@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:peonyapp/Widgets/widgets.dart';
 
 import '../../Styles/colors.dart';
+import '../../Widgets/widgets.dart';
 
 // ignore: camel_case_types
 class payments extends StatefulWidget {

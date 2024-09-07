@@ -1,4 +1,4 @@
-package com.example.peonyapp
+package com.peony.peonykids
 
 import io.flutter.embedding.android.FlutterActivity
 

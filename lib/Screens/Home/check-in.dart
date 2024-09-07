@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
+import '../../Models/childData.dart';
 import '../../Styles/colors.dart';
+import '../../stateManagement/providers.dart';
 
 class CheckIn extends StatefulWidget {
   const CheckIn({Key? key}) : super(key: key);
@@ -12,9 +15,50 @@ class CheckIn extends StatefulWidget {
   State<CheckIn> createState() => _CheckInState();
 }
 
+List<Map<String, dynamic>> items = [];
+
 class _CheckInState extends State<CheckIn> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    _initializeData();
+  }
+
+
+  Future<void> _initializeData() async {
+    final childDataProvider = Provider.of<MainState>(context, listen: false);
+    // Create an instance of DataHandler
+    Children childDataHandler = Children(childDataProvider.childDetails);
+
+    setState(() {
+      items = childDataHandler.getProcessedData();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    List<Widget> children = [];
+    List<Widget> childs = [];
+
+    for (int i = 0; i < items.length; i++) {
+      children.add(
+        checkIn(
+          name: items[i]['firstName'],
+          id: items[i]['id'],
+        ),
+      );
+      childs.add(
+        groupCheckIn(
+          name: items[i]['firstName'],
+          id: items[i]['id'],
+        ),
+      );
+    }
+
+
     return Scaffold(
       backgroundColor: white,
       appBar: AppBar(
@@ -52,9 +96,9 @@ class _CheckInState extends State<CheckIn> {
             SizedBox(
               height: 15,
             ),
-            checkIn(name: 'Macdonald'),
-            checkIn(name: 'Ben'),
-            checkIn(name: 'Anne'),
+            Column(
+              children: children,
+            ),
             SizedBox(
               height: 10,
             ),
@@ -111,86 +155,8 @@ class _CheckInState extends State<CheckIn> {
                             ],
                           ),
                         ),
-                        Container(
-                          height: 50,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: grey2,
-                              ),
-                            ),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 3,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Macdonald',
-                                style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w600,
-                                    color: black),
-                              ),
-                              Checkbox(value: false, onChanged: (value) {})
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 50,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: grey2,
-                              ),
-                            ),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 3,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Ben',
-                                style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w600,
-                                    color: black),
-                              ),
-                              Checkbox(value: false, onChanged: (value) {})
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 50,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: grey2,
-                              ),
-                            ),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 3,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Anne',
-                                style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w600,
-                                    color: black),
-                              ),
-                              Checkbox(value: false, onChanged: (value) {})
-                            ],
-                          ),
+                        Column(
+                          children: childs,
                         ),
                         SizedBox(
                           height: 20,
@@ -308,56 +274,97 @@ class _CheckInState extends State<CheckIn> {
     );
   }
 
-  Padding checkIn({required String name}) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15),
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: black02.withOpacity(0.1), // Shadow color
-              offset: Offset(0.0, 7.0), // Offset from right
-              blurRadius: 8, // Spread of the shadow
-              spreadRadius: 0.0,
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: black),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    'Tap to check in $name',
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: black),
-                  ),
-                ],
+  Container groupCheckIn({required String name, required String id}) {
+    return Container(
+                        height: 50,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: grey2,
+                            ),
+                          ),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 3,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              name,
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                  color: black),
+                            ),
+                            Checkbox(value: false, onChanged: (value) {})
+                          ],
+                        ),
+                      );
+  }
+
+  checkIn({required String name,  required String id}) {
+    final childDataProvider = Provider.of<MainState>(context, listen: false);
+    return GestureDetector(
+      onTap: (){
+        print('I was Pressed');
+        childDataProvider.checkIn(
+            generatedQRCode: "iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQAAAABRBrPYAAACZElEQVR4Xu2ZO5KEMAxERRFMOEfwUTgaPhpH4QiEBBRadcswLLXBhFvVKFiw9digSz97zL+xxe47f9qD3ezBbvbfscVgL5/5WGxwPmz0jZ5ODiuhzAZ/pWOIlb19GrvtBdEEsclyp7qv73nw3Q4M8sli81DpiEDq/VwJY6FUCGbFK3WLCJLFvGVWPNfIrArdEuNDDkOBjWpbMpeuD3rksGaovVRqGlF7o+J0F58aZsyluvcrHvmRd+hJbaWEcSfeZxuZUpOh1MRq75F19Yw3Gayw6FKiVCo/MhSe8tFNBotG7HwNa7r19HPKHQ7dhDCGzgsxY8isaWQldm+bkhj+oug6c8mYWblJ08NgJUowdcM018IKZUgPa5lVwu/EmGAMJPyLWwIqYLwQgL/VGKbUhNZ0zSwhDN15jcDhJIsHV0d06WEQzA7/G+1n461SqghTw2C5k6c+S3+jT91UsKWddWIHWBYePHBnYFxpYWEVuYS2zCOPRwTlGZBhJYehvkbttZLjikE+DvrIrIu8Uhj78TTioiS7EFbHphrGXMorI8e4knPKzJYN3eQwlBpWW85voNmawn8ekbUwGM6/DB3kUkU8UTDWH02MuiF0WGNwiYK7FLYmOQwxA//MzArFxviO9QcmiDXDGbDJx8zKwe13IGlg2Gk3Rxjj/BAMQx035bB4bb9nHd35k1IsyHJYvEIiHAWz/eRHUK9cphoxzOfMpSg1ewxu0A3ffjJLDnNGEFY8ChoFK+evFUoYMwtY9qQRjvDn8MIE08KQQQYMhz8rmOYMtTfvkc5AksG+sAe72YPdTAj7AZwLKKljzDlBAAAAAElFTkSuQmCC",
+            scannedQRCode: "iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQAAAABRBrPYAAACZElEQVR4Xu2ZO5KEMAxERRFMOEfwUTgaPhpH4QiEBBRadcswLLXBhFvVKFiw9digSz97zL+xxe47f9qD3ezBbvbfscVgL5/5WGxwPmz0jZ5ODiuhzAZ/pWOIlb19GrvtBdEEsclyp7qv73nw3Q4M8sli81DpiEDq/VwJY6FUCGbFK3WLCJLFvGVWPNfIrArdEuNDDkOBjWpbMpeuD3rksGaovVRqGlF7o+J0F58aZsyluvcrHvmRd+hJbaWEcSfeZxuZUpOh1MRq75F19Yw3Gayw6FKiVCo/MhSe8tFNBotG7HwNa7r19HPKHQ7dhDCGzgsxY8isaWQldm+bkhj+oug6c8mYWblJ08NgJUowdcM018IKZUgPa5lVwu/EmGAMJPyLWwIqYLwQgL/VGKbUhNZ0zSwhDN15jcDhJIsHV0d06WEQzA7/G+1n461SqghTw2C5k6c+S3+jT91UsKWddWIHWBYePHBnYFxpYWEVuYS2zCOPRwTlGZBhJYehvkbttZLjikE+DvrIrIu8Uhj78TTioiS7EFbHphrGXMorI8e4knPKzJYN3eQwlBpWW85voNmawn8ekbUwGM6/DB3kUkU8UTDWH02MuiF0WGNwiYK7FLYmOQwxA//MzArFxviO9QcmiDXDGbDJx8zKwe13IGlg2Gk3Rxjj/BAMQx035bB4bb9nHd35k1IsyHJYvEIiHAWz/eRHUK9cphoxzOfMpSg1ewxu0A3ffjJLDnNGEFY8ChoFK+evFUoYMwtY9qQRjvDn8MIE08KQQQYMhz8rmOYMtTfvkc5AksG+sAe72YPdTAj7AZwLKKljzDlBAAAAAElFTkSuQmCC",
+            childId: id
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 15),
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: black02.withOpacity(0.1), // Shadow color
+                offset: Offset(0.0, 7.0), // Offset from right
+                blurRadius: 8, // Spread of the shadow
+                spreadRadius: 0.0,
               ),
-              Icon(
-                Icons.qr_code_scanner,
-                size: 30,
-                color: primaryColor02,
-              )
             ],
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: black),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      'Tap to check in $name',
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: black),
+                    ),
+                  ],
+                ),
+                Icon(
+                  Icons.qr_code_scanner,
+                  size: 30,
+                  color: primaryColor02,
+                )
+              ],
+            ),
           ),
         ),
       ),

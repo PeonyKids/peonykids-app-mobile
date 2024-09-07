@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:peonyapp/Styles/colors.dart';
-import 'package:peonyapp/Widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../../Styles/colors.dart';
+import '../../Widgets/widgets.dart';
 import '../../stateManagement/providers.dart';
 import 'congratulations.dart';
 
@@ -23,8 +23,16 @@ class _securityquestionsState extends State<securityquestions> {
   // List of items in our dropdown menu
   var items = [
     'Select Question',
-    'What\'s your Mother\'s Maidens Name',
-    'What\'s your Pet Name',
+    'What was the name of your first childhood friend?',
+    'What is the name of the street where you grew up?',
+    'What was the name of your first pet?',
+    'What is your mother\'s maiden name?'
+    // 'What was the model of your first car?'
+    // 'What was the name of your first school?'
+    // 'What is your favorite book?'
+    // 'What was the name of your first grade teacher?'
+    // 'What city did you visit on your first vacation?'
+    // 'What is the name of the first concert you attended?'
   ];
   @override
   Widget build(BuildContext context) {

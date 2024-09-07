@@ -1,19 +1,19 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
+import 'package:PeonyKids/Screens/Account/viewInvoice.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:peonyapp/Screens/Account/childDetails.dart';
-import 'package:peonyapp/Screens/Account/viewInvoice.dart';
-import 'package:peonyapp/Styles/colors.dart';
-import 'package:peonyapp/stateManagement/providers.dart';
+// import 'package:peonyapp/Screens/Account/childDetails.dart';
+// import 'package:peonyapp/Screens/Account/viewInvoice.dart';
+// import 'package:peonyapp/Styles/colors.dart';
+// import 'package:peonyapp/stateManagement/providers.dart';
 import 'package:provider/provider.dart';
 
-// import '../../store/orders.dart';
+import '../../Styles/colors.dart';
+import '../../stateManagement/providers.dart';
 import '../store/orders.dart';
 import 'changePassword.dart';
 import 'checkIn.dart';
+import 'childDetails.dart';
 import 'editProfile.dart';
 import 'feedback.dart';
 import 'notification.dart';
@@ -32,10 +32,10 @@ class _AccountPageState extends State<AccountPage> {
   void initState() {
     super.initState();
     _startDelay();
-    setState(() {
-      childDetails =
-          Provider.of<MainState>(context, listen: false).childDetails;
-    });
+    // setState(() {
+    //   childDetails =
+    //       Provider.of<MainState>(context, listen: false).childDetails;
+    // });
   }
 
   void _startDelay() async {
@@ -146,7 +146,7 @@ class _AccountPageState extends State<AccountPage> {
                                       //   ),
                                       // ),
                                       TextSpan(
-                                        text: '($date)',
+                                        text: '( $date )',
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w400,

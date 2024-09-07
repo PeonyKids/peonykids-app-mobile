@@ -1,8 +1,8 @@
+import 'package:PeonyKids/Screens/store/particluarStorePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:peonyapp/Screens/store/particluarStorePage.dart';
-import 'package:peonyapp/Styles/colors.dart';
 
+import '../../Styles/colors.dart';
 import 'cartPage.dart';
 
 class storepage extends StatefulWidget {
@@ -107,60 +107,58 @@ class _storepageState extends State<storepage> {
                     mainAxisSpacing: 10,
                     crossAxisSpacing: 50),
                 itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.4),
-                              borderRadius: BorderRadius.circular(10)),
-                          padding: EdgeInsets.all(8.0),
-                          height: 150,
-                          width: 150,
-                          child: Image(image: AssetImage(items[index]['image'])),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 30, top: 10),
-                          child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(items[index]['name'])),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 30, top: 5),
-                          child: Align(
+                  return Wrap(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(10)),
+                        padding: EdgeInsets.all(8.0),
+                        height: 150,
+                        width: 150,
+                        child: Image(image: AssetImage(items[index]['image'])),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, top: 10),
+                        child: Align(
                             alignment: Alignment.topLeft,
-                            child: Text(
-                              items[index]['age'],
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
+                            child: Text(items[index]['name'])),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, top: 5),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            items[index]['age'],
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
-                        SizedBox(
-                          height: 10.7,
-                        ),
-                        SizedBox(
-                          height: 40,
-                          width: 150,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: lightish,
-                                  shape: StadiumBorder(),
-                                  side: BorderSide(color: primaryColor01)),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => particluaritem()),
-                                );
-                              },
-                              child: Text(
-                                'Add to Cart',
-                                style: TextStyle(
-                                    color: primaryColor01,
-                                    fontWeight: FontWeight.bold),
-                              )),
-                        ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(
+                        height: 10.7,
+                      ),
+                      SizedBox(
+                        height: 40,
+                        width: 150,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: lightish,
+                                shape: StadiumBorder(),
+                                side: BorderSide(color: primaryColor01)),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => particluaritem()),
+                              );
+                            },
+                            child: Text(
+                              'Add to Cart',
+                              style: TextStyle(
+                                  color: primaryColor01,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                      ),
+                    ],
                   );
                 },
                 itemCount: items.length,
