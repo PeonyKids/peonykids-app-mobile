@@ -19,6 +19,9 @@ class login extends StatefulWidget {
 class _loginState extends State<login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  bool _isObscure = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,7 +107,13 @@ class _loginState extends State<login> {
                             controller: _passwordController,
                             decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.lock_outlined, color: Color(0xff737373)),
-                                suffixIcon: Icon(Icons.visibility_outlined, color: Color(0xff737373)),
+                                suffixIcon: GestureDetector(
+                                    onTap: (){
+                                      setState(() {
+                                        _isObscure = !_isObscure;
+                                      });
+                                    },
+                                    child: Icon( _isObscure ? Icons.visibility_off_outlined : Icons.visibility_outlined, color: Color(0xff737373),),),
                                 hintText: 'Enter your password',
                                 hintStyle: TextStyle(
                                     color: Color(0xff737373), fontFamily: 'WorkSans'),
@@ -115,7 +124,7 @@ class _loginState extends State<login> {
                                     borderSide: BorderSide(color: Color(0xffEDEDED)),
                                     borderRadius: BorderRadius.circular(10))),
                                 keyboardType: TextInputType.visiblePassword,
-                                obscureText: false, // to hide the password input
+                                obscureText: _isObscure, // to hide the password input
                                 autocorrect: false, // disable autocorrect
                                 enableSuggestions: false, // disable suggestions
                                 autofillHints: null, // disable autofill
@@ -164,20 +173,22 @@ class _loginState extends State<login> {
                           height: 20,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Don't have an account?",
-                              style: TextStyle(color: black03),
-                            ),
-                            SizedBox(
-                              width: 5,
+                            Flexible(
+                              child: Text(
+                                "Don't have an account?",
+                                style: TextStyle(color: black03),
+                              ),
                             ),
                             Text(
                               'Sign up',
                               style: TextStyle(
-                                  color: primaryColor01, fontWeight: FontWeight.bold,  fontSize: 15),
-                            )
+                                color: primaryColor01,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),
+                            ),
                           ],
                         )
                       ],

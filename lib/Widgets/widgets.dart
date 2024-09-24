@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../Styles/colors.dart';
 
@@ -115,6 +116,90 @@ GestureDetector shadowButton ({required VoidCallback onTap, required String text
                 fontWeight: FontWeight.w600,
                 fontSize: 16),)
       ),
+    ),
+  );
+}
+
+
+tracker({
+  required String type,
+  required String head,
+  required String time,
+  String? subhead,
+  String? subhead2,
+}) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 30),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SvgPicture.asset(
+          type,
+          semanticsLabel: 'My SVG Image',
+          height: 50.h,
+          width: 50.w,
+        ),
+        SizedBox(width: 10.w),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.only(top: 5.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  head,
+                  style: TextStyle(
+                    fontSize: 17.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                if (subhead != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: Text(
+                      subhead,
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                if (subhead2 != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: Text(
+                      subhead2,
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 5.h),
+          child: Row(
+            children: [
+              Icon(
+                Icons.access_time,
+                size: 20.sp,
+                color: Colors.black,
+              ),
+              SizedBox(width: 5.w),
+              Text(
+                time,
+                style: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     ),
   );
 }

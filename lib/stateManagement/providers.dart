@@ -45,6 +45,9 @@ class MainState extends ChangeNotifier {
   String changePasswordError = '';
   List<Map<String, dynamic>> childDetails = [];
 
+  String day = '';
+  String month = '';
+
 
   int? activeChild;
 
@@ -379,7 +382,6 @@ class MainState extends ChangeNotifier {
       fetchChild(context);
 
       print('email sent successfully');
-      notifyListeners();
     } else {
       print('Failed to sign up user: ${response.body}');
       final Map<String, dynamic> registrationData = json.decode(response.body);
@@ -387,9 +389,37 @@ class MainState extends ChangeNotifier {
       print(registrationData);
       statusVerifyPhone = registrationData['message'];
       print(error);
-      notifyListeners();
+    }
+    otpCheck(false);
+    notifyListeners();
+  }
+
+
+
+  Future<void> verifyingEmail({required String token}) async {
+    final url = Uri.parse('https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/auth/verify-email/$token');
+
+    final response = await post(
+      url,
+      headers: {
+        'Accept': '*/*',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $userToken', // Add your token here
+      },
+    );
+
+    final Map<String, dynamic> emailMessageData = json.decode(response.body);
+    if (response.statusCode == 200) {
+      emailMessageData['message'];
+      print('Email verification successful.');
+    } else {
+      print('Error: ${response.statusCode}');
+      print(response.body); // To get more information about the error
+      emailMessageData['message'];
     }
   }
+
+
 
 
   // String token= '';
@@ -459,6 +489,9 @@ class MainState extends ChangeNotifier {
 
 
       successUser = loginData['success'].toString();
+
+      generateQRCode();
+
       successUser == 'true' ? Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => otp()),
@@ -1034,10 +1067,96 @@ class MainState extends ChangeNotifier {
 
 
 
+  // Future<void> fetchChildEventReport(BuildContext context, String childId) async {
+  //
+  //   try {
+  //     final baseUrl = 'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/events/$childId';
+  //
+  //     // Construct the request URL
+  //     final url = Uri.parse(baseUrl);
+  //     print('Fetching event report for child with ID: $childId');
+  //
+  //     // Send the GET request
+  //     final response = await get(
+  //       url,
+  //       headers: {
+  //         'Accept': '*/*',
+  //         'Authorization': 'Bearer $userToken',
+  //       },
+  //     );
+  //
+  //     // Check response status
+  //     if (response.statusCode == 200) {
+  //       final responseData = json.decode(response.body);
+  //       print('Successfully fetched reports for $childId');
+  //       print(responseData);
+  //     } else if (response.statusCode == 401) {
+  //       print('Unauthorized request. Please check your credentials.');
+  //     } else {
+  //       print('Failed to fetch data. Status code: ${response.statusCode}');
+  //     }
+  //   } catch (e) {
+  //     print('An error occurred while fetching reports: $e');
+  //   }
+  // }
+
+
+  Stream<Map<String, dynamic>> fetchChildEventStream() async* {
+    while (true) {
+      await Future.delayed(Duration(seconds: 5)); // Fetch data every 5 seconds (or your preferred interval)
+
+      final url = Uri.parse('https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/events/$childId');
+      final response = await get(
+        url,
+        headers: {
+          'Accept': '*/*',
+          'Authorization': 'Bearer $userToken',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        yield responseData; // Send data through the stream
+      } else {
+        throw Exception('Failed to load event reports');
+      }
+    }
+  }
+
+
+  String qrCode = '';
 
 
 
-  Future<void> checkIn({required String generatedQRCode, required String scannedQRCode, required String childId}) async {
+  Future<void> generateQRCode() async {
+    final url = Uri.parse('https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/timesheet/generate-qr-code');
+
+    final response = await post(
+      url,
+      headers: {
+        'Authorization': 'Bearer $userToken', // Add your token here
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      print('QR Code generated successfully.');
+      print('QR Code Data: ${data['data']['qrCode']}'); // Base64 string of the QR code
+
+      qrCode = data['data']['qrCode'];
+    } else {
+      print('Error: ${response.statusCode}');
+      print(response.body); // To get more information about the error
+    }
+    notifyListeners();
+  }
+
+
+
+
+
+
+  Future<void> checkIn({required String scannedQRCode, required String childId}) async {
     final url = Uri.parse('https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/timesheet/check-in');
 
     final response = await post(
@@ -1048,7 +1167,7 @@ class MainState extends ChangeNotifier {
         'Authorization': 'Bearer $userToken', // Add your token here
       },
       body: jsonEncode({
-        'generatedQRCode': generatedQRCode,
+        'generatedQRCode': qrCode,
         'scannedQRCode': scannedQRCode,
         'childId': childId,
       }),
@@ -1061,7 +1180,6 @@ class MainState extends ChangeNotifier {
       print('Error: ${response.statusCode}');
       print(response.body); // To get more information about the error
     }
+    notifyListeners();
   }
-
-
 }

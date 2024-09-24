@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
 
 import '../../Models/childData.dart';
@@ -35,6 +36,8 @@ class _CheckInState extends State<CheckIn> {
     setState(() {
       items = childDataHandler.getProcessedData();
     });
+
+    childDataProvider.generateQRCode();
   }
 
   @override
@@ -306,14 +309,34 @@ class _CheckInState extends State<CheckIn> {
 
   checkIn({required String name,  required String id}) {
     final childDataProvider = Provider.of<MainState>(context, listen: false);
+
+    // Function to start QR code scanning
+    Future<void> _startQRScanner() async {
+      final String? scannedQRCode = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => QRScannerScreen()), // Push to QR Scanner screen
+      );
+
+      print('This is the scanned QR-Code :- $scannedQRCode');
+
+      if (scannedQRCode != null) {
+        // Call checkIn method with scanned QR code
+        childDataProvider.checkIn(
+          scannedQRCode: scannedQRCode,
+          childId: id,
+        );
+      }
+    }
+
     return GestureDetector(
       onTap: (){
         print('I was Pressed');
-        childDataProvider.checkIn(
-            generatedQRCode: "iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQAAAABRBrPYAAACZElEQVR4Xu2ZO5KEMAxERRFMOEfwUTgaPhpH4QiEBBRadcswLLXBhFvVKFiw9digSz97zL+xxe47f9qD3ezBbvbfscVgL5/5WGxwPmz0jZ5ODiuhzAZ/pWOIlb19GrvtBdEEsclyp7qv73nw3Q4M8sli81DpiEDq/VwJY6FUCGbFK3WLCJLFvGVWPNfIrArdEuNDDkOBjWpbMpeuD3rksGaovVRqGlF7o+J0F58aZsyluvcrHvmRd+hJbaWEcSfeZxuZUpOh1MRq75F19Yw3Gayw6FKiVCo/MhSe8tFNBotG7HwNa7r19HPKHQ7dhDCGzgsxY8isaWQldm+bkhj+oug6c8mYWblJ08NgJUowdcM018IKZUgPa5lVwu/EmGAMJPyLWwIqYLwQgL/VGKbUhNZ0zSwhDN15jcDhJIsHV0d06WEQzA7/G+1n461SqghTw2C5k6c+S3+jT91UsKWddWIHWBYePHBnYFxpYWEVuYS2zCOPRwTlGZBhJYehvkbttZLjikE+DvrIrIu8Uhj78TTioiS7EFbHphrGXMorI8e4knPKzJYN3eQwlBpWW85voNmawn8ekbUwGM6/DB3kUkU8UTDWH02MuiF0WGNwiYK7FLYmOQwxA//MzArFxviO9QcmiDXDGbDJx8zKwe13IGlg2Gk3Rxjj/BAMQx035bB4bb9nHd35k1IsyHJYvEIiHAWz/eRHUK9cphoxzOfMpSg1ewxu0A3ffjJLDnNGEFY8ChoFK+evFUoYMwtY9qQRjvDn8MIE08KQQQYMhz8rmOYMtTfvkc5AksG+sAe72YPdTAj7AZwLKKljzDlBAAAAAElFTkSuQmCC",
-            scannedQRCode: "iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQAAAABRBrPYAAACZElEQVR4Xu2ZO5KEMAxERRFMOEfwUTgaPhpH4QiEBBRadcswLLXBhFvVKFiw9digSz97zL+xxe47f9qD3ezBbvbfscVgL5/5WGxwPmz0jZ5ODiuhzAZ/pWOIlb19GrvtBdEEsclyp7qv73nw3Q4M8sli81DpiEDq/VwJY6FUCGbFK3WLCJLFvGVWPNfIrArdEuNDDkOBjWpbMpeuD3rksGaovVRqGlF7o+J0F58aZsyluvcrHvmRd+hJbaWEcSfeZxuZUpOh1MRq75F19Yw3Gayw6FKiVCo/MhSe8tFNBotG7HwNa7r19HPKHQ7dhDCGzgsxY8isaWQldm+bkhj+oug6c8mYWblJ08NgJUowdcM018IKZUgPa5lVwu/EmGAMJPyLWwIqYLwQgL/VGKbUhNZ0zSwhDN15jcDhJIsHV0d06WEQzA7/G+1n461SqghTw2C5k6c+S3+jT91UsKWddWIHWBYePHBnYFxpYWEVuYS2zCOPRwTlGZBhJYehvkbttZLjikE+DvrIrIu8Uhj78TTioiS7EFbHphrGXMorI8e4knPKzJYN3eQwlBpWW85voNmawn8ekbUwGM6/DB3kUkU8UTDWH02MuiF0WGNwiYK7FLYmOQwxA//MzArFxviO9QcmiDXDGbDJx8zKwe13IGlg2Gk3Rxjj/BAMQx035bB4bb9nHd35k1IsyHJYvEIiHAWz/eRHUK9cphoxzOfMpSg1ewxu0A3ffjJLDnNGEFY8ChoFK+evFUoYMwtY9qQRjvDn8MIE08KQQQYMhz8rmOYMtTfvkc5AksG+sAe72YPdTAj7AZwLKKljzDlBAAAAAElFTkSuQmCC",
-            childId: id
-        );
+        // childDataProvider.checkIn(
+        //     scannedQRCode: "",
+        //     childId: idiVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQAAAABRBrPYAAACZElEQVR4Xu2ZO5KEMAxERRFMOEfwUTgaPhpH4QiEBBRadcswLLXBhFvVKFiw9digSz97zL+xxe47f9qD3ezBbvbfscVgL5/5WGxwPmz0jZ5ODiuhzAZ/pWOIlb19GrvtBdEEsclyp7qv73nw3Q4M8sli81DpiEDq/VwJY6FUCGbFK3WLCJLFvGVWPNfIrArdEuNDDkOBjWpbMpeuD3rksGaovVRqGlF7o+J0F58aZsyluvcrHvmRd+hJbaWEcSfeZxuZUpOh1MRq75F19Yw3Gayw6FKiVCo/MhSe8tFNBotG7HwNa7r19HPKHQ7dhDCGzgsxY8isaWQldm+bkhj+oug6c8mYWblJ08NgJUowdcM018IKZUgPa5lVwu/EmGAMJPyLWwIqYLwQgL/VGKbUhNZ0zSwhDN15jcDhJIsHV0d06WEQzA7/G+1n461SqghTw2C5k6c+S3+jT91UsKWddWIHWBYePHBnYFxpYWEVuYS2zCOPRwTlGZBhJYehvkbttZLjikE+DvrIrIu8Uhj78TTioiS7EFbHphrGXMorI8e4knPKzJYN3eQwlBpWW85voNmawn8ekbUwGM6/DB3kUkU8UTDWH02MuiF0WGNwiYK7FLYmOQwxA//MzArFxviO9QcmiDXDGbDJx8zKwe13IGlg2Gk3Rxjj/BAMQx035bB4bb9nHd35k1IsyHJYvEIiHAWz/eRHUK9cphoxzOfMpSg1ewxu0A3ffjJLDnNGEFY8ChoFK+evFUoYMwtY9qQRjvDn8MIE08KQQQYMhz8rmOYMtTfvkc5AksG+sAe72YPdTAj7AZwLKKljzDlBAAAAAElFTkSuQmCC
+        // );
+
+        _startQRScanner(); // Trigger QR scanner on tap
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 15),
@@ -368,6 +391,30 @@ class _CheckInState extends State<CheckIn> {
           ),
         ),
       ),
+    );
+  }
+}
+
+
+
+
+class QRScannerScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Scan QR Code')),
+      // body: MobileScanner(
+      //   onDetect: (capture) {
+      //     final List<Barcode> barcodes = capture.barcodes;
+      //     if (barcodes.isNotEmpty) {
+      //       String? scannedQRCode = barcodes.first.rawValue;
+      //       if (scannedQRCode != null) {
+      //         print('Scanned QR Code: $scannedQRCode');
+      //         Navigator.pop(context, scannedQRCode); // Return scanned QR code to previous screen
+      //       }
+      //     }
+      //   },
+      // ),
     );
   }
 }

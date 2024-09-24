@@ -36,22 +36,22 @@ import 'Screens/Splashscreens/splashscreen.dart';
 import 'Styles/colors.dart';
 import 'Screens/Home/notifications.dart';
 
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 
 
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: const FirebaseOptions(
-      apiKey:
-      "AIzaSyBK06F6axIgxV7j1mJIYa-96g-nsSgq5dQ", // paste your api key here
-      appId:
-      "1:441691677643:android:60a43969fefabe20148c4e", //paste your app id here
-      messagingSenderId: "441691677643", //paste your messagingSenderId here
-      projectId: "peonykids-app", //paste your project id here
-    ),
-  );
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(
+  //   options: const FirebaseOptions(
+  //     apiKey:
+  //     "AIzaSyBK06F6axIgxV7j1mJIYa-96g-nsSgq5dQ", // paste your api key here
+  //     appId:
+  //     "1:441691677643:android:60a43969fefabe20148c4e", //paste your app id here
+  //     messagingSenderId: "441691677643", //paste your messagingSenderId here
+  //     projectId: "peonykids-app", //paste your project id here
+  //   ),
+  // );
   runApp(MyApp());
 }
 
