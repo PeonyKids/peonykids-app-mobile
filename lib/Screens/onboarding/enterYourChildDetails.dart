@@ -15,7 +15,7 @@ class ChildDetails extends StatefulWidget {
   State<ChildDetails> createState() => _ChildDetailsState();
 }
 
-List<String> values = ['Male', 'Female'];
+List<String> values = ['MALE', 'FEMALE'];
 
 class _ChildDetailsState extends State<ChildDetails> {
   List<GlobalKey<_ChildFormState>> childrenKeys = [];
@@ -51,7 +51,7 @@ class _ChildDetailsState extends State<ChildDetails> {
     });
   }
 
-  void handleSubmit() {
+  void handleSubmit() async {
     final childDataProvider = Provider.of<MainState>(context, listen: false);
     // List<Map<String, dynamic>> fullList = [];
     Child.children.clear();
@@ -86,7 +86,16 @@ class _ChildDetailsState extends State<ChildDetails> {
       //   ),
       // );
 
-      childDataProvider.AddChild(context);
+      await childDataProvider.AddChild(context);
+
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //       builder: (context) => login()
+      //   ),
+      // );
+
+      childDataProvider.fetchChild(context);
 
     } else {
       // Handle empty data case, e.g., show a message
@@ -359,14 +368,14 @@ class _ChildFormState extends State<ChildForm> {
           children: [
             Radio(
               activeColor: primaryColor01,
-              value: values[0],
+              value: values[0].toUpperCase(),
               groupValue: _selectedValue,
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               onChanged: (value) {
                 setState(() {
                   _selectedValue = value.toString();
                 });
-                print('Selected Gender $_selectedValue');
+                print('Selected Gender ${_selectedValue}');
               },
             ),
             const Text(
@@ -379,7 +388,7 @@ class _ChildFormState extends State<ChildForm> {
           children: [
             Radio(
               activeColor: primaryColor01,
-              value: values[1],
+              value: values[1].toUpperCase(),
               groupValue: _selectedValue,
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               onChanged: (value) {

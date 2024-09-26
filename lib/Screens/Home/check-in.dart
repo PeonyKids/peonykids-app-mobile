@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../../Models/childData.dart';
 import '../../Styles/colors.dart';
@@ -398,23 +399,93 @@ class _CheckInState extends State<CheckIn> {
 
 
 
-class QRScannerScreen extends StatelessWidget {
+// class QRScannerScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('Scan QR Code')),
+//       // body: MobileScanner(
+//       //   onDetect: (capture) {
+//       //     final List<Barcode> barcodes = capture.barcodes;
+//       //     if (barcodes.isNotEmpty) {
+//       //       String? scannedQRCode = barcodes.first.rawValue;
+//       //       if (scannedQRCode != null) {
+//       //         print('Scanned QR Code: $scannedQRCode');
+//       //         Navigator.pop(context, scannedQRCode); // Return scanned QR code to previous screen
+//       //       }
+//       //     }
+//       //   },
+//       // ),
+//     );
+//   }
+// }
+
+
+class QRScannerScreen extends StatefulWidget {
+  @override
+  _QRScannerScreenState createState() => _QRScannerScreenState();
+}
+
+class _QRScannerScreenState extends State<QRScannerScreen> {
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  QRViewController? controller;
+  Barcode? result;
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    if (controller != null) {
+      controller!.pauseCamera();
+    }
+    controller!.resumeCamera();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Scan QR Code')),
-      // body: MobileScanner(
-      //   onDetect: (capture) {
-      //     final List<Barcode> barcodes = capture.barcodes;
-      //     if (barcodes.isNotEmpty) {
-      //       String? scannedQRCode = barcodes.first.rawValue;
-      //       if (scannedQRCode != null) {
-      //         print('Scanned QR Code: $scannedQRCode');
-      //         Navigator.pop(context, scannedQRCode); // Return scanned QR code to previous screen
-      //       }
-      //     }
-      //   },
-      // ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            flex: 5,
+            child: QRView(
+              key: qrKey,
+              onQRViewCreated: _onQRViewCreated,
+              overlay: QrScannerOverlayShape(
+                borderColor: Colors.red,
+                borderRadius: 10,
+                borderLength: 30,
+                borderWidth: 10,
+                cutOutSize: 300, // Adjust the size of the QR scanner overlay
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Center(
+              child: (result != null)
+                  ? Text('Scanned: ${result!.code}')
+                  : Text('Scan a code'),
+            ),
+          ),
+        ],
+      ),
     );
+  }
+
+  void _onQRViewCreated(QRViewController controller) {
+    this.controller = controller;
+    controller.scannedDataStream.listen((scanData) {
+      setState(() {
+        result = scanData;
+      });
+      Navigator.pop(context, result!.code); // Return scanned QR code
+    });
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
   }
 }

@@ -34,13 +34,16 @@
 	<string>Main</string>
 	<key>NSCameraUsageDescription</key>
     <string>This app needs camera access to scan QR codes</string>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-	</array>
+	<key>UISupportedInterfaceOrientations~iphone</key>
+    <array>
+      <string>UIInterfaceOrientationPortrait</string>
+    </array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
-		<string>UIInterfaceOrientationPortrait</string>
+	    <string>UIInterfaceOrientationPortrait</string>
+        <string>UIInterfaceOrientationPortraitUpsideDown</string>
+        <string>UIInterfaceOrientationLandscapeLeft</string>
+        <string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 </dict>
 </plist>

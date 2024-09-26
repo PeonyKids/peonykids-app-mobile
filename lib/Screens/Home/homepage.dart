@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Models/childData.dart';
 import '../../Styles/colors.dart';
@@ -19,6 +20,7 @@ class Homepage extends StatefulWidget {
 }
 
 List<Map<String, dynamic>> items = [];
+String parentName = '';
 
 class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
   late AnimationController _controller;
@@ -46,6 +48,9 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
   }
 
   Future<void> _initializeData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    parentName = '${prefs.getString('name')} ${prefs.getString('surname')}';
     // Create an instance of DataHandler
     Children childDataHandler =
         Children(Provider.of<MainState>(context, listen: false).childDetails);
@@ -64,7 +69,6 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     String name = '';
-    String parentName = '';
 
     return PopScope(
         canPop: false,
@@ -76,7 +80,7 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
           body: SafeArea(
             child: SingleChildScrollView(
               child: Consumer<MainState>(builder: (context, value, child) {
-                parentName = '${value.Name} ${value.Surname}';
+
                 name = '${value.childFirstName} ${value.childLastName}';
 
                 return Stack(

@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:uuid/uuid.dart';
 
 import '../Models/childData.dart';
 import '../Screens/Account/changePassword.dart';
@@ -207,7 +208,7 @@ class MainState extends ChangeNotifier {
 
     final Map<String, dynamic> registrationData = json.decode(response.body);
 
-    if (registrationData['success'] == 'true') {
+    if (registrationData['success']) {
 
 
      //  Navigator.push(
@@ -228,7 +229,10 @@ class MainState extends ChangeNotifier {
       print(registrationData);
       error = registrationData['message'];
 
-      verifyEmail();
+      print('I ran now now');
+
+      // verifyEmail();
+
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => login()),
@@ -247,38 +251,39 @@ class MainState extends ChangeNotifier {
       print(error);
       Future.delayed(const Duration(seconds: 15) ,() => SigningInError(false));
       SignInUser(false);
+
     }
     notifyListeners();
   }
 
-  Future<void> verifyEmail() async {
-    final url = Uri.parse(
-        'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/auth/resend-verify-login-otp/$emailController');
-    print('hi');
-    final response = await post(
-      url,
-      headers: {
-        'Accept': '*/*',
-        'Content-Type': 'application/json',
-      },
-
-    );
-
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> registrationData = json.decode(response.body);
-
-      print(registrationData);
-      print('email sent successfully');
-    } else {
-      print('Failed to sign up user: ${response.body}');
-      final Map<String, dynamic> registrationData = json.decode(response.body);
-
-      print(registrationData);
-      error = registrationData['message'];
-      print(error);
-    }
-    notifyListeners();
-  }
+  // Future<void> verifyEmail() async {
+  //   final url = Uri.parse(
+  //       'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/auth/resend-verify-login-otp/$emailController');
+  //   print('hi');
+  //   final response = await post(
+  //     url,
+  //     headers: {
+  //       'Accept': '*/*',
+  //       'Content-Type': 'application/json',
+  //     },
+  //
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     final Map<String, dynamic> registrationData = json.decode(response.body);
+  //
+  //     print(registrationData);
+  //     print('email sent successfully');
+  //   } else {
+  //     print('Failed to sign up user: ${response.body}');
+  //     final Map<String, dynamic> registrationData = json.decode(response.body);
+  //
+  //     print(registrationData);
+  //     error = registrationData['message'];
+  //     print(error);
+  //   }
+  //   notifyListeners();
+  // }
 
 
   Future<void> forgotPassword() async {
@@ -351,53 +356,56 @@ class MainState extends ChangeNotifier {
     }
   }
 
-  Future<void> verifyOtp(BuildContext context) async {
+  // Future<void> verifyOtp(BuildContext context) async {
+  //   otpCheck(true);
+  //
+  //   final url = Uri.parse(
+  //       'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/auth/verify-login/$verifyPhone');
+  //   print('hi');
+  //   final response = await post(
+  //     url,
+  //     headers: {
+  //       'Accept': '*/*',
+  //       'Content-Type': 'application/json',
+  //     },
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     final Map<String, dynamic> registrationData = json.decode(response.body);
+  //
+  //
+  //
+  //     // Navigator.push(
+  //     //   context,
+  //     //   MaterialPageRoute(builder: (context) => bottomnavigationbar()),
+  //     // ) ;
+  //
+  //     print(registrationData);
+  //
+  //     statusVerifyPhone = registrationData['message'];
+  //
+  //
+  //     fetchChild(context);
+  //
+  //     print('email sent successfully');
+  //   } else {
+  //     print('Failed to sign up user: ${response.body}');
+  //     final Map<String, dynamic> registrationData = json.decode(response.body);
+  //
+  //     print(registrationData);
+  //     statusVerifyPhone = registrationData['message'];
+  //     print(error);
+  //   }
+  //   otpCheck(false);
+  //   notifyListeners();
+  // }
+
+
+
+  Future<void> verifyingEmail(BuildContext context) async {
     otpCheck(true);
 
-    final url = Uri.parse(
-        'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/auth/verify-login/$verifyPhone');
-    print('hi');
-    final response = await post(
-      url,
-      headers: {
-        'Accept': '*/*',
-        'Content-Type': 'application/json',
-      },
-    );
-
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> registrationData = json.decode(response.body);
-
-
-
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => bottomnavigationbar()),
-      // ) ;
-
-      statusVerifyPhone = registrationData['message'];
-
-      print(registrationData);
-
-      fetchChild(context);
-
-      print('email sent successfully');
-    } else {
-      print('Failed to sign up user: ${response.body}');
-      final Map<String, dynamic> registrationData = json.decode(response.body);
-
-      print(registrationData);
-      statusVerifyPhone = registrationData['message'];
-      print(error);
-    }
-    otpCheck(false);
-    notifyListeners();
-  }
-
-
-
-  Future<void> verifyingEmail({required String token}) async {
-    final url = Uri.parse('https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/auth/verify-email/$token');
+    final url = Uri.parse('https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/auth/verify-email/$verifyPhone');
 
     final response = await post(
       url,
@@ -410,13 +418,27 @@ class MainState extends ChangeNotifier {
 
     final Map<String, dynamic> emailMessageData = json.decode(response.body);
     if (response.statusCode == 200) {
-      emailMessageData['message'];
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      print(emailMessageData);
+
+      statusVerifyPhone = emailMessageData['message'];
+
+      prefs.setBool('verified', true);
+
+
+      fetchChild(context);
+
+
       print('Email verification successful.');
     } else {
       print('Error: ${response.statusCode}');
       print(response.body); // To get more information about the error
-      emailMessageData['message'];
+
+      statusVerifyPhone = emailMessageData['message'];
+      print(error);
     }
+    otpCheck(false);
+    notifyListeners();
   }
 
 
@@ -430,6 +452,7 @@ class MainState extends ChangeNotifier {
   String PhoneNumber = '';
   String userId = '';
   String dob = '';
+  late bool verification;
 
 
   // bool isLoading = false;
@@ -479,6 +502,7 @@ class MainState extends ChangeNotifier {
       prefs.setString('number', loginData['data']['phoneNumber']);
       prefs.setString('gmail', loginData['data']['email']);
       prefs.setString('userId', loginData['data']['id'].toString());
+      prefs.setBool('verified', loginData['data']['verified']);
 
       userToken = prefs.getString('userToken')!;
       Name = prefs.getString('name')!;
@@ -486,16 +510,23 @@ class MainState extends ChangeNotifier {
       Gmail = prefs.getString('gmail')!;
       PhoneNumber = prefs.getString('number')!;
       userId = prefs.getString('userId')!;
+      verification = prefs.getBool('verified')!;
+
 
 
       successUser = loginData['success'].toString();
+      bool verified = loginData['data']['verified'];
 
-      generateQRCode();
+      // generateQRCode();
 
-      successUser == 'true' ? Navigator.push(
+      // successUser != 'true' && verified != 'true' ? : ;
+
+      print('Checking : ${verified}');
+
+      successUser == 'true'  ? verified == true ? fetchChild(context) : Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => otp()),
-      )  : null;
+      )  : null ;
 
       // LoggingIn(false);
 
@@ -547,6 +578,8 @@ class MainState extends ChangeNotifier {
         await prefs.remove('surname');
         await prefs.remove('number');
         await prefs.remove('gmail');
+        await prefs.remove('userId');
+        await prefs.remove('verified');
 
         // Clear variables
         userToken = '';
@@ -554,6 +587,8 @@ class MainState extends ChangeNotifier {
         Surname = '';
         Gmail = '';
         PhoneNumber = '';
+        userId = '';
+
 
         // Navigate to login or home screen
         Navigator.pushAndRemoveUntil(
@@ -671,8 +706,8 @@ class MainState extends ChangeNotifier {
         },
         body: jsonEncode({
           'id': userId,
-          'firstName': child['firstname'],
-          'lastName': child['lastname'],
+          'firstName': child['firstName'],
+          'lastName': child['lastName'],
           'gender': child['gender'],
           'dateOfBirth': child['dob']
         }),
@@ -688,12 +723,12 @@ class MainState extends ChangeNotifier {
           print(responseData["message"]);
 
 
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => login()
-            ),
-          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //       builder: (context) => login()
+          //   ),
+          // );
         } catch (e) {
           // Handle the plain text response
           print('Ran into Error adding Child Details');
@@ -743,7 +778,11 @@ class MainState extends ChangeNotifier {
   //Child Details
   Future<void> fetchChild(BuildContext context) async {
     // otpCheck(true);
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+
+    userId = prefs.getString('userId')!;
+    userToken = prefs.getString('userToken')!;
 
     final url = Uri.parse(
       'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/parent/$userId/children',
@@ -1150,6 +1189,51 @@ class MainState extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+
+
+  // Future<void> generateQRCode() async {
+  //   final url = Uri.parse('https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/timesheet/generate-qr-code');
+  //   final response = await post(
+  //     url,
+  //     headers: {
+  //       'Authorization': 'Bearer $userToken', // Add your token here
+  //     },
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     final data = jsonDecode(response.body);
+  //     print('QR Code generated successfully.');
+  //
+  //     // Get the Base64 string of the QR code
+  //     final qrCodeBase64 = data['data']['qrCode'];
+  //     print('QR Code Data (Base64): $qrCodeBase64');
+  //
+  //     // Convert the Base64 string to bytes
+  //     List<int> qrCodeBytes = base64Decode(qrCodeBase64);
+  //
+  //     // Ensure the byte length is at least 16 bytes for UUID
+  //     if (qrCodeBytes.length >= 16) {
+  //       // Extract the first 16 bytes
+  //       List<int> uuidBytes = qrCodeBytes.sublist(0, 16);
+  //
+  //       // Generate the UUID from the bytes
+  //       var uuid = Uuid.unparse(uuidBytes);
+  //       print('Generated UUID: $uuid');
+  //     } else {
+  //       print('Not enough bytes for UUID conversion');
+  //     }
+  //
+  //     // Store the qrCode if needed
+  //     qrCode = qrCodeBase64;
+  //   } else {
+  //     print('Error: ${response.statusCode}');
+  //     print(response.body); // For more detailed error information
+  //   }
+  //
+  //   notifyListeners();
+  // }
+
 
 
 

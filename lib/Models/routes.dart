@@ -26,20 +26,10 @@ class routeManager {
   static const String onboarding = '/onBoard';
   static const String weSentAnOtp = '/weSentAnOtp';
   static const String splashScreen = '/splashscreen';
-  static const String splashScreenFour = '/splashScreenFour';
-  static const String splashScreenFive = '/splashScreenFive';
   static const String childDetails = '/enterChildDetails';
-  static const String doctorCategories = '/doctorCategories';
-  static const String mainHomeScreenOne = '/mainHomeScreenOne';
-  static const String doctorsSpecification = '/doctorsSpecfication';
-  static const String doctorProfile = '/doctorProfile';
-  static const String doctorLocation = '/doctorLocation';
-  static const String appointmentScreenOne = '/appointmentScreenOne';
-  static const String appointmentScreenTwo = '/appointmentScreenTwo';
-  static const String messageOne = '/messageOne';
-  static const String messageTwo = '/messageTwo';
-
   static const String chatting = '/chats';
+
+
   static Route<dynamic> routeSettings(RouteSettings settings) {
     switch (settings.name) {
       case onboarding:

@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           // chatting
-          initialRoute: routeManager.onboarding,
+          initialRoute: routeManager.splashScreen,
           onGenerateRoute: routeManager.routeSettings,
           theme: ThemeData(
               fontFamily: 'WorkSans',

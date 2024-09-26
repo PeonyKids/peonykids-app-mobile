@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:PeonyKids/Screens/onboarding/login.dart';
 import 'package:PeonyKids/Screens/onboarding/securityQuestions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -283,22 +284,32 @@ class _createaccountState extends State<createaccount> {
                       height: 20,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "You already an account?",
-                          style: TextStyle(color: black03),
+                        Flexible(
+                          child: Text(
+                            "You already an account?",
+                            style: TextStyle(color: black03),
+                          ),
                         ),
-                        SizedBox(
-                          width: 5,
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => login()),
+                            );
+                          },
+                          child: Text(
+                            'Login',
+                            style: TextStyle(
+                              color: primaryColor01,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
                         ),
-                        Text(
-                          'Login',
-                          style: TextStyle(
-                              color: primaryColor01, fontWeight: FontWeight.bold,  fontSize: 15),
-                        )
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
