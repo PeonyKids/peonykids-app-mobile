@@ -46,6 +46,12 @@ Color lightish = const Color(0xfff5fffe);
 
 Color lightest = const Color(0xffebfffd);
 
+Color statusError = const Color(0xffEB5757);
+
+Color statusSuccess = const Color(0xff6FCF97);
+
+Color statusPending = const Color(0xffEEB711);
+
 Color transparent = Colors.transparent;
 
 final LinearGradient customGradient = LinearGradient(

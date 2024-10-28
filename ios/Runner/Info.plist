@@ -34,6 +34,8 @@
 	<string>Main</string>
 	<key>NSCameraUsageDescription</key>
     <string>This app needs camera access to scan QR codes</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>This app needs access to your microphone for scanning QR codes.</string>
 	<key>UISupportedInterfaceOrientations~iphone</key>
     <array>
       <string>UIInterfaceOrientationPortrait</string>

@@ -111,7 +111,9 @@ class _ReportpageState extends State<Reportpage> {
         elevation: 0,
         backgroundColor: white,
         leading: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.pop(context);
+          },
           child: Padding(
             padding: EdgeInsets.only(left: 15.w),
             child: Icon(

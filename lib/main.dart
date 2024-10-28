@@ -22,6 +22,7 @@ import 'package:provider/provider.dart';
 // import 'package:peony_app_kazeem/store/particluarStorePage.dart';
 // import 'package:peony_app_kazeem/store/storepage.dart';
 
+import 'Models/errorHandle.dart';
 import 'Models/routes.dart';
 import 'Screens/Account/changePassword.dart';
 import 'Screens/Account/checkIn.dart';
@@ -84,7 +85,8 @@ class MyApp extends StatelessWidget {
             ],
                 child:   MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
+          title: 'PeonyKids App',
+                  scaffoldMessengerKey: messengerKey, // Use the GlobalKey here
           // chatting
           initialRoute: routeManager.splashScreen,
           onGenerateRoute: routeManager.routeSettings,

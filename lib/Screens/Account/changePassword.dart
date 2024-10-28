@@ -32,7 +32,9 @@ class _ChangePasswordState extends State<ChangePassword> {
         elevation: 0,
         backgroundColor: white04,
         leading: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.pop(context);
+          },
           child: Padding(
             padding: EdgeInsets.only(left: 15.w),
             child: Icon(

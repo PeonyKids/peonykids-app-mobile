@@ -160,14 +160,14 @@ class _securityquestionsState extends State<securityquestions> {
                             )),
                       ),
                     ),
-                    SizedBox(height: 10,),
+                    // SizedBox(height: 10,),
               
-                   Visibility(
-                     visible: value.SignInError,
-                      child:Text(value.error, style: TextStyle(
-                        color: Colors.red
-                      ),),
-                      ),
+                   // Visibility(
+                   //   visible: value.SignInError,
+                   //    child:Text(value.error, style: TextStyle(
+                   //      color: Colors.red
+                   //    ),),
+                   //    ),
                     SizedBox(
                       height: 20,
                     ),

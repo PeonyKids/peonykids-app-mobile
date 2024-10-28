@@ -40,16 +40,16 @@ class _loginState extends State<login> {
           iconTheme: IconThemeData(color: white), // Set the icon color to white
           elevation: 0,
           backgroundColor: white04,
-          leading: GestureDetector(
-            onTap: () {},
-            child: Padding(
-              padding: EdgeInsets.only(left: 10.w),
-              child: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: black,
-              ),
-            ),
-          ),
+          // leading: GestureDetector(
+          //   onTap: () {},
+          //   child: Padding(
+          //     padding: EdgeInsets.only(left: 10.w),
+          //     child: Icon(
+          //       Icons.arrow_back_ios_new_rounded,
+          //       color: black,
+          //     ),
+          //   ),
+          // ),
           title: Text(
             'Welcome Back',
             style: TextStyle(
@@ -171,7 +171,11 @@ class _loginState extends State<login> {
                               setState(() {
                                 value.errorLogin = 'Please Fill In All Inputs';
                               });
-
+                              Future.delayed(Duration(seconds: 5), () {
+                                setState(() {
+                                  value.errorLogin = '';  // Clear the error after 5 seconds
+                                });
+                              });
                             }
                             //    Navigator.push(
                             //    context,

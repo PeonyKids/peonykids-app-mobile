@@ -244,7 +244,7 @@ class _otpState extends State<otp> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      'An OTP was sent to ${value.emailController}, please enter the code you found there',
+                      'An OTP was sent to ${value.Gmail}, please enter the code you found there',
                       style: const TextStyle(
                         color: Color(0xff737373), // Use color from your styles
                         fontWeight: FontWeight.w400,
@@ -277,11 +277,11 @@ class _otpState extends State<otp> {
                       }),
                     ),
                     const SizedBox(height: 30),
-                    Text(
-                      value.statusVerifyPhone,
-                      style: const TextStyle(color: Colors.red),
-                    ),
-                    const SizedBox(height: 35),
+                    // Text(
+                    //   value.statusVerifyPhone,
+                    //   style: const TextStyle(color: Colors.red),
+                    // ),
+                    // const SizedBox(height: 35),
                     Align(
                       alignment: Alignment.topLeft,
                       child: GestureDetector(

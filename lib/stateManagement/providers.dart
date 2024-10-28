@@ -7,7 +7,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:uuid/uuid.dart';
 
 import '../Models/childData.dart';
+import '../Models/errorHandle.dart';
 import '../Screens/Account/changePassword.dart';
+import '../Screens/Home/homepage.dart';
 import '../Screens/bottomnavigationbar/bottomnavigationbar.dart';
 import '../Screens/onboarding/congratulations.dart';
 import '../Screens/onboarding/enterYourChildDetails.dart';
@@ -17,6 +19,14 @@ import '../Screens/onboarding/weSentAnOtp.dart';
 
 
 class MainState extends ChangeNotifier {
+  bool hasShownDialog = false; // Flag to track if dialog has been shown
+
+  void shownDialog() {
+    hasShownDialog = true;
+    notifyListeners();
+  }
+
+
   String error = '';
   String emailController = '';
   String passwordController = '';
@@ -54,6 +64,7 @@ class MainState extends ChangeNotifier {
 
   void LoggingIn(bool Login) {
    LogInState = Login;
+   print(LogInState);
     notifyListeners();
   }
 
@@ -222,37 +233,44 @@ class MainState extends ChangeNotifier {
 
       // LoggingIn(false);
 
-      SigningInError(true);
+      // SigningInError(true);
+
+
       // print('Failed to sign up user: ${response.body}');
 
       // LoggingIn(false);
       print(registrationData);
       error = registrationData['message'];
 
-      print('I ran now now');
+      Utils.showCustomSuccessSnackBar(message: error);
+      // print('I ran now now');
 
       // verifyEmail();
 
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => login()),
+        MaterialPageRoute(builder: (context) => congratulations()),
       );
 
+
+
       print(error);
-      Future.delayed(const Duration(seconds: 15) ,() => SigningInError(false));
+      // Future.delayed(const Duration(seconds: 15) ,() => SigningInError(false));
       SignInUser(false);
 
     } else {
-      SigningInError(true);
+      // SigningInError(true);
       print('Failed to sign up user: ${response.body}');
       // LoggingIn(false);
       print(registrationData);
       error = registrationData['message'];
+      Utils.showCustomErrorSnackBar(message: error);
       print(error);
-      Future.delayed(const Duration(seconds: 15) ,() => SigningInError(false));
-      SignInUser(false);
+      // Future.delayed(const Duration(seconds: 15) ,() => SigningInError(false));
+      // SignInUser(false);
 
     }
+    SignInUser(false);
     notifyListeners();
   }
 
@@ -286,9 +304,8 @@ class MainState extends ChangeNotifier {
   // }
 
 
-  Future<void> forgotPassword() async {
+  Future<void> forgotPassword({required String Gmail}) async {
     ForgetPassword(true);
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     final url = Uri.parse(
         'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/auth/forgot-password/$Gmail');
     print('hi');
@@ -423,6 +440,8 @@ class MainState extends ChangeNotifier {
 
       statusVerifyPhone = emailMessageData['message'];
 
+      Utils.showCustomSuccessSnackBar(message: statusVerifyPhone);
+
       prefs.setBool('verified', true);
 
 
@@ -435,8 +454,14 @@ class MainState extends ChangeNotifier {
       print(response.body); // To get more information about the error
 
       statusVerifyPhone = emailMessageData['message'];
+      Utils.showCustomErrorSnackBar(message: statusVerifyPhone);
       print(error);
     }
+    statusVerifyPhone = '';
+    // Future.delayed(Duration(seconds: 5), () {
+    //   statusVerifyPhone = '';
+    //   print('Wetin dey occur');
+    // });
     otpCheck(false);
     notifyListeners();
   }
@@ -489,6 +514,7 @@ class MainState extends ChangeNotifier {
     if (response.statusCode == 200) {
 
       print('Status: ${response.statusCode}');
+      Utils.showCustomSuccessSnackBar(message: loginData['message']);
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -532,8 +558,8 @@ class MainState extends ChangeNotifier {
 
     } else {
       print('Status: ${response.statusCode}');
-      print('Wrong user details: ${response.body}');
-      loginData['message'] == "Cannot invoke \"java.time.temporal.Temporal.until(java.time.temporal.Temporal, java.time.temporal.TemporalUnit)\" because \"temporal1Inclusive\" is null" || loginData['message'] == 'Invalid username or password' ? errorLogin = 'Invalid username or password' : errorLogin = loginData['message'];
+      print('Wrong user details: $loginData');
+      loginData['message'] == "Cannot invoke \"java.time.temporal.Temporal.until(java.time.temporal.Temporal, java.time.temporal.TemporalUnit)\" because \"temporal1Inclusive\" is null" || loginData['message'] == 'Invalid username or password' ? Utils.showCustomErrorSnackBar(message: 'Invalid Username or Password') : errorLogin = loginData['message'];
 
 
 
@@ -780,9 +806,15 @@ class MainState extends ChangeNotifier {
     // otpCheck(true);
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-
     userId = prefs.getString('userId')!;
     userToken = prefs.getString('userToken')!;
+    Name = prefs.getString('name')!;
+    Surname = prefs.getString('surname')!;
+    Gmail = prefs.getString('gmail')!;
+    PhoneNumber = prefs.getString('number')!;
+
+
+
 
     final url = Uri.parse(
       'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/parent/$userId/children',
@@ -821,7 +853,21 @@ class MainState extends ChangeNotifier {
         } else {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => bottomnavigationbar()),
+            MaterialPageRoute(builder: (context) => bottomnavigationbar(
+              initFunction: () {
+                // Your function logic here
+                // showDialog(
+                //   context: context,
+                //   builder: (BuildContext context) {
+                //     return CheckInDialog();
+                //   },
+                // );
+
+
+                CheckInDialog();
+
+              },
+            )),
           );
         }
 
@@ -968,9 +1014,17 @@ class MainState extends ChangeNotifier {
   bool isFetchingReports = false;
 
   Future<void> getChildReports(BuildContext context) async {
-    if (isFetchingReports) return; // Prevent multiple fetches
+    // Ensure we print the current state before doing anything
+    print('Before fetch: isFetchingReports = $isFetchingReports');
+
+    if (isFetchingReports) {
+      print('Already fetching reports. Aborting additional request.');
+      return; // Prevent multiple fetches
+    }
+
     isFetchingReports = true;
-    print(isFetchingReports);
+    notifyListeners(); // Update UI to reflect loading state
+    print('Fetching started: isFetchingReports = $isFetchingReports');
 
     final url = Uri.parse(
       'https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/report/child/$childId/reports',
@@ -986,15 +1040,10 @@ class MainState extends ChangeNotifier {
         },
       );
 
-      print(childId);
-
+      print('Child ID: $childId');
       if (response.statusCode == 200) {
         final List<dynamic> reports = json.decode(response.body);
-
-
-        isFetchingReports = false; // Reset flag
-        print(isFetchingReports);
-        handleLatestReport(context, reports);
+        handleLatestReport(context, reports); // Process the reports
       } else if (response.statusCode == 401) {
         print('Unauthorized request. Please check your credentials.');
       } else {
@@ -1004,9 +1053,11 @@ class MainState extends ChangeNotifier {
       }
     } catch (e) {
       print('An error occurred: $e');
+    } finally {
+      isFetchingReports = false; // Always reset this, even on error
+      notifyListeners(); // Ensure UI updates
+      print('Fetching completed: isFetchingReports = $isFetchingReports');
     }
-    print(isFetchingReports);
-    notifyListeners(); // Ensure UI updates
   }
 
 
@@ -1234,8 +1285,36 @@ class MainState extends ChangeNotifier {
   //   notifyListeners();
   // }
 
+  Future<bool> getCheckInStatus({required String childId}) async {
+    // Define the endpoint URL with the provided childId
+    final url = Uri.parse('https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/timesheet/check-in-status/$childId');
 
+    // Make the GET request
+    final response = await get(
+      url,
+      headers: {
+        'accept': '*/*',
+        'Authorization': 'Bearer $userToken', // Pass the token here
+      },
+    );
 
+    // Check the response status
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      print(data);
+      print('Check-in status message: ${data['message']}');
+      print('Checked in today: ${data['checkedIn']}');
+
+      // Return the checked-in status
+      return data['checkedIn'];
+    } else {
+      print('Error: ${response.statusCode}');
+      print(response.body); // To get more information about the error
+
+      // Return null if there's an error
+      return false;
+    }
+  }
 
 
 
@@ -1259,11 +1338,47 @@ class MainState extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      print('Check-in successful: ${data['message']}');
+      print(data);
+      print('Check-in successful: ${data['timeSheetResponse']['message']}');
     } else {
       print('Error: ${response.statusCode}');
       print(response.body); // To get more information about the error
     }
     notifyListeners();
   }
+
+  List<String> checkInChildren = [];
+
+  Future<void> multipleCheckIn({required String scannedQRCode}) async {
+    final url = Uri.parse('https://seahorse-app-9ubkt.ondigitalocean.app/api/v1/timesheet/check-in');
+
+    print('List of Children IDs: $checkInChildren');
+
+    for (var child in checkInChildren) {
+        final response = await post(
+          url,
+          headers: {
+            'accept': '*/*',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $userToken', // Add your token here
+          },
+          body: jsonEncode({
+            'generatedQRCode': qrCode,
+            'scannedQRCode': scannedQRCode,
+            'childId': child,
+          }),
+        );
+
+        if (response.statusCode == 200) {
+          final data = jsonDecode(response.body);
+          print(data);
+          print('Check-in successful: ${data['timeSheetResponse']['message']}');
+        } else {
+          print('Error: ${response.statusCode}');
+          print(response.body); // To get more information about the error
+        }
+      }
+      checkInChildren.clear();
+      notifyListeners();
+    }
 }

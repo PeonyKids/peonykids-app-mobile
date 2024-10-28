@@ -13,15 +13,29 @@ import '../Home/notifications.dart';
 import '../store/storepage.dart';
 
 class bottomnavigationbar extends StatefulWidget {
-  const bottomnavigationbar({super.key});
+  final Function? initFunction; // Declare a variable to hold the function
+  const bottomnavigationbar({super.key, this.initFunction});
 
   @override
   State<bottomnavigationbar> createState() => _bottomnavigationbarState();
 }
 
 class _bottomnavigationbarState extends State<bottomnavigationbar> {
-  List pages = [Homepage(), storepage(), NotificationPage(), AccountPage()];
+  List pages = [Homepage(), NotificationPage(), AccountPage()];
   int selectedNumber = 0;
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Call the function if it is provided
+    if (widget.initFunction != null) {
+      widget.initFunction!(); // Execute the passed function
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,22 +68,22 @@ class _bottomnavigationbarState extends State<bottomnavigationbar> {
               ),
               label: 'Home',
             ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/icons/store.svg',
-                semanticsLabel: 'My SVG Image',
-                // height: 42.h,
-                // width: 42.w,
-              ),
-              activeIcon: SvgPicture.asset(
-                'assets/icons/activeShop.svg',
-                semanticsLabel: 'My SVG Image',
-                height: 25,
-                width: 25,
-                color: black,
-              ),
-              label: 'Store',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: SvgPicture.asset(
+            //     'assets/icons/store.svg',
+            //     semanticsLabel: 'My SVG Image',
+            //     // height: 42.h,
+            //     // width: 42.w,
+            //   ),
+            //   activeIcon: SvgPicture.asset(
+            //     'assets/icons/activeShop.svg',
+            //     semanticsLabel: 'My SVG Image',
+            //     height: 25,
+            //     width: 25,
+            //     color: black,
+            //   ),
+            //   label: 'Store',
+            // ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 'assets/icons/Notification.svg',

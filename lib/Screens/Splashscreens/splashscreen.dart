@@ -66,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
           color: white,
         ),
         child: const Center(
-            child: Image(image: AssetImage('assets/images/emailPic.png'))),
+            child: Image(image: AssetImage('assets/images/splash.png'))),
       ),
     );
   }

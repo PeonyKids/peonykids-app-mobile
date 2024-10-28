@@ -38,16 +38,16 @@ class _createaccountState extends State<createaccount> {
         iconTheme: IconThemeData(color: white), // Set the icon color to white
         elevation: 0,
         backgroundColor: white04,
-        leading: GestureDetector(
-          onTap: () {},
-          child: Padding(
-            padding: EdgeInsets.only(left: 15.w),
-            child: Icon(
-              Icons.arrow_back_ios,
-              color: black,
-            ),
-          ),
-        ),
+        // leading: GestureDetector(
+        //   onTap: () {},
+        //   child: Padding(
+        //     padding: EdgeInsets.only(left: 15.w),
+        //     child: Icon(
+        //       Icons.arrow_back_ios,
+        //       color: black,
+        //     ),
+        //   ),
+        // ),
         title: Text(
           'Create an account',
           style: TextStyle(

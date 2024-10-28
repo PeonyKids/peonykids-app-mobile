@@ -201,7 +201,9 @@ class _ChildDetailsState extends State<ChildDetails> {
                 Align(
                   alignment: Alignment.center,
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
                     child: Text(
                       'Back',
                       style: TextStyle(

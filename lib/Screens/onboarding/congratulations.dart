@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Styles/colors.dart';
 import '../../Widgets/widgets.dart';
 import '../bottomnavigationbar/bottomnavigationbar.dart';
+import 'login.dart';
 
 class congratulations extends StatefulWidget {
   const congratulations({super.key});
@@ -41,8 +42,7 @@ class _congratulationsState extends State<congratulations> {
                 normalButton(onTap: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => bottomnavigationbar()),
+                    MaterialPageRoute(builder: (context) => login()),
                   );
                 }, text: 'Continue', color: primaryColor01)
               ],

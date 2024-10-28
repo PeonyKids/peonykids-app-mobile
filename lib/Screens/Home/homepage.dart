@@ -51,14 +51,49 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     parentName = '${prefs.getString('name')} ${prefs.getString('surname')}';
+
+    final datum = Provider.of<MainState>(context, listen: false);
     // Create an instance of DataHandler
     Children childDataHandler =
-        Children(Provider.of<MainState>(context, listen: false).childDetails);
+        Children(datum.childDetails);
 
     setState(() {
       items = childDataHandler.getProcessedData();
     });
+
+    // _showCheckInDialog();
+
+    // Automatically show the CheckInDialog when the screen is initialized
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   _showCheckInDialog();
+    // });
+
+    // if (!_hasShownDialog) {
+    //   WidgetsBinding.instance.addPostFrameCallback((_) {
+    //     _showCheckInDialog();
+    //     _hasShownDialog = true; // Set the flag to true after showing the dialog
+    //   });
+    // }
+
+    // Add a delay before showing the CheckInDialog
+    Future.delayed(Duration(seconds: 5), () {
+      if (!datum.hasShownDialog) {
+        _showCheckInDialog();
+        datum.shownDialog(); // Set the flag to true after showing the dialog
+      }
+    });
   }
+
+
+  void _showCheckInDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CheckInDialog();
+      },
+    );
+  }
+
 
   @override
   void dispose() {
@@ -70,6 +105,25 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     String name = '';
 
+
+
+
+    // Simulate data fetching
+    Future<void> _refreshData() async {
+      final mainStateProvider = Provider.of<MainState>(context, listen: false);
+      // Simulate network delay
+      await Future.delayed(Duration(seconds: 2));
+
+      mainStateProvider.fetchChild(context);
+
+      // // Update the list with new data (or fetched data)
+      // setState(() {
+      //   data = ["New Item 1", "New Item 2", "New Item 3", "New Item 4"];
+      // });
+    }
+
+    // CheckInDialog();
+
     return PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
@@ -77,455 +131,469 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
         },
         child: Scaffold(
           backgroundColor: white,
-          body: SafeArea(
-            child: SingleChildScrollView(
-              child: Consumer<MainState>(builder: (context, value, child) {
-
-                name = '${value.childFirstName} ${value.childLastName}';
-
-                return Stack(
-                  children: [
-                    ClipPath(
-                      clipper: BottomClipper(),
-                      child: Container(
-                        width: double.infinity,
-                        height: 250.h,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/images/headers.png'),
-                            fit: BoxFit
-                                .fill, // Adjust this according to your needs
+          body: RefreshIndicator(
+            onRefresh: _refreshData,
+            child: SafeArea(
+              child: SingleChildScrollView(
+                child: Consumer<MainState>(builder: (context, value, child) {
+            
+                  name = '${value.childFirstName} ${value.childLastName}';
+            
+                  return Stack(
+                    children: [
+                      ClipPath(
+                        clipper: BottomClipper(),
+                        child: Container(
+                          width: double.infinity,
+                          height: 200.h,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('assets/images/headers.png'),
+                              fit: BoxFit
+                                  .contain, // Adjust this according to your needs
+                            ),
+                            // color: red,
                           ),
                         ),
                       ),
-                    ),
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 15.h, horizontal: 15.w),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(top: 33.h),
-                              child: Container(
-                                decoration: BoxDecoration(color: transparent),
-                                width: double.infinity,
-                                // padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Flexible(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                (name.trim().isEmpty)
-                                                    ? parentName
-                                                    : name,
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ),
-                                              SizedBox(height: 8),
-                                              Text(
-                                                'PeonyKids Daycare School',
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            print(name);
-                                          },
-                                          child: SvgPicture.asset(
-                                            'assets/icons/Frame 9.svg',
-                                            semanticsLabel: 'My SVG Image',
-                                            height: 55.h,
-                                            width: 55.w,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Container(
-                                      height: 140,
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        border: Border.all(
-                                            color: primaryColor01,
-                                            width: 1.0,
-                                            style: BorderStyle.solid),
-                                        color: const Color(0xffe2ecd6),
-                                      ),
-                                      child: CustomPaint(
-                                        painter: CustomCurvePainter(),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(12.0),
-                                          child: Row(
-                                            children: [
-                                              Stack(
-                                                alignment: Alignment.center,
-                                                children: [
-                                                  SizedBox(
-                                                    height: 100,
-                                                    width: 100,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      value: _animation.value,
-                                                      strokeWidth: 13.0,
-                                                      color:
-                                                          primaryColor01, //<-- SEE HERE
-                                                      backgroundColor: const Color(
-                                                          0xffebfffd), //<-- SEE HERE
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    '${(_animation.value * 100).toStringAsFixed(0)}%',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize: 24,
-                                                        color: black),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                width: 10,
-                                              ),
-                                              Flexible(
-                                                child: SingleChildScrollView(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        'Pick Up Time - 1:00PM',
-                                                        style: TextStyle(
-                                                          fontSize: 16.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: black,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        'Monday, 26 Feb. 2024',
-                                                        style: TextStyle(
-                                                          fontSize: 13.5.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: black03,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        'You have less than 4 hours left to pick up your child',
-                                                        style: TextStyle(
-                                                          fontSize: 13.5.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: black,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Text(
-                                                'Daily Check In/Out',
-                                                style: TextStyle(
-                                                    fontSize: 16.sp,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: black),
-                                              ),
-                                              Text(
-                                                'Check In by 8:00am required',
-                                                style: TextStyle(
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: black),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      CheckIn()),
-                                            );
-                                          },
-                                          child: Container(
-                                            // height: 40,
-                                            // width: 100,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(50),
-                                              color: primaryColor01
-                                                  .withOpacity(0.8),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 8.0,
-                                                      horizontal: 16.0),
-                                              child: Center(
-                                                child: Text(
-                                                  'Check In',
-                                                  style: TextStyle(
-                                                      fontSize: 16.sp,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: white),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Divider(
-                                      // height: 12,
-                                      color: black03,
-                                      thickness: 0.3,
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        // print('I was selected');
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return CheckInDialog();
-                                          },
-                                        );
-                                      },
-                                      child: Container(
-                                        // height: 50,
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            color: transparent,
-                                            border: Border.all(
-                                                width: 0.3,
-                                                color: black03,
-                                                style: BorderStyle.solid)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                value.childFirstName,
-                                                style: TextStyle(
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: black),
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Icon(
-                                                Icons
-                                                    .keyboard_arrow_down_rounded,
-                                                size: 35,
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: RichText(
-                                            text: TextSpan(
-                                              text: value.day,
-                                              style: TextStyle(
-                                                fontSize: 25.sp,
-                                                fontWeight: FontWeight.w700,
-                                                color: black,
-                                              ),
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.h, horizontal: 15.w),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(top: 30.h),
+                                child: Container(
+                                  decoration: BoxDecoration(color: transparent),
+                                  width: double.infinity,
+                                  // padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Flexible(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                WidgetSpan(
-                                                  child: SizedBox(
-                                                    width: 10.w,
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text: '${value.month} Activities',
+                                                Text(
+                                                  (name.trim().isEmpty)
+                                                      ? parentName
+                                                      : name,
                                                   style: TextStyle(
-                                                    fontSize: 20.sp,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: black,
-                                                  ),
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                                SizedBox(height: 5),
+                                                Text(
+                                                  'Peony Childcare Center',
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w400),
                                                 ),
                                               ],
                                             ),
                                           ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              print(name);
+                                            },
+                                            child: SvgPicture.asset(
+                                              'assets/icons/Frame 9.svg',
+                                              semanticsLabel: 'My SVG Image',
+                                              height: 38,
+                                              width: 38,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 15,
+                                      ),
+                                      Container(
+                                        height: 140,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15),
+                                          border: Border.all(
+                                              color: primaryColor01,
+                                              width: 1.0,
+                                              style: BorderStyle.solid),
+                                          color: const Color(0xffe2ecd6),
                                         ),
-                                        InkWell(
-                                          onTap: () {
-                                            value.getChildReports(context);
-                                            value.activeChild == null
-                                                ? null
-                                                : Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            Reportpage()),
-                                                  );
-                                          },
-                                          child: Container(
-                                            decoration: BoxDecoration(
+                                        child: CustomPaint(
+                                          painter: CustomCurvePainter(),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(12.0),
+                                            child: Row(
+                                              children: [
+                                                Stack(
+                                                  alignment: Alignment.center,
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 100,
+                                                      width: 100,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        value: _animation.value,
+                                                        strokeWidth: 13.0,
+                                                        color:
+                                                            primaryColor01, //<-- SEE HERE
+                                                        backgroundColor: const Color(
+                                                            0xffebfffd), //<-- SEE HERE
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      '${(_animation.value * 100).toStringAsFixed(0)}%',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 24,
+                                                          color: black),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Flexible(
+                                                  child: SingleChildScrollView(
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                      children: [
+                                                        Text(
+                                                          'Pick Up Time - 1:00PM',
+                                                          style: TextStyle(
+                                                            fontSize: 16.sp,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: black,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          'Monday, 26 Feb. 2024',
+                                                          style: TextStyle(
+                                                            fontSize: 13.5.sp,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: black03,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          'You have less than 4 hours left to pick up your child',
+                                                          style: TextStyle(
+                                                            fontSize: 13.5.sp,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: black,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Text(
+                                                  'Daily Check In/Out',
+                                                  style: TextStyle(
+                                                      fontSize: 16.sp,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: black),
+                                                ),
+                                                Text(
+                                                  'Check In by 8:00am required',
+                                                  style: TextStyle(
+                                                      fontSize: 14.sp,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: black),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CheckIn()),
+                                              );
+                                            },
+                                            child: Container(
+                                              // height: 40,
+                                              // width: 100,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: primaryColor01
+                                                    .withOpacity(0.8),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 8.0,
+                                                        horizontal: 16.0),
+                                                child: Center(
+                                                  child: Text(
+                                                    'Check In',
+                                                    style: TextStyle(
+                                                        fontSize: 16.sp,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: white),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Divider(
+                                        // height: 12,
+                                        color: black03,
+                                        thickness: 0.3,
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          // print('I was selected');
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return CheckInDialog();
+                                            },
+                                          );
+                                        },
+                                        child: Container(
+                                          // height: 50,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(50),
                                               color: transparent,
                                               border: Border.all(
-                                                width: 0.3,
-                                                color: black03,
-                                                style: BorderStyle.solid,
-                                              ),
+                                                  width: 0.3,
+                                                  color: black03,
+                                                  style: BorderStyle.solid)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  value.childFirstName,
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: black),
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Icon(
+                                                  Icons
+                                                      .keyboard_arrow_down_rounded,
+                                                  size: 35,
+                                                )
+                                              ],
                                             ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 8.0,
-                                                      horizontal: 12.0),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: RichText(
+                                              text: TextSpan(
+                                                text: value.day,
+                                                style: TextStyle(
+                                                  fontSize: 25.sp,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: black,
+                                                ),
                                                 children: [
-                                                  Icon(
-                                                    Icons.analytics_outlined,
-                                                    size: 30,
-                                                    color: primaryColor01,
+                                                  WidgetSpan(
+                                                    child: SizedBox(
+                                                      width: 10.w,
+                                                    ),
                                                   ),
-                                                  SizedBox(width: 5),
-                                                  Text(
-                                                    'Child’s Report',
+                                                  TextSpan(
+                                                    text: '${value.month} Activities',
                                                     style: TextStyle(
-                                                      fontSize: 16.sp,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: primaryColor01,
+                                                      fontSize: 20.sp,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: black,
                                                     ),
                                                   ),
                                                 ],
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Container(
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                        color: white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: black01.withOpacity(
-                                                0.2), // Shadow color
-                                            offset: Offset(
-                                                0.0, 7.0), // Offset from right
-                                            blurRadius:
-                                                8, // Spread of the shadow
-                                            spreadRadius: 0.0,
+                                          InkWell(
+                                            onTap: () {
+                                              value.getChildReports(context);
+                                              value.activeChild == null
+                                                  ? null
+                                                  : Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Reportpage()),
+                                                    );
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: transparent,
+                                                border: Border.all(
+                                                  width: 0.3,
+                                                  color: black03,
+                                                  style: BorderStyle.solid,
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 8.0,
+                                                        horizontal: 12.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.analytics_outlined,
+                                                      size: 30,
+                                                      color: primaryColor01,
+                                                    ),
+                                                    SizedBox(width: 5),
+                                                    Text(
+                                                      'Child’s Report',
+                                                      style: TextStyle(
+                                                        fontSize: 16.sp,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: primaryColor01,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ],
                                       ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 15.0, horizontal: 7.0),
-                                        child:
-                                            StreamBuilder<Map<String, dynamic>>(
-                                          stream: value.fetchChildEventStream(),
-                                          builder: (context, snapshot) {
-                                            if (snapshot.connectionState ==
-                                                ConnectionState.waiting) {
-                                              return Center(child: CircularProgressIndicator(color: primaryColor01,));
-                                            } else if (snapshot.hasError) {
-                                              return Center(
-                                                child: Text(
-                                                    'No events available'),
-                                              );
-                                            } else if (snapshot.hasData) {
-                                              final eventData = snapshot.data!;
-                                              return buildEventReportColumn(
-                                                  eventData, context);
-                                            } else {
-                                              return Center(child: Text('No data available'));
-                                            }
-                                          },
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Container(
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: white,
+                                          borderRadius: BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: black01.withOpacity(
+                                                  0.2), // Shadow color
+                                              offset: Offset(
+                                                  0.0, 7.0), // Offset from right
+                                              blurRadius:
+                                                  8, // Spread of the shadow
+                                              spreadRadius: 0.0,
+                                            ),
+                                          ],
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 15.0, horizontal: 7.0),
+                                          child:
+                                              StreamBuilder<Map<String, dynamic>>(
+                                            stream: value.fetchChildEventStream(),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.waiting) {
+                                                return Center(child: CircularProgressIndicator(color: primaryColor01,));
+                                              } else if (snapshot.hasError) {
+                                                return Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    SvgPicture.asset(
+                                                      'assets/icons/book.svg',
+                                                      semanticsLabel: 'My SVG Image',
+                                                    ),
+                                                    Center(
+                                                      child: Text(
+                                                          'No events available'),
+                                                    ),
+                                                  ],
+                                                );
+                                              } else if (snapshot.hasData) {
+                                                final eventData = snapshot.data!;
+                                                return buildEventReportColumn(
+                                                    eventData, context);
+                                              } else {
+                                                return Center(child: Text('No data available'));
+                                              }
+                                            },
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                  ],
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                );
-              }),
+                    ],
+                  );
+                }),
+              ),
             ),
           ),
         ));
@@ -612,6 +680,9 @@ class CustomCurvePainter extends CustomPainter {
   }
 }
 
+
+
+
 class CheckInDialog extends StatefulWidget {
   @override
   _CheckInDialogState createState() => _CheckInDialogState();
@@ -644,6 +715,24 @@ class _CheckInDialogState extends State<CheckInDialog> {
           changer.changeActiveChild(index);
         }
       }
+    });
+  }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _toggleChecked(0, context);
+  // }
+
+  @override
+  void initState() {
+    super.initState();
+    // Delay the execution of _toggleChecked to ensure context is ready
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _toggleChecked(0, context); // Automatically select the first child
+      // setState(() {
+      //
+      // });
     });
   }
 
@@ -711,7 +800,7 @@ class _CheckInDialogState extends State<CheckInDialog> {
                 name,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: black, // Adjust to the color you use for black
                 ),
