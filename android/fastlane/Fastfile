@@ -25,6 +25,13 @@ platform :android do
   lane :beta do
     gradle(task: "clean assembleRelease")
 
+    release = firebase_app_distribution(
+                app: ":441691677643:android:60a43969fefabe20148c4e",
+                testers: "okeowoaderemi@gmail.com",
+                release_notes: "Lots of amazing new features to test out!"
+            )
+
+
   
     # sh "your_script.sh"
     # You can also use other beta testing services here
@@ -35,4 +42,17 @@ platform :android do
     gradle(task: "clean assembleRelease")
     upload_to_play_store
   end
+
+  lane :deploy_to_firebase do
+      value = firebase_app_distribution(
+       app: "441691677643:android:60a43969fefabe20148c4e",
+       firebase_cli_token: ENV['FIREBASE_TOKEN'],
+       android_artifact_type: "APK",
+       android_artifact_path: "app/build/outputs/apk/debug/app-debug.apk",
+       release_notes: "Deployment",
+       testers: "okeowoaderemi@gmail.com",
+       groups: "android-qa, or-someone-group",
+       debug: true
+      )
+    end
 end
