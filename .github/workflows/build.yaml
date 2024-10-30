@@ -23,10 +23,19 @@ jobs:
         with:
           java-version: 11
 
+      - name: Set Up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.2'
+          channel: 'stable'
+
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
           bundler-cache: true
+
+      - name: Install Dependencies
+        run: flutter pub get
 
       - name: Distribute app with 🔥 App Distribution 🚀
         run: cd android && bundle install && bundle update fastlane && bundle exec fastlane beta
