@@ -77,6 +77,7 @@ class _createaccountState extends State<createaccount> {
                       height: 60,
                       child: TextField(
                         controller: _emailController,
+                        keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.email_outlined,
@@ -176,6 +177,7 @@ class _createaccountState extends State<createaccount> {
                       height: 60,
                       child: TextField(
                         controller: _firstNameController,
+                        keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.person_outline_outlined, color: Color(0xff737373)),
 
@@ -205,6 +207,7 @@ class _createaccountState extends State<createaccount> {
                       height: 60,
                       child: TextField(
                         controller: _lastNameController,
+                        keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.person_outline_outlined, color: Color(0xff737373)),
 
@@ -234,9 +237,9 @@ class _createaccountState extends State<createaccount> {
                       height: 60,
                       child: TextField(
                         controller: _numberController,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.local_phone_outlined, color: Color(0xff737373)),
-
                             hintText: 'Phone Number',
                             hintStyle: TextStyle(
                                 color: Color(0xff737373), fontFamily: 'WorkSans'),

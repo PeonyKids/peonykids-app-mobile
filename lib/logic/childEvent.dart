@@ -26,46 +26,62 @@ import '../stateManagement/providers.dart';
 // }
 
 
-DateTime createDateTime(List<dynamic> timeData) {
-  if (timeData.length == 3) {
-    // Assume hour, minute, second as current if only year, month, and day are provided
-    final now = DateTime.now();
-    return DateTime(
-        now.year,
-        now.month,
-        now.day,
-        timeData[0], // year
-        timeData[1], // month
-        timeData[2], // day
-    );
-  } else {
-    // Use all provided values
-    return DateTime(
-        timeData[0], // year
-        timeData[1], // month
-        timeData[2], // day
-        timeData[3], // hour
-        timeData[4], // minute
-        timeData[5]  // second
-    );
-  }
-}
+// DateTime createDateTime(List<dynamic> timeData) {
+//   if (timeData.length == 3) {
+//     // Assume hour, minute, second as current if only year, month, and day are provided
+//     final now = DateTime.now();
+//     return DateTime(
+//         now.year,
+//         now.month,
+//         now.day,
+//         timeData[0], // year
+//         timeData[1], // month
+//         timeData[2], // day
+//     );
+//   } else {
+//     // Use all provided values
+//     return DateTime(
+//         timeData[0], // year
+//         timeData[1], // month
+//         timeData[2], // day
+//         timeData[3], // hour
+//         timeData[4], // minute
+//         timeData[5]  // second
+//     );
+//   }
+// }
 
 
 // Function to format time as 'h:mm am/pm'
-String formatTime(List<dynamic> timeData, context) {
+// String formatTime(List<dynamic> timeData, context) {
+//   final dateProvider = Provider.of<MainState>(context, listen: true);
+//
+//   final DateTime dateTime = createDateTime(timeData);
+//
+//   if (timeData.length == 6) {
+//     // Format as "dd MMM h:mm am/pm" (e.g., "26 Feb 2:17 pm")
+//     dateProvider.day = DateFormat('d').format(dateTime);
+//     dateProvider.month = DateFormat('MMM').format(dateTime);
+//   }
+//
+//   return DateFormat('h:mm a').format(dateTime).toLowerCase(); // Format time to small "am/pm"
+// }
+
+
+String formatTime(String timeString, context) {
   final dateProvider = Provider.of<MainState>(context, listen: true);
 
-  final DateTime dateTime = createDateTime(timeData);
+  // Parse the time string using DateTime.parse
+  final DateTime dateTime = DateTime.parse(timeString);
 
-  if (timeData.length == 6) {
-    // Format as "dd MMM h:mm am/pm" (e.g., "26 Feb 2:17 pm")
-    dateProvider.day = DateFormat('d').format(dateTime);
-    dateProvider.month = DateFormat('MMM').format(dateTime);
-  }
+  // Update day and month in the dateProvider if needed
+  dateProvider.day = DateFormat('d').format(dateTime);
+  dateProvider.month = DateFormat('MMM').format(dateTime);
 
-  return DateFormat('h:mm a').format(dateTime).toLowerCase(); // Format time to small "am/pm"
+  // Format time to "h:mm am/pm" in lowercase
+  return DateFormat('h:mm a').format(dateTime).toLowerCase();
 }
+
 
 // String getTime(List<dynamic> timeData) {
 //   int hour = timeData[0];
@@ -99,7 +115,7 @@ List<Map<String, dynamic>> getSortedReports(Map<String, dynamic> eventData) {
   eventData['mealReports']?.forEach((mealReport) {
     reports.add({
       'type': 'Meal Time',
-      'time': mealReport['time'],
+      'time': mealReport['localDateTime'],
       'details': '${mealReport['quantity'] ?? 'Unknown Quantity'}',
     });
   });
@@ -108,7 +124,7 @@ List<Map<String, dynamic>> getSortedReports(Map<String, dynamic> eventData) {
   eventData['physicalActivityReports']?.forEach((activityReport) {
     reports.add({
       'type': 'Physical Activities',
-      'time': activityReport['localTime'],
+      'time': activityReport['localDateTime'],
       'details': activityReport['activities']?.join(', ') ?? 'Unknown Activity',
     });
   });
@@ -117,7 +133,7 @@ List<Map<String, dynamic>> getSortedReports(Map<String, dynamic> eventData) {
   eventData['diaperReports']?.forEach((diaperReport) {
     reports.add({
       'type': 'Diaper Time',
-      'time': diaperReport['localTime']
+      'time': diaperReport['localDateTime']
     });
   });
 
@@ -125,7 +141,7 @@ List<Map<String, dynamic>> getSortedReports(Map<String, dynamic> eventData) {
   eventData['snackReports']?.forEach((snackReport) {
     reports.add({
       'type': 'Snack Time',
-      'time': snackReport['localTime'],
+      'time': snackReport['localDateTime'],
       'details': snackReport['snacks']?.join(', ') ?? 'Unknown Snacks',
     });
   });
@@ -134,7 +150,7 @@ List<Map<String, dynamic>> getSortedReports(Map<String, dynamic> eventData) {
   eventData['napReports']?.forEach((napReport) {
     reports.add({
       'type': 'Nap Time',
-      'time': napReport['time']
+      'time': napReport['localDateTime']
     });
   });
 
@@ -142,7 +158,7 @@ List<Map<String, dynamic>> getSortedReports(Map<String, dynamic> eventData) {
   eventData['storyReports']?.forEach((storyReport) {
     reports.add({
       'type': 'Story Time',
-      'time': storyReport['localTime']
+      'time': storyReport['localDateTime']
     });
   });
 
@@ -150,14 +166,14 @@ List<Map<String, dynamic>> getSortedReports(Map<String, dynamic> eventData) {
   eventData['artAndCraftsReports']?.forEach((artReport) {
     reports.add({
       'type': 'Arts and Crafts',
-      'time': artReport['localTime']
+      'time': artReport['localDateTime']
     });
   });
 
   // Sort the reports by time
   reports.sort((a, b) {
-    final timeA = createDateTime(a['time']);
-    final timeB = createDateTime(b['time']);
+    final timeA = DateTime.parse(a['time']);
+    final timeB = DateTime.parse(b['time']);
     return timeA.compareTo(timeB);
   });
 

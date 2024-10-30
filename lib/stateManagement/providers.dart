@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:uuid/uuid.dart';
@@ -112,14 +113,29 @@ class MainState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void formatDateOfBirth(List<dynamic>? dateList) {
-    if (dateList == null || dateList.isEmpty || dateList.length < 3) {
+  // void formatDateOfBirth(List<dynamic>? dateList) {
+  //   if (dateList == null || dateList.isEmpty || dateList.length < 3) {
+  //     dob = 'N/A';
+  //   } else {
+  //     String? year = dateList[0].toString();
+  //     String? month = dateList[1].toString().padLeft(2, '0'); // Add leading zero if necessary
+  //     String? day = dateList[2].toString().padLeft(2, '0');   // Add leading zero if necessary
+  //     dob = '$day/$month/$year';
+  //   }
+  //
+  //   print(dob);
+  //   childAge = calculateAge(dob);
+  //
+  //   notifyListeners();
+  // }
+
+  void formatDateOfBirth(String? dateString) {
+    if (dateString == null || dateString.isEmpty) {
       dob = 'N/A';
     } else {
-      String? year = dateList[0].toString();
-      String? month = dateList[1].toString().padLeft(2, '0'); // Add leading zero if necessary
-      String? day = dateList[2].toString().padLeft(2, '0');   // Add leading zero if necessary
-      dob = '$day/$month/$year';
+      // Parse the date string and format it as dd/MM/yyyy
+      final DateTime parsedDate = DateTime.parse(dateString);
+      dob = DateFormat('dd/MM/yyyy').format(parsedDate);
     }
 
     print(dob);
@@ -853,21 +869,7 @@ class MainState extends ChangeNotifier {
         } else {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => bottomnavigationbar(
-              initFunction: () {
-                // Your function logic here
-                // showDialog(
-                //   context: context,
-                //   builder: (BuildContext context) {
-                //     return CheckInDialog();
-                //   },
-                // );
-
-
-                CheckInDialog();
-
-              },
-            )),
+            MaterialPageRoute(builder: (context) => bottomnavigationbar()),
           );
         }
 

@@ -13,8 +13,8 @@ import '../Home/notifications.dart';
 import '../store/storepage.dart';
 
 class bottomnavigationbar extends StatefulWidget {
-  final Function? initFunction; // Declare a variable to hold the function
-  const bottomnavigationbar({super.key, this.initFunction});
+  // final Function? initFunction; // Declare a variable to hold the function
+  const bottomnavigationbar({super.key});
 
   @override
   State<bottomnavigationbar> createState() => _bottomnavigationbarState();
@@ -30,9 +30,9 @@ class _bottomnavigationbarState extends State<bottomnavigationbar> {
     super.initState();
 
     // Call the function if it is provided
-    if (widget.initFunction != null) {
-      widget.initFunction!(); // Execute the passed function
-    }
+    // if (widget.initFunction != null) {
+    //   widget.initFunction!(); // Execute the passed function
+    // }
   }
 
 

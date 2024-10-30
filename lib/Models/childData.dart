@@ -8,6 +8,8 @@
 // };
 
 
+import 'package:intl/intl.dart';
+
 class Child {
   String firstName;
   String lastName;
@@ -112,34 +114,42 @@ class MealReport {
     return MealReport(
       id: json['id'],
       mealName: json['mealName'],
-      formattedTime: _formatTime(List<int>.from(json['time'])),
+      formattedTime: _formatTime(json['localDateTime']),
       quantity: json['quantity'],
       reportType: json['reportType'],
     );
   }
 
-  static String _formatTime(List<int> time) {
-    if (time.length != 3) {
-      throw ArgumentError('Time list must have exactly 3 elements: [hour, minute, second]');
-    }
+  // static String _formatTime(List<int> time) {
+  //   if (time.length != 3) {
+  //     throw ArgumentError('Time list must have exactly 3 elements: [hour, minute, second]');
+  //   }
+  //
+  //   int hour = time[0];
+  //   int minute = time[1];
+  //
+  //   // Determine AM or PM
+  //   String period = hour >= 12 ? 'PM' : 'AM';
+  //
+  //   // Convert hour from 24-hour to 12-hour format
+  //   hour = hour % 12;
+  //   if (hour == 0) {
+  //     hour = 12; // Midnight or noon case
+  //   }
+  //
+  //   // Format minute to always be two digits
+  //   String minuteStr = minute.toString().padLeft(2, '0');
+  //
+  //   // Return the formatted time
+  //   return '$hour:$minuteStr $period';
+  // }
 
-    int hour = time[0];
-    int minute = time[1];
+  static String _formatTime(String timeString) {
+    // Parse the time string using DateTime.parse
+    final DateTime dateTime = DateTime.parse(timeString);
 
-    // Determine AM or PM
-    String period = hour >= 12 ? 'PM' : 'AM';
-
-    // Convert hour from 24-hour to 12-hour format
-    hour = hour % 12;
-    if (hour == 0) {
-      hour = 12; // Midnight or noon case
-    }
-
-    // Format minute to always be two digits
-    String minuteStr = minute.toString().padLeft(2, '0');
-
-    // Return the formatted time
-    return '$hour:$minuteStr $period';
+    // Format the time as 'h:mm AM/PM'
+    return DateFormat('h:mm a').format(dateTime);
   }
 }
 
@@ -161,7 +171,7 @@ class DiaperReport {
   factory DiaperReport.fromJson(Map<String, dynamic> json) {
     return DiaperReport(
       id: json['id'],
-      formattedLocalTime: MealReport._formatTime(List<int>.from(json['localTime'])),
+      formattedLocalTime: MealReport._formatTime(json['localDateTime']),
       diaperCondition: json['diaperCondition'],
       potty: json['potty'],
       reportType: json['reportType'],
