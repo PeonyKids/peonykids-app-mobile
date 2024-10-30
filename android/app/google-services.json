@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "441691677643",
+    "project_id": "peonykids-app",
+    "storage_bucket": "peonykids-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441691677643:android:60a43969fefabe20148c4e",
+        "android_client_info": {
+          "package_name": "com.peony.peonykids"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK06F6axIgxV7j1mJIYa-96g-nsSgq5dQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
