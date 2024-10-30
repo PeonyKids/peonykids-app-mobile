@@ -24,4 +24,4 @@ jobs:
           bundler-cache: true
 
       - name: Distribute app with 🔥 App Distribution 🚀
-        run: bundle exec fastlane beta
+        run: cd android && bundle exec fastlane beta
