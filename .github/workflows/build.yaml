@@ -18,9 +18,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.3.3
 
-      - uses: ruby/setup-ruby@v1
-      #Add Gradle
       - uses: actions/setup-java@v2
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
           bundler-cache: true
