@@ -35,10 +35,7 @@ jobs:
           bundler-cache: true
 
       - name: Install Dependencies
-        run: flutter pub get
-
-      - name: Distribute app with 🔥 App Distribution 🚀
-        run: cd android && bundle install && bundle update fastlane && bundle exec fastlane beta
+        run: flutter pub get && flutter build apk --release
 
       - name: Deploy to Firebase using Gradle
         run: cd android && ./gradlew assembleRelease appDistributionUploadRelease
