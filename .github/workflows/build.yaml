@@ -39,3 +39,7 @@ jobs:
 
       - name: Distribute app with 🔥 App Distribution 🚀
         run: cd android && bundle install && bundle update fastlane && bundle exec fastlane beta
+
+      - name: Deploy to Firebase using Gradle
+        run: cd android && ./gradlew assembleRelease appDistributionUploadRelease
+

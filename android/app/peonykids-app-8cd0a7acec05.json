@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "peonykids-app",
+  "private_key_id": "8cd0a7acec05cc0f43ade0dff5e6d547fb2eca74",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDICUJhKMFbaBfr\nuXqql4hwCFuB7LIEd1SSIFIcS819SaQdQTkOZfJeS4f2I3vN341J2SnyrDltb2Dn\nOc5VM0ZeSwQhBvYV7s9AsXtiF3Z8rU6m8HzsLSzAHEab4S6GP1oj4HoxyashQgpe\nBCADR/XepitGuAWTZDn33dEf5ppfS4iYKfx336I+V5ImRJkCWsagP5KY9i/h6LIT\nme5pk7UTbQTBh5zFkrVH6BCjKahn2lXufbnbH+fiuvw0LBNFlPkLllLh7/+TXn9k\nzfi12sK09wA3nHT08ZVrvkWlA8R6NBjwIfNHfF1gwBoD40h8PEnBgopjn2bck9wq\n49ebhQgtAgMBAAECggEAEfhe+bp/EFacG4WYov2k+KePjO72GRedRdlYdwlKRxCY\nCTbESOpYqSbw6mhKpXaJS1KShaX6LL4ePvd+9UF7d1oW316wOc0v2jh3hJrl/pJV\nKAMfvdnbFNEVeMh0dQP49ZMjdxiOYpj7tHF7bMAIsv1LkvlSKukMmhtXv51oTdoj\nHD/7arkwF1EProqpCbYNS6ygTIOuhnYvNnyvW8EY3FzcAxwhnduCknDvGn/QlCn2\nWhrvcsu8QyLxhnVOwPo86RL1TeDS8uCC4VoCfMHhuwZvVOjRXAmmD2+S7/3b86uC\nN7HSQjtYloe5p87dScZEPdc/V/cbZwT/mcwnQuwGcwKBgQDfbJae5SWN3X5oxAoQ\nce+34sFU9EgVenBLVOww3ibiB0Mdr64nkzQmferm7B4unmyEOkjGp0OJ+MRAo6HT\nLp3LclgBJgeLrFj2NxxofbZKlbdLOHl0MXvRP6KyU824YA0bgLKSNv9nT3VUM0fd\n7EiNQ0e+KMQ7kbbn0ukcdCmOwwKBgQDlM7Pnjd/DyMkHqLKxP0FWGyKJ3Gy/f7lg\npmBvq8yhwzD+4J8jfqGWmJ1p60UsQmptR4hu2u6mAzfGTxXRdY+WVUPeVwvKEy3l\nzQ9Ls64tVk/CEdll6KiSGWIFkC6MkX2AkWoer9hNiXDa1kJGKXDl/e/Ii+MLi4v8\nX/2kTPp+TwKBgQDWp+hqTvPuwdAyba7Rr/XFcTmYGn6rDBCZf8TRCo7G+H02J1Sm\nNxqSpMWsCUzSM2lE/Q5wtcEA7R34kH3ofNAj5/6/U79KJVLvc3F6vtUGAaOxxFeE\nGArCtmXk+PkcXEQbmWF3cxmdM00hkYdJozrtZaem/lnSdaQKRKusp7pJqwKBgBeU\nKA/MIpbrkvK8whVF4pzPEdCI4o8YvqNYulcCn3yMrf+qb/Sg1FK/xIHe+DDDbFtt\nnnV5BFADyLsX67CunWTjxKWc4tOZAYHAhLBO/b4gQPhACdNYCe9tuQ3FdWR0myqc\nywP5JxFi8D8zB4JcRQcEBqTk7yiC5JXD8j3yxVo1AoGAQOs0wn9vCyCW8I4d7v7r\nHoYHErRwxEO+fpmsVXJ7OMcDzSDC2US9/VRqePyia2p5jvWTUVJZqmRak3Slht1o\nhPAD1uI3L5wwHPxPa69vRDx9IVziAeFlrstr8iKIyyrcM00Q6FKekrmPcAG35ud/\nPJVJd5JxDR6K1uOhXs1cmgU=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-ad8zz@peonykids-app.iam.gserviceaccount.com",
+  "client_id": "118290347804168317716",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-ad8zz%40peonykids-app.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
