@@ -1,0 +1,27 @@
+name: build-ios-app
+on:
+  push:
+    branches:
+      - 'new-branch'
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+      - uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+      
+      - name: Install Bundler
+      - run: gem install bundler
+
+      - name: Change director and Run bundle install
+      - run: cd ios && bundle install
+
+      - name: Run fastlane
+      - run: bundle exec fastlane beta
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          FASTLANE_USER: ${{ secrets.FASTLANE_APPLE_USER }}
+          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
