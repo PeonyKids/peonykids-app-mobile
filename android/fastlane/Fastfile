@@ -23,7 +23,23 @@ platform :android do
 
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do
-    gradle(task: "clean assembleRelease")
+    gradle(
+    task: "clean assembleRelease",
+    properties: {
+         "android.injected.signing.store.file" => ENV['PWD'] + "/app/keystore.jks",
+         "android.injected.signing.store.password" => "Alpha.01$",
+         "android.injected.signing.key.alias" => "key0",
+         "android.injected.signing.key.password" => "Alpha.01$",
+        })
+
+        release = firebase_app_distribution(
+           app: "441691677643:android:60a43969fefabe20148c4e",
+           service_credentials_file: ENV['PWD'] + "/app/peonykids-app-8cd0a7acec05.json",
+           android_artifact_type: "APK",
+           android_artifact_path: "../build/app/outputs/apk/release/app-release.apk",
+           debug: true
+          )
+
 
   
     # sh "your_script.sh"
@@ -35,4 +51,17 @@ platform :android do
     gradle(task: "clean assembleRelease")
     upload_to_play_store
   end
+
+  lane :deploy_to_firebase do
+      value = firebase_app_distribution(
+       app: "1:441691677643:android:60a43969fefabe20148c4e",
+       firebase_cli_token: ENV['FIREBASE_TOKEN'],
+       android_artifact_type: "APK",
+       android_artifact_path: "app/build/outputs/apk/debug/app-debug.apk",
+       release_notes: "Deployment",
+       testers: "okeowoaderemi@gmail.com",
+       groups: "android-qa, or-someone-group",
+       debug: true
+      )
+    end
 end
